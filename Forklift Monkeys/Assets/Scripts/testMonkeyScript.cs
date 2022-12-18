@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//This was just a testing script to see if transferring scripts through Github would work or not ~ Scott
+
 public class testMonkeyScript : MonoBehaviour
 {
     public float jumpForce;
