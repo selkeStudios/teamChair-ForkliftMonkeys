@@ -7,6 +7,10 @@ using UnityEngine;
 public class testMonkeyScript : MonoBehaviour
 {
     public float jumpForce;
+    public Transform firePt;
+    public GameObject bubbles;
+    public float startTimeBtwBubbles;
+    public float timeBtwBubbles;
 
     private Rigidbody rb;
 
@@ -14,6 +18,7 @@ public class testMonkeyScript : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        timeBtwBubbles = startTimeBtwBubbles;
     }
 
     // Update is called once per frame
@@ -22,6 +27,13 @@ public class testMonkeyScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + jumpForce, rb.velocity.z);
+        }
+
+        timeBtwBubbles -= Time.deltaTime;
+        if (timeBtwBubbles <= 0)
+        {
+            Instantiate(bubbles, firePt.position, firePt.rotation);
+            timeBtwBubbles = startTimeBtwBubbles;
         }
     }
 }
