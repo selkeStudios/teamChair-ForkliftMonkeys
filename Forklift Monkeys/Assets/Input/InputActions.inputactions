@@ -1,0 +1,125 @@
+{
+    "name": "InputActions",
+    "maps": [
+        {
+            "name": "Player1",
+            "id": "8a17d04a-bd6b-4d77-bdf9-561f5c1f5d6a",
+            "actions": [
+                {
+                    "name": "Wheel",
+                    "type": "Value",
+                    "id": "6153af8e-d54c-4e16-84de-3dd77d30d1b1",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Accelerate",
+                    "type": "Button",
+                    "id": "9c7de68b-2266-4c75-bc24-2ba0ce8a4605",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Reverse",
+                    "type": "Button",
+                    "id": "5e80c13a-602c-4ca3-a1d5-069ac6387161",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Use Item",
+                    "type": "Button",
+                    "id": "f24bef55-7945-404e-86b1-2c0ca636094a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Horn",
+                    "type": "Button",
+                    "id": "3091f3c0-55e4-4b1a-b551-8c4fc25f3cd5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "bc0e14c5-864b-4387-b349-92fafbd42bda",
+                    "path": "<Gamepad>/leftStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Wheel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6a2e2259-3cfa-458e-8dd9-018506ca6a47",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Accelerate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a70b8ac3-11a5-444e-bf59-dc53705184f7",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reverse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1c631cd6-29a6-48a3-8363-a784904f9676",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Use Item",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1e03ef62-c048-4727-bcc6-f2e6928cca94",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Horn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e197256b-bec1-44b8-afc3-c06d5c703c23",
+                    "path": "<Gamepad>/leftStick/right",
+                    "interactions": "",
+                    "processors": "Invert",
+                    "groups": "",
+                    "action": "Wheel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
