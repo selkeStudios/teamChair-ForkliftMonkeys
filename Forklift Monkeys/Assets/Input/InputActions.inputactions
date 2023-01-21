@@ -9,7 +9,7 @@
                     "name": "Wheel",
                     "type": "Value",
                     "id": "6153af8e-d54c-4e16-84de-3dd77d30d1b1",
-                    "expectedControlType": "Axis",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -112,7 +112,7 @@
                     "id": "e197256b-bec1-44b8-afc3-c06d5c703c23",
                     "path": "<Gamepad>/leftStick/right",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "Invert",
                     "groups": "",
                     "action": "Wheel",
                     "isComposite": false,
