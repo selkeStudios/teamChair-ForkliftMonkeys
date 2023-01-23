@@ -5,30 +5,22 @@ using UnityEngine.InputSystem;
 
 public class MonkeyMovement : MonoBehaviour
 {
-    public CharacterController controller;
+    //public CharacterController controller;
 
-    public float speed = 6f;
+    //public float speed = 6f;
     public float rotationSpeed = 6f;
+    public Vector3 rotationVector;
+    public Rigidbody rb;
 
     // Update is called once per frame
     void Update()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
+        
+        rotationVector = new Vector3(rb.rotation.x, horizontal * rotationSpeed * Time.deltaTime, rb.rotation.z);
 
-        /*
-        Vector3 direction = new Vector3(vertical, 0f, 0f).normalized;
-
-        if(direction.magnitude >= 0.1f)
-        {
-            controller.Move(direction * speed * Time.deltaTime);
-        }
-
-        if(Mathf.Abs(horizontal) > 0.1f)
-        {
-            float originalRotation = transform.rotation.y;
-            transform.rotation = Quaternion.Euler(0f, originalRotation + (horizontal * rotationSpeed * Time.deltaTime), 0f);
-        }
-        */
+        Quaternion deltaRotation = Quaternion.Euler(rotationVector * Time.fixedDeltaTime);
+        rb.MoveRotation(rb.rotation * deltaRotation);
     }
 }
