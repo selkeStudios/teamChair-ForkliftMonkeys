@@ -9,7 +9,7 @@
                     "name": "Wheel",
                     "type": "Value",
                     "id": "6153af8e-d54c-4e16-84de-3dd77d30d1b1",
-                    "expectedControlType": "",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -54,19 +54,19 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "bc0e14c5-864b-4387-b349-92fafbd42bda",
-                    "path": "<Gamepad>/leftStick/left",
+                    "id": "6a2e2259-3cfa-458e-8dd9-018506ca6a47",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Wheel",
+                    "action": "Accelerate",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "6a2e2259-3cfa-458e-8dd9-018506ca6a47",
-                    "path": "<Gamepad>/buttonEast",
+                    "id": "b0956fd1-bacf-4245-90ed-8ebbb6c5e1f9",
+                    "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -87,8 +87,30 @@
                 },
                 {
                     "name": "",
+                    "id": "e9555462-1f0d-4c65-8d1f-fa5ad7719dd9",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Reverse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "1c631cd6-29a6-48a3-8363-a784904f9676",
                     "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Use Item",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5010cbd2-39bf-4cf6-a8a2-ce4c52071606",
+                    "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -109,14 +131,80 @@
                 },
                 {
                     "name": "",
-                    "id": "e197256b-bec1-44b8-afc3-c06d5c703c23",
-                    "path": "<Gamepad>/leftStick/right",
+                    "id": "2c3ba79e-d97a-477a-a321-54ff045df1a9",
+                    "path": "<Keyboard>/d",
                     "interactions": "",
-                    "processors": "Invert",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Horn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Move with Wheel",
+                    "id": "e739c40d-ba16-4553-9567-30492f523da3",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Wheel",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "a0b2d53c-f986-4a02-8f93-046a203c3c6f",
+                    "path": "<Gamepad>/leftStick/left",
+                    "interactions": "",
+                    "processors": "",
                     "groups": "",
                     "action": "Wheel",
                     "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "d22bdf07-e9f4-4768-bad7-417950b8493c",
+                    "path": "<Gamepad>/leftStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Wheel",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Move with Keyboard",
+                    "id": "847f9538-ca7c-404b-8263-328d98d3c7b2",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Wheel",
+                    "isComposite": true,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "11f0ce36-7efc-49c9-8417-21fc60a29b4b",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Wheel",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "30cc4d41-1e6b-41b6-9f24-32a440eaadb6",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Wheel",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }
