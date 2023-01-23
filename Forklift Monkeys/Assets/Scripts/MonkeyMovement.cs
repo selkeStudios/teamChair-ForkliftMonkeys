@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.InputSystem;
+using UnityEngine.InputSystem;
 
 public class MonkeyMovement : MonoBehaviour
 {
@@ -11,11 +11,6 @@ public class MonkeyMovement : MonoBehaviour
 
     public float speed = 6f;
     public float rotationSpeed = 6f;
-
-    private void Awake()
-    {
-        controls.Player1.Accelerate.performed += _ => Shoot();
-    }
     
     void Shoot()
     {
