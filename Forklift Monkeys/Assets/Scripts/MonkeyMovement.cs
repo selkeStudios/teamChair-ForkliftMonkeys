@@ -7,6 +7,7 @@ public class MonkeyMovement : MonoBehaviour
     public CharacterController controller;
 
     public float speed = 6f;
+    public float rotationSpeed = 6f;
     // Update is called once per frame
     void Update()
     {
@@ -20,5 +21,10 @@ public class MonkeyMovement : MonoBehaviour
             controller.Move(direction * speed * Time.deltaTime);
         }
 
+        if(Mathf.Abs(horizontal) > 0.1f)
+        {
+            float originalRotation = transform.rotation.y;
+            transform.rotation = Quaternion.Euler(0f, originalRotation + (horizontal * rotationSpeed * Time.deltaTime), 0f);
+        }
     }
 }
