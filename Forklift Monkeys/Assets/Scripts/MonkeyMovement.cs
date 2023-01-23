@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
+//using UnityEngine.InputSystem;
 
 public class MonkeyMovement : MonoBehaviour
 {
     public InputActions controls;
 
-    public CharacterController controller;
+    //public CharacterController controller;
 
     public float speed = 6f;
     public float rotationSpeed = 6f;
@@ -32,6 +32,7 @@ public class MonkeyMovement : MonoBehaviour
         controls.Disable();
     }
 
+    /*
     // Update is called once per frame
     void Update()
     {
@@ -51,4 +52,5 @@ public class MonkeyMovement : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, originalRotation + (horizontal * rotationSpeed * Time.deltaTime), 0f);
         }
     }
+    */
 }
