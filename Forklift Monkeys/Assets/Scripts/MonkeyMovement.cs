@@ -1,28 +1,56 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class MonkeyMovement : MonoBehaviour
 {
-    //public CharacterController controller;
+    public CharacterController controller;
 
-    public float speed = 6f;
+    public float moveSpeed = 6f;
     public float rotationSpeed = 6f;
-    public Vector3 rotationVector;
-    public Rigidbody rb;
+
+    public Transform orientation;
+
+    float verticalInput;
+    float horizontalInput;
+    Vector3 moveDirection;
+    Rigidbody rb;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
+        MyInput();
+        if (Mathf.Abs(horizontalInput) > 0.1f)
+        {
+            float originalRotation = transform.rotation.y;
+            transform.rotation = Quaternion.Euler(0f, originalRotation + 
+                (horizontalInput * rotationSpeed * Time.deltaTime), 0f);
+        }
+    }
 
-        rb.velocity = new Vector3(vertical * speed, rb.velocity.y, rb.velocity.z);
-        
-        rotationVector = new Vector3(rb.rotation.x, horizontal * rotationSpeed * Time.deltaTime, rb.rotation.z);
+    private void MyInput()
+    {
+        verticalInput = Input.GetAxisRaw("Vertical");
+        horizontalInput = Input.GetAxisRaw("Horizontal");
 
-        Quaternion deltaRotation = Quaternion.Euler(rotationVector * Time.fixedDeltaTime);
-        rb.MoveRotation(rb.rotation * deltaRotation);
+    }
+
+    private void FixedUpdate()
+    {
+        MovePlayer();
+    }
+
+    private void MovePlayer()
+    {
+        // calculate the movement direction
+        moveDirection = orientation.right * verticalInput;
+
+        rb.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
     }
 }
