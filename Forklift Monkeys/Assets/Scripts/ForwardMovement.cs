@@ -5,6 +5,7 @@ using UnityEngine;
 public class ForwardMovement : MonoBehaviour
 {
     public float moveSpeed;
+    public float rotationSpeed;
     public Transform orientation;
     float verticalInput;
     float hInput;
@@ -39,7 +40,7 @@ public class ForwardMovement : MonoBehaviour
         moveDirection = orientation.forward * verticalInput;
 
         //rb.velocity = new Vector3(moveDirection.x * moveSpeed, rb.velocity.y, moveDirection.z * moveSpeed);
-
+        orientation.Rotate(0, hInput * rotationSpeed, 0);
 
 
         rb.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
