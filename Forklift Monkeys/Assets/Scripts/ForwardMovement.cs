@@ -28,6 +28,7 @@ public class ForwardMovement : MonoBehaviour
 
         //left is 1, right is -1
         controls.Player1.Wheel.performed += ctx => move = ctx.ReadValue<float>();
+        controls.Player1.Wheel.canceled += ctx => move = 0;
 
         controls.Player1.Accelerate.performed += ctx => APressed = true;
         controls.Player1.Accelerate.canceled += ctx => APressed = false;
