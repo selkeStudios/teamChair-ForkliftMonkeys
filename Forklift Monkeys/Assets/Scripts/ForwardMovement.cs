@@ -12,21 +12,6 @@ public class ForwardMovement : MonoBehaviour
     Vector3 moveDirection;
     Rigidbody rb;
 
-    InputActions controls;
-    public bool APressed = false;
-    public bool BPressed = false;
-
-    private void Awake()
-    {
-        controls = new InputActions();
-
-        controls.Player1.Accelerate.performed += ctx => APressed = true;
-        controls.Player1.Accelerate.canceled += ctx => APressed = false;
-
-        controls.Player1.Reverse.performed += ctx => BPressed = true;
-        controls.Player1.Reverse.canceled += ctx => BPressed = false;
-    }
-
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -47,20 +32,6 @@ public class ForwardMovement : MonoBehaviour
     {
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        //for wheel buttons
-        if (APressed == true)
-        {
-            //accelerate
-            verticalInput = 1;
-            //Debug.Log("you pressed A");
-        }
-        if (BPressed == true)
-        {
-            //reverse
-            verticalInput = -1;
-            //Debug.Log("you pressed B");
-        }
-
         hInput = Input.GetAxisRaw("Horizontal");
     }
 
@@ -73,13 +44,5 @@ public class ForwardMovement : MonoBehaviour
 
 
         rb.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
-    }
-    private void OnEnable()
-    {
-        controls.Player1.Enable();
-    }
-    private void OnDisable()
-    {
-        controls.Player1.Disable();
     }
 }
