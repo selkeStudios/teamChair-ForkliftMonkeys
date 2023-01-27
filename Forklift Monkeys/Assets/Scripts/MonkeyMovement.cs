@@ -31,6 +31,14 @@ public class MonkeyMovement : MonoBehaviour
     {
         verticalInput = Input.GetAxisRaw("Vertical");
         horizontalInput = Input.GetAxisRaw("Horizontal");
+        if (verticalInput != 0)
+        {
+            Debug.Log("v = " + verticalInput);
+        }
+        if (horizontalInput != 0)
+        {
+            Debug.Log("h = " + horizontalInput);
+        }
 
         rotateVector = new Vector3(0, horizontalInput * rotateSpeed, 0);
     }
