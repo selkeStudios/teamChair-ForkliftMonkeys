@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MonkeyMovement : MonoBehaviour
 {
-    public CharacterController controller;
+    //public CharacterController controller;
 
     public float moveSpeed = 6f;
     public float rotationSpeed = 6f;
@@ -16,22 +16,21 @@ public class MonkeyMovement : MonoBehaviour
     Vector3 moveDirection;
     Rigidbody rb;
 
+    public float rotateSpeed;
+    Vector3 rotateVector;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = true;
+        //rb.freezeRotation = true;
     }
 
     // Update is called once per frame
     void Update()
     {
         MyInput();
-        if (Mathf.Abs(horizontalInput) > 0.1f)
-        {
-            float originalRotation = transform.rotation.y;
-            transform.rotation = Quaternion.Euler(0f, originalRotation + 
-                (horizontalInput * rotationSpeed * Time.deltaTime), 0f);
-        }
+
+        rotateVector = new Vector3(0, horizontalInput * rotateSpeed, 0);
     }
 
     private void MyInput()
@@ -44,13 +43,19 @@ public class MonkeyMovement : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
+
+        //Rotates the player
+        Quaternion playerRotation = Quaternion.Euler(rotateVector * Time.fixedDeltaTime);
+        rb.MoveRotation(rb.rotation * playerRotation);
     }
 
     private void MovePlayer()
     {
         // calculate the movement direction
-        moveDirection = orientation.right * verticalInput;
+        moveDirection = orientation.forward * verticalInput;
 
-        rb.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
+        rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, moveDirection.z * moveSpeed);
+
+        //rb.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
     }
 }
