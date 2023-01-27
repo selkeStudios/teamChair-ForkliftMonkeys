@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MonkeyMovement : MonoBehaviour
 {
@@ -28,16 +29,10 @@ public class MonkeyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MyInput();
-
-        rotateVector = new Vector3(0, horizontalInput * rotateSpeed, 0);
-    }
-
-    private void MyInput()
-    {
         verticalInput = Input.GetAxisRaw("Vertical");
         horizontalInput = Input.GetAxisRaw("Horizontal");
 
+        rotateVector = new Vector3(0, horizontalInput * rotateSpeed, 0);
     }
 
     private void FixedUpdate()
