@@ -27,7 +27,7 @@ public class MonkeyMovement : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    { 
         MyInput();
 
         rotateVector = new Vector3(0, horizontalInput * rotateSpeed, 0);

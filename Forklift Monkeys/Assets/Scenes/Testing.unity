@@ -309,8 +309,8 @@ Transform:
   m_GameObject: {fileID: 699305924}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -22.64657, y: 3.9608526, z: -2.8135164}
-  m_LocalScale: {x: 20, y: 1, z: 20}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 8.26, y: 0.41300002, z: 8.26}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -432,14 +432,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 551e16fceeac36e409d9a670363c5980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 30
-  rotationSpeed: 4
+  moveSpeed: 45
+  minimumMoveSpeed: 45
+  maximumMoveSpeed: 120
+  accelerationAmount: 15
+  decelerationAmount: 30
+  rotationSpeed: 6
   orientation: {fileID: 1412738535}
   move: 0
   APressed: 0
   BPressed: 0
   YPressed: 0
   XPressed: 0
+  gravityScale: 2
 --- !u!54 &1412738531
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -449,13 +454,13 @@ Rigidbody:
   m_GameObject: {fileID: 1412738529}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 1
-  m_AngularDrag: 0.1
+  m_Drag: 1.5
+  m_AngularDrag: 0.15
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!136 &1412738532
 CapsuleCollider:
   m_ObjectHideFlags: 0

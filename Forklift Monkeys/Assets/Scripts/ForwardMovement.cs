@@ -5,13 +5,17 @@ using UnityEngine;
 public class ForwardMovement : MonoBehaviour
 {
     public float moveSpeed;
+    public float minimumMoveSpeed;
+    public float maximumMoveSpeed;
+    public float accelerationAmount;
+    public float decelerationAmount;
+
     public float rotationSpeed;
     public Transform orientation;
-    float verticalInput;
-    float hInput;
+    private float verticalInput;
+    private float hInput;
     Vector3 moveDirection;
     Rigidbody rb;
-
 
     //input system stuff
     InputActions controls;
@@ -20,6 +24,9 @@ public class ForwardMovement : MonoBehaviour
     public bool BPressed = false;
     public bool YPressed = false;
     public bool XPressed = false;
+
+    public float gravityScale;
+    private float globalGravity = -9.81f;
 
     private void Awake()
     {
@@ -52,11 +59,32 @@ public class ForwardMovement : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
+
+        Vector3 gravity = globalGravity * gravityScale * Vector3.up;
+        rb.AddForce(gravity, ForceMode.Acceleration);
     }
 
     private void Update()
     {
         GetInput();
+
+        if(moveDirection.magnitude != 0)
+        {
+            moveSpeed += accelerationAmount * Time.deltaTime;
+        } else
+        {
+            moveSpeed -= decelerationAmount * Time.deltaTime;
+        }
+
+        if(moveSpeed <= minimumMoveSpeed)
+        {
+            moveSpeed = minimumMoveSpeed;
+        }
+
+        if (moveSpeed >= maximumMoveSpeed)
+        {
+            moveSpeed = maximumMoveSpeed;
+        }
     }
 
     private void GetInput()
@@ -100,10 +128,7 @@ public class ForwardMovement : MonoBehaviour
     private void MovePlayer()
     {
         moveDirection = orientation.forward * verticalInput;
-
-        //rb.velocity = new Vector3(moveDirection.x * moveSpeed, rb.velocity.y, moveDirection.z * moveSpeed);
         orientation.Rotate(0, hInput * rotationSpeed, 0);
-
 
         rb.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
     }
