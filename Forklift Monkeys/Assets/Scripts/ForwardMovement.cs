@@ -68,15 +68,16 @@ public class ForwardMovement : MonoBehaviour
     {
         GetInput();
 
-        if(moveDirection.magnitude != 0)
+        if (moveDirection.magnitude != 0)
         {
             moveSpeed += accelerationAmount * Time.deltaTime;
-        } else
+        }
+        else
         {
             moveSpeed -= decelerationAmount * Time.deltaTime;
         }
 
-        if(moveSpeed <= minimumMoveSpeed)
+        if (moveSpeed <= minimumMoveSpeed)
         {
             moveSpeed = minimumMoveSpeed;
         }
@@ -99,13 +100,13 @@ public class ForwardMovement : MonoBehaviour
         {
             //accelerate
             verticalInput = 1;
-            Debug.Log("you pressed A");
+            //Debug.Log("you pressed A");
         }
         else if (BPressed == true)
         {
             //reverse
             verticalInput = -1;
-            Debug.Log("you pressed B");
+            //Debug.Log("you pressed B");
         }
         else
         {
@@ -115,12 +116,12 @@ public class ForwardMovement : MonoBehaviour
         if (XPressed == true)
         {
             //accelerate
-            Debug.Log("use item");
+            //Debug.Log("use item");
         }
         if (YPressed == true)
         {
             //reverse
-            Debug.Log("*horn noises*");
+            //Debug.Log("*horn noises*");
         }
 
     }
@@ -131,6 +132,24 @@ public class ForwardMovement : MonoBehaviour
         orientation.Rotate(0, hInput * rotationSpeed, 0);
 
         rb.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        //probably replace this with colliding with another player later
+        if (collision.gameObject.tag == "Player")
+        {
+            if (collision.gameObject.GetComponent<KnockbackTesting>().CanBeKnockedback == true)
+            {
+                //determine collision properties
+                collision.gameObject.GetComponent<KnockbackTesting>().KnockbackStrength = 200f;
+                collision.gameObject.GetComponent<KnockbackTesting>().KnockbackDuration = 5f;
+                collision.gameObject.GetComponent<KnockbackTesting>().hitDirection = (collision.transform.position - transform.position);
+
+                //apply those to the other object
+                collision.gameObject.GetComponent<KnockbackTesting>().Knockback();
+            }
+        }
     }
 
     private void OnEnable()
