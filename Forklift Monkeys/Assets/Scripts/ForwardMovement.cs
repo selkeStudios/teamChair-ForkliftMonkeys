@@ -28,6 +28,11 @@ public class ForwardMovement : MonoBehaviour
     public float gravityScale;
     private float globalGravity = -9.81f;
 
+    public float maxKnockback;
+    public float minKnockback;
+    public float knockbackMultiplyer;
+    public float knockback;
+
     private void Awake()
     {
         //input system stuff
@@ -71,19 +76,23 @@ public class ForwardMovement : MonoBehaviour
         if(moveDirection.magnitude != 0)
         {
             moveSpeed += accelerationAmount * Time.deltaTime;
+            knockback += accelerationAmount * knockbackMultiplyer * Time.deltaTime;
         } else
         {
             moveSpeed -= decelerationAmount * Time.deltaTime;
+            knockback -= decelerationAmount * knockbackMultiplyer * Time.deltaTime;
         }
 
         if(moveSpeed <= minimumMoveSpeed)
         {
             moveSpeed = minimumMoveSpeed;
+            knockback = minKnockback;
         }
 
         if (moveSpeed >= maximumMoveSpeed)
         {
             moveSpeed = maximumMoveSpeed;
+            knockback = maxKnockback;
         }
     }
 
