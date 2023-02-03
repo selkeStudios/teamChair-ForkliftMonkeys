@@ -33,6 +33,8 @@ public class ForwardMovement : MonoBehaviour
     public float knockbackMultiplyer;
     public float knockback;
 
+    public Vector3 RespawnPoint;
+
     private void Awake()
     {
         //input system stuff
@@ -149,5 +151,9 @@ public class ForwardMovement : MonoBehaviour
     private void OnDisable()
     {
         controls.Player1.Disable();
+    }
+    public void PlayerRespawn()
+    {
+        gameObject.transform.position = RespawnPoint;
     }
 }
