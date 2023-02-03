@@ -558,9 +558,10 @@ GameObject:
   - component: {fileID: 2087452751}
   - component: {fileID: 2087452750}
   - component: {fileID: 2087452749}
+  - component: {fileID: 2087452754}
   m_Layer: 0
-  m_Name: Cube
-  m_TagString: Player
+  m_Name: Shelf
+  m_TagString: Shelf
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -576,7 +577,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 1.5
   m_AngularDrag: 0.15
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
@@ -652,10 +653,24 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2087452748}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.4, y: 9.043861, z: -2.4083974}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -64.42, y: 5.72, z: -38.36}
+  m_LocalScale: {x: 1, y: 3.0398, z: 11.623453}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2087452754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2087452748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec8fd354b92f3ba44b6bdf14d539bef4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shelfGravity: 3
+  gravityScale: 0
