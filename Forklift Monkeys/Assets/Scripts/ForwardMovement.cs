@@ -110,13 +110,13 @@ public class ForwardMovement : MonoBehaviour
         {
             //accelerate
             verticalInput = 1;
-            Debug.Log("you pressed A");
+            //Debug.Log("you pressed A");
         }
         else if (BPressed == true)
         {
             //reverse
             verticalInput = -1;
-            Debug.Log("you pressed B");
+            //Debug.Log("you pressed B");
         }
         else
         {
@@ -126,7 +126,7 @@ public class ForwardMovement : MonoBehaviour
         if (XPressed == true)
         {
             //accelerate
-            Debug.Log("use item");
+            //Debug.Log("use item");
         }
         if (YPressed == true)
         {
