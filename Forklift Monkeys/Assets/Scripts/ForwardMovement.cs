@@ -133,7 +133,23 @@ public class ForwardMovement : MonoBehaviour
             //reverse
             Debug.Log("*horn noises*");
         }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        //probably replace this with colliding with another player later
+        if (collision.gameObject.tag == "Player")
+        {
+            if (collision.gameObject.GetComponent<KnockbackTesting>().CanBeKnockedback == true)
+            {
+                //determine collision properties
+                collision.gameObject.GetComponent<KnockbackTesting>().KnockbackStrength = 200f;
+                collision.gameObject.GetComponent<KnockbackTesting>().KnockbackDuration = 5f;
+                collision.gameObject.GetComponent<KnockbackTesting>().hitDirection = (collision.transform.position - transform.position);
 
+                //apply those to the other object
+                collision.gameObject.GetComponent<KnockbackTesting>().Knockback();
+            }
+        }
     }
 
     private void MovePlayer()
