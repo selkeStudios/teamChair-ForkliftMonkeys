@@ -12,6 +12,7 @@ public class ForwardMovement : MonoBehaviour
     Vector3 moveDirection;
     Rigidbody rb;
 
+    public Vector3 RespawnPoint;
 
     //input system stuff
     InputActions controls;
@@ -115,5 +116,10 @@ public class ForwardMovement : MonoBehaviour
     private void OnDisable()
     {
         controls.Player1.Disable();
+    }
+
+    public void PlayerRespawn()
+    {
+        gameObject.transform.position = RespawnPoint;
     }
 }
