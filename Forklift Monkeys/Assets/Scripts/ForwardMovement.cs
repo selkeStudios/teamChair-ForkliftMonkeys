@@ -9,6 +9,7 @@ public class ForwardMovement : MonoBehaviour
     public float maximumMoveSpeed;
     public float accelerationAmount;
     public float decelerationAmount;
+    public bool canMove;
 
     public float rotationSpeed;
     public Transform orientation;
@@ -61,6 +62,7 @@ public class ForwardMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        canMove = true;
     }
 
     private void FixedUpdate()
@@ -73,28 +75,32 @@ public class ForwardMovement : MonoBehaviour
 
     private void Update()
     {
-        GetInput();
+        if(canMove)
+        {
+            GetInput();
 
-        if(moveDirection.magnitude != 0)
-        {
-            moveSpeed += accelerationAmount * Time.deltaTime;
-            knockback += accelerationAmount * knockbackMultiplyer * Time.deltaTime;
-        } else
-        {
-            moveSpeed -= decelerationAmount * Time.deltaTime;
-            knockback -= decelerationAmount * knockbackMultiplyer * Time.deltaTime;
-        }
+            if (moveDirection.magnitude != 0)
+            {
+                moveSpeed += accelerationAmount * Time.deltaTime;
+                knockback += accelerationAmount * knockbackMultiplyer * Time.deltaTime;
+            }
+            else
+            {
+                moveSpeed -= decelerationAmount * Time.deltaTime;
+                knockback -= decelerationAmount * knockbackMultiplyer * Time.deltaTime;
+            }
 
-        if(moveSpeed <= minimumMoveSpeed)
-        {
-            moveSpeed = minimumMoveSpeed;
-            knockback = minKnockback;
-        }
+            if (moveSpeed <= minimumMoveSpeed)
+            {
+                moveSpeed = minimumMoveSpeed;
+                knockback = minKnockback;
+            }
 
-        if (moveSpeed >= maximumMoveSpeed)
-        {
-            moveSpeed = maximumMoveSpeed;
-            knockback = maxKnockback;
+            if (moveSpeed >= maximumMoveSpeed)
+            {
+                moveSpeed = maximumMoveSpeed;
+                knockback = maxKnockback;
+            }
         }
     }
 
@@ -139,6 +145,12 @@ public class ForwardMovement : MonoBehaviour
         //probably replace this with colliding with another player later
         if (collision.gameObject.tag == "Player")
         {
+            if(collision.gameObject.GetComponent<ForwardMovement>())
+            {
+                Vector3 hitDirection = collision.transform.position - transform.position;
+                collision.gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * 200, 450, hitDirection.z * 200, ForceMode.Force);
+            }
+
             if (collision.gameObject.GetComponent<KnockbackTesting>().CanBeKnockedback == true)
             {
                 //determine collision properties
