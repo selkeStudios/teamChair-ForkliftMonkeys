@@ -415,10 +415,10 @@ MonoBehaviour:
   m_JoinAction:
     m_UseReference: 0
     m_Action:
-      m_Name: 
+      m_Name: Join
       m_Type: 0
       m_ExpectedControlType: 
-      m_Id: 
+      m_Id: bf143ad1-dde2-4bdc-86d7-766782963eca
       m_Processors: 
       m_Interactions: 
       m_SingletonActionBindings: []
