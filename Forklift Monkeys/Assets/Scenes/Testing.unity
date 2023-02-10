@@ -609,10 +609,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecf8d754a65bd4f44950da60b6a66db7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxX: 16
-  maxZ: 34
-  minX: -60
-  minZ: -42
+  maxX: 50
+  maxZ: 50
+  minX: -50
+  minZ: -50
   spawnY: 50
   boxChance: 20
   boxCooldown: 2
