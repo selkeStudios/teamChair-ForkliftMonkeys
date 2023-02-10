@@ -7,6 +7,7 @@ public class KnockbackTesting : MonoBehaviour
     public bool CanBeKnockedback;
     public float KnockbackDuration;
     public float KnockbackStrength;
+    public float KnockbackVertical;
     public Vector3 hitDirection;
 
     Rigidbody rb;
@@ -24,7 +25,7 @@ public class KnockbackTesting : MonoBehaviour
         //do collision stuff
         //Debug.Log(hitDirection.x);
         //Debug.Log(hitDirection.z);
-        rb.AddForce(hitDirection.x * KnockbackStrength, 450, hitDirection.z * KnockbackStrength, ForceMode.Force);
+        rb.AddForce(hitDirection.x * KnockbackStrength, KnockbackVertical, hitDirection.z * KnockbackStrength, ForceMode.Force);
 
         //CanBeKnockedback = true;
     }
