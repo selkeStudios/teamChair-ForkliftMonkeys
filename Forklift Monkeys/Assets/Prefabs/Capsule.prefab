@@ -317,6 +317,7 @@ MonoBehaviour:
   maximumMoveSpeed: 120
   accelerationAmount: 15
   decelerationAmount: 30
+  canMove: 1
   rotationSpeed: 6
   orientation: {fileID: 4254739791603748244}
   move: 0
@@ -329,7 +330,8 @@ MonoBehaviour:
   minKnockback: 0
   knockbackMultiplyer: 0
   knockback: 0
-  RespawnPoint: {x: 0, y: 0, z: 0}
+  shelfKnockback: -50
+  RespawnPoint: {x: 0, y: 5, z: 0}
 --- !u!114 &4684334650731031348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,4 +361,4 @@ MonoBehaviour:
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player1
   m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 4254739791499119914}
