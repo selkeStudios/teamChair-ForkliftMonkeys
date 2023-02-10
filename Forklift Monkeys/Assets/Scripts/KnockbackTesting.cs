@@ -24,7 +24,7 @@ public class KnockbackTesting : MonoBehaviour
         //do collision stuff
         //Debug.Log(hitDirection.x);
         //Debug.Log(hitDirection.z);
-        rb.AddForce(hitDirection.x * KnockbackStrength, 250, hitDirection.z * KnockbackStrength, ForceMode.Force);
+        rb.AddForce(hitDirection.x * KnockbackStrength, 450, hitDirection.z * KnockbackStrength, ForceMode.Force);
 
         //CanBeKnockedback = true;
     }
