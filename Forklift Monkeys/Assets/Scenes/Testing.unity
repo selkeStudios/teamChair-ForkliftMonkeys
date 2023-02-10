@@ -640,6 +640,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4254739791603748241, guid: 493265ab8d6cf93489925cc2e183ec57, type: 3}
+      propertyPath: RespawnPoint.y
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4254739791603748242, guid: 493265ab8d6cf93489925cc2e183ec57, type: 3}
       propertyPath: m_Name
       value: Capsule
