@@ -33,6 +33,7 @@ public class ForwardMovement : MonoBehaviour
     public float minKnockback;
     public float knockbackMultiplyer;
     public float knockback;
+    public float shelfKnockback;
 
     public Vector3 RespawnPoint;
 
@@ -145,7 +146,7 @@ public class ForwardMovement : MonoBehaviour
         //probably replace this with colliding with another player later
         if (collision.gameObject.tag == "Player")
         {
-            if(collision.gameObject.GetComponent<ForwardMovement>())
+            if (collision.gameObject.GetComponent<ForwardMovement>())
             {
                 Vector3 hitDirection = collision.transform.position - transform.position;
                 collision.gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * 200, 450, hitDirection.z * 200, ForceMode.Force);
@@ -161,6 +162,12 @@ public class ForwardMovement : MonoBehaviour
                 //apply those to the other object
                 collision.gameObject.GetComponent<KnockbackTesting>().Knockback();
             }
+        }
+        else if(collision.gameObject.tag == "Shelf")
+        {
+            Vector3 hitDirection = collision.transform.position;
+            //collision.gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * shelfKnockback, 450, hitDirection.z * shelfKnockback, ForceMode.Force);
+            gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * shelfKnockback, 450, hitDirection.z * shelfKnockback, ForceMode.Force);
         }
     }
 

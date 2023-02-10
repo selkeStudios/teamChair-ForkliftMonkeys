@@ -18,31 +18,31 @@ public class BoxSpawner : MonoBehaviour
     public int boxChance;
 
     //How many frames another box can't be spawned for after one is spawned
-    int timer;
-    public int boxCooldown;
-    public bool offCooldown = true;
+    public float boxCooldown;
 
     //The prefab box
     public GameObject powerUpBoxRef;
 
     // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        if (!offCooldown)
-        {
-            timer++;
-            if(timer == boxCooldown)
-            {
-                timer = 0;
-                offCooldown = true;
-            }
-        }
+        StartCoroutine(spawnBox());
+    }
 
-        if(boxChance == (int)(Random.Range(0.001f, boxChance - .0000000000001f) + 1) && offCooldown)
+    public IEnumerator spawnBox()
+    {
+        while (true)
         {
-            Vector3 spawnLocation = new Vector3(Random.Range(minX, maxX), spawnY, Random.Range(minZ, maxZ));
-            Instantiate(powerUpBoxRef, spawnLocation, Quaternion.Euler(0, 0, 0));
-            offCooldown = false;
+            if (boxChance == (int)(Random.Range(0.001f, boxChance - .0000000000001f) + 1))
+            {
+                Vector3 spawnLocation = new Vector3(Random.Range(minX, maxX), spawnY, Random.Range(minZ, maxZ));
+                Instantiate(powerUpBoxRef, spawnLocation, Quaternion.Euler(0, 0, 0));
+                yield return new WaitForSeconds(boxCooldown);
+            }
+            else
+            {
+                yield return null;
+            }
         }
     }
 }

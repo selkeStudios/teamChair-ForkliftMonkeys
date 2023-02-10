@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571336, b: 0.3069219, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -609,14 +609,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecf8d754a65bd4f44950da60b6a66db7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxX: 16
-  maxZ: 34
-  minX: -60
-  minZ: -42
+  maxX: 50
+  maxZ: 50
+  minX: -50
+  minZ: -50
   spawnY: 50
   boxChance: 20
-  boxCooldown: 600
-  offCooldown: 1
+  boxCooldown: 2
   powerUpBoxRef: {fileID: 8035848134439080021, guid: 8153342771b0d824f8810abfd5f635fa, type: 3}
 --- !u!4 &1024322240
 Transform:
@@ -741,7 +740,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2087452748}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -49.6, y: 5, z: -38}
+  m_LocalPosition: {x: -48.57, y: 2.03, z: -38}
   m_LocalScale: {x: 1, y: 3, z: 11.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -772,6 +771,14 @@ PrefabInstance:
     - target: {fileID: 4254739791603748241, guid: 493265ab8d6cf93489925cc2e183ec57, type: 3}
       propertyPath: canMove
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254739791603748241, guid: 493265ab8d6cf93489925cc2e183ec57, type: 3}
+      propertyPath: RespawnPoint.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4254739791603748241, guid: 493265ab8d6cf93489925cc2e183ec57, type: 3}
+      propertyPath: shelfKnockback
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 4254739791603748242, guid: 493265ab8d6cf93489925cc2e183ec57, type: 3}
       propertyPath: m_Name
