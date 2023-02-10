@@ -64,6 +64,8 @@ public class ForwardMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         canMove = true;
+
+        
     }
 
     private void FixedUpdate()
