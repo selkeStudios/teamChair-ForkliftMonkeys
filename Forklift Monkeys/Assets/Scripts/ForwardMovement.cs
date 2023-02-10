@@ -35,6 +35,12 @@ public class ForwardMovement : MonoBehaviour
     public float knockback;
     public float shelfKnockback;
 
+    public bool CanBeKnockedback = true;
+    public float KnockbackDuration;
+    public float HorizontalKnockback;
+    public float VerticalKnockback;
+    public Vector3 hitDirection;
+
     public Vector3 RespawnPoint;
 
     private void Awake()
@@ -150,19 +156,22 @@ public class ForwardMovement : MonoBehaviour
         {
             if (collision.gameObject.GetComponent<ForwardMovement>())
             {
-                Vector3 hitDirection = collision.transform.position - transform.position;
-                collision.gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * 200, 450, hitDirection.z * 200, ForceMode.Force);
-            }
+                if (collision.gameObject.GetComponent<ForwardMovement>().CanBeKnockedback == true)
+                {
+                    //determine collision properties
+                    collision.gameObject.GetComponent<ForwardMovement>().HorizontalKnockback = 200f;
+                    collision.gameObject.GetComponent<ForwardMovement>().VerticalKnockback = 450f;
+                    collision.gameObject.GetComponent<ForwardMovement>().KnockbackDuration = 5f;
+                    collision.gameObject.GetComponent<ForwardMovement>().hitDirection = (collision.transform.position - transform.position);
+                    Vector3 hitDirection = collision.transform.position - transform.position;
 
-            if (collision.gameObject.GetComponent<KnockbackTesting>().CanBeKnockedback == true)
-            {
-                //determine collision properties
-                collision.gameObject.GetComponent<KnockbackTesting>().KnockbackStrength = 200f;
-                collision.gameObject.GetComponent<KnockbackTesting>().KnockbackDuration = 5f;
-                collision.gameObject.GetComponent<KnockbackTesting>().hitDirection = (collision.transform.position - transform.position);
+                    //apply those to the other object
+                    //collision.gameObject.GetComponent<ForwardMovement>().Knockback();
 
-                //apply those to the other object
-                collision.gameObject.GetComponent<KnockbackTesting>().Knockback();
+                    Debug.Log(HorizontalKnockback + VerticalKnockback);
+
+                    collision.gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * HorizontalKnockback, VerticalKnockback, hitDirection.z * HorizontalKnockback, ForceMode.Force);
+                }
             }
         }
         else if(collision.gameObject.tag == "Shelf")
