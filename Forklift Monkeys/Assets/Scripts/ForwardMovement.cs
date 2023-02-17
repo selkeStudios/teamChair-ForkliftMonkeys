@@ -100,6 +100,7 @@ public class ForwardMovement : MonoBehaviour
 
     private void Update()
     {
+        //Debug.Log(move);
         if(canMove)
         {
             GetInput();
