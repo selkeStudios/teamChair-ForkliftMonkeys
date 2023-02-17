@@ -107,7 +107,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4254739791499119913}
   - component: {fileID: 4254739791499119914}
-  - component: {fileID: 4254739791499119915}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -173,14 +172,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &4254739791499119915
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4254739791499119908}
-  m_Enabled: 1
 --- !u!1 &4254739791603748242
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,11 +338,11 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
-  Forward:
-    m_Name: Forward
+  Accelerate:
+    m_Name: Accelerate
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 2879b4d8-bca4-4f90-be08-3e194b378bb6
+    m_Id: afeb3103-8d6a-49fb-9a8e-61ecad8689e4
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
