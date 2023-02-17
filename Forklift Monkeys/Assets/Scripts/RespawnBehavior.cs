@@ -8,7 +8,7 @@ public class RespawnBehavior : MonoBehaviour
     {
         if (collider.CompareTag("Player"))
         {
-            Debug.Log("If Statement Triggered");
+            //Debug.Log("If Statement Triggered");
             collider.gameObject.GetComponent<ForwardMovement>().PlayerRespawn();
         }
     }

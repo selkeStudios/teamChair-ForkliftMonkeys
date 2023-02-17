@@ -52,6 +52,10 @@ public class ForwardMovement : MonoBehaviour
     public InputAction UseItem;
     public InputAction Horn;
 
+    public ForwardMovement LastPlayerHit;
+    public float LPHclear = 5;
+    public int Score;
+
     private void Awake()
     {
         
@@ -172,6 +176,11 @@ public class ForwardMovement : MonoBehaviour
         {
             if (collision.gameObject.GetComponent<ForwardMovement>())
             {
+                //stores the last player who collided with this player, starts corutine to clear it.
+                LastPlayerHit = collision.gameObject.GetComponent<ForwardMovement>();
+                Debug.Log(collision.gameObject.GetComponent<ForwardMovement>());
+                StartCoroutine(ClearLPH());
+
                 if (collision.gameObject.GetComponent<ForwardMovement>().CanBeKnockedback == true)
                 {
                     //determine collision properties
@@ -216,6 +225,25 @@ public class ForwardMovement : MonoBehaviour
     }
     public void PlayerRespawn()
     {
+        //respawn
         gameObject.transform.position = RespawnPoint;
+
+        //score mods
+        if(LastPlayerHit != null)
+        {
+            LastPlayerHit.Score++;
+        }
+        if(LastPlayerHit == null && Score > 0)
+        {
+            Score--;
+        }
+        Debug.Log("Score: " + Score);
+    }
+
+    public IEnumerator ClearLPH()
+    {
+        //Debug.Log("IEnumerator ran");
+        yield return new WaitForSeconds(LPHclear);
+        LastPlayerHit = null;
     }
 }
