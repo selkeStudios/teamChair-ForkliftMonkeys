@@ -92,7 +92,11 @@ public class ForwardMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        MovePlayer();
+        if (canMove)
+        {
+            MovePlayer();
+        }
+        
 
         Vector3 gravity = globalGravity * gravityScale * Vector3.up;
         rb.AddForce(gravity, ForceMode.Acceleration);
@@ -100,33 +104,31 @@ public class ForwardMovement : MonoBehaviour
 
     private void Update()
     {
-        if(canMove)
+        GetInput();
+
+        if (moveDirection.magnitude != 0)
         {
-            GetInput();
-
-            if (moveDirection.magnitude != 0)
-            {
-                moveSpeed += accelerationAmount * Time.deltaTime;
-                knockback += accelerationAmount * knockbackMultiplyer * Time.deltaTime;
-            }
-            else
-            {
-                moveSpeed -= decelerationAmount * Time.deltaTime;
-                knockback -= decelerationAmount * knockbackMultiplyer * Time.deltaTime;
-            }
-
-            if (moveSpeed <= minimumMoveSpeed)
-            {
-                moveSpeed = minimumMoveSpeed;
-                knockback = minKnockback;
-            }
-
-            if (moveSpeed >= maximumMoveSpeed)
-            {
-                moveSpeed = maximumMoveSpeed;
-                knockback = maxKnockback;
-            }
+            moveSpeed += accelerationAmount * Time.deltaTime;
+            knockback += accelerationAmount * knockbackMultiplyer * Time.deltaTime;
         }
+        else
+        {
+            moveSpeed -= decelerationAmount * Time.deltaTime;
+            knockback -= decelerationAmount * knockbackMultiplyer * Time.deltaTime;
+        }
+
+        if (moveSpeed <= minimumMoveSpeed)
+        {
+            moveSpeed = minimumMoveSpeed;
+            knockback = minKnockback;
+        }
+
+        if (moveSpeed >= maximumMoveSpeed)
+        {
+            moveSpeed = maximumMoveSpeed;
+            knockback = maxKnockback;
+        }
+        
     }
 
     private void GetInput()
@@ -137,13 +139,13 @@ public class ForwardMovement : MonoBehaviour
 
         hInput = move;
 
-        if (APressed == true)
+        if (APressed == true && canMove == true)
         {
             //accelerate
             verticalInput = 1;
             //Debug.Log("you pressed A");
         }
-        else if (BPressed == true)
+        else if (BPressed == true && canMove == true)
         {
             //reverse
             verticalInput = -1;
@@ -154,7 +156,7 @@ public class ForwardMovement : MonoBehaviour
             verticalInput = 0;
         }
 
-        if (XPressed == true)
+        if (XPressed == true && canMove == true)
         {
             //accelerate
             //Debug.Log("use item");
@@ -187,6 +189,7 @@ public class ForwardMovement : MonoBehaviour
                     Debug.Log(HorizontalKnockback + VerticalKnockback);
 
                     collision.gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * HorizontalKnockback, VerticalKnockback, hitDirection.z * HorizontalKnockback, ForceMode.Force);
+                    canMove = false;
                 }
             }
         }
@@ -198,10 +201,27 @@ public class ForwardMovement : MonoBehaviour
         }
     }
 
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.tag == "Floor")
+        {
+            canMove = true;
+        }
+    }
+
     private void MovePlayer()
     {
-        moveDirection = orientation.forward * verticalInput;
-        orientation.Rotate(0, hInput * rotationSpeed, 0);
+        if(canMove)
+        {
+            moveDirection = orientation.forward * verticalInput;
+            orientation.Rotate(0, hInput * rotationSpeed, 0);
+        }
+        else
+        {
+            moveDirection = orientation.forward;
+            orientation.Rotate(0, 0, 0);
+        }
+        
 
         rb.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
     }
