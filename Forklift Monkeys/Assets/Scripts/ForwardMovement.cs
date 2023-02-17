@@ -55,6 +55,11 @@ public class ForwardMovement : MonoBehaviour
     public bool IsOiled = false;
     public bool oiledFirstTime = true;
     public float OilTimer = 7;
+
+    public ForwardMovement LastPlayerHit;
+    public int Score;
+    public float LPHClear;
+
     private void Awake()
     {
         
@@ -90,7 +95,7 @@ public class ForwardMovement : MonoBehaviour
         rb.freezeRotation = true;
         canMove = true;
 
-        
+        LPHClear = 5f;
     }
 
     private void FixedUpdate()
@@ -177,6 +182,9 @@ public class ForwardMovement : MonoBehaviour
         {
             if (collision.gameObject.GetComponent<ForwardMovement>())
             {
+                LastPlayerHit = collision.gameObject.GetComponent<ForwardMovement>();
+                StartCoroutine(ClearLPH());
+
                 if (collision.gameObject.GetComponent<ForwardMovement>().CanBeKnockedback == true)
                 {
                     //determine collision properties
@@ -189,7 +197,7 @@ public class ForwardMovement : MonoBehaviour
                     //apply those to the other object
                     //collision.gameObject.GetComponent<ForwardMovement>().Knockback();
 
-                    Debug.Log(HorizontalKnockback + VerticalKnockback);
+                    //Debug.Log(HorizontalKnockback + VerticalKnockback);
 
                     if (collision.gameObject.GetComponent<ForwardMovement>().IsOiled)
                     {
@@ -256,7 +264,27 @@ public class ForwardMovement : MonoBehaviour
     }
     public void PlayerRespawn()
     {
+        //respawn player
         gameObject.transform.position = RespawnPoint;
+
+        //score mode
+        if(LastPlayerHit != null)
+        {
+            LastPlayerHit.Score++;
+        }
+        else if(LastPlayerHit == null )
+        {
+            if (Score > 0)
+            {
+                Score--;
+            }
+        }
+    }
+
+    IEnumerator ClearLPH()
+    {
+        yield return new WaitForSeconds(LPHClear);
+        LastPlayerHit = null;
     }
 
     public IEnumerator Oiled()
