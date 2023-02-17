@@ -42,12 +42,13 @@ public class ForwardMovement : MonoBehaviour
     public Vector3 hitDirection;
 
     public Vector3 RespawnPoint;
+    public int controllerNum;
 
     private void Awake()
     {
         //input system stuff
         controls = new InputActions();
-
+        
         //left is 1, right is -1
         controls.Player1.Wheel.performed += ctx => move = ctx.ReadValue<float>();
         controls.Player1.Wheel.canceled += ctx => move = 0;
@@ -63,6 +64,7 @@ public class ForwardMovement : MonoBehaviour
 
         controls.Player1.Horn.performed += ctx => YPressed = true;
         controls.Player1.Horn.canceled += ctx => YPressed = false;
+        
     }
 
     private void Start()
