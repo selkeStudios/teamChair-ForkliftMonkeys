@@ -314,11 +314,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 45
   minimumMoveSpeed: 45
-  maximumMoveSpeed: 120
+  maximumMoveSpeed: 100
   accelerationAmount: 15
   decelerationAmount: 30
   canMove: 1
-  rotationSpeed: 6
+  rotationSpeed: 1.5
   orientation: {fileID: 4254739791603748244}
   move: 0
   APressed: 0
@@ -347,11 +347,11 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
-  Forward:
-    m_Name: Forward
+  Accelerate:
+    m_Name: Accelerate
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 2879b4d8-bca4-4f90-be08-3e194b378bb6
+    m_Id: 7577ea00-17d1-4a69-819f-74818ad450e8
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
