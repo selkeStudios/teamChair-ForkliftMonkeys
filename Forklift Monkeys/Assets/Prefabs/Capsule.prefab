@@ -331,7 +331,58 @@ MonoBehaviour:
   knockbackMultiplyer: 0
   knockback: 0
   shelfKnockback: -50
+  CanBeKnockedback: 1
+  KnockbackDuration: 0
+  HorizontalKnockback: 0
+  VerticalKnockback: 0
+  hitDirection: {x: 0, y: 0, z: 0}
   RespawnPoint: {x: 0, y: 5, z: 0}
+  MyInput: {fileID: 4684334650731031348}
+  Wheel:
+    m_Name: Wheel
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 9aa5b946-ed3c-4822-8a5f-cbf393307262
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  Forward:
+    m_Name: Forward
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 2879b4d8-bca4-4f90-be08-3e194b378bb6
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  Reverse:
+    m_Name: Reverse
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 48cbb106-d3a3-418e-ab73-ad6d8e35a377
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  UseItem:
+    m_Name: Use Item
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: ff136855-8e30-407a-8cd6-e8c683a05321
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  Horn:
+    m_Name: Horn
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 855d718a-63d3-430a-93a6-6f4dc205e3c5
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!114 &4684334650731031348
 MonoBehaviour:
   m_ObjectHideFlags: 0
