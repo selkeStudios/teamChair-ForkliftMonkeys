@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ForwardMovement : MonoBehaviour
 {
@@ -43,26 +44,41 @@ public class ForwardMovement : MonoBehaviour
 
     public Vector3 RespawnPoint;
 
+    public PlayerInput MyInput;
+
+    public InputAction Wheel;
+    public InputAction Accelerate;
+    public InputAction Reverse;
+    public InputAction UseItem;
+    public InputAction Horn;
+
     private void Awake()
     {
+        
         //input system stuff
         controls = new InputActions();
 
         //left is 1, right is -1
-        controls.Player1.Wheel.performed += ctx => move = ctx.ReadValue<float>();
-        controls.Player1.Wheel.canceled += ctx => move = 0;
+        Wheel = MyInput.actions.FindAction("Wheel");
+        Accelerate = MyInput.actions.FindAction("Accelerate");
+        Reverse = MyInput.actions.FindAction("Reverse");
+        UseItem = MyInput.actions.FindAction("Use Item");
+        Horn = MyInput.actions.FindAction("Horn");
 
-        controls.Player1.Accelerate.performed += ctx => APressed = true;
-        controls.Player1.Accelerate.canceled += ctx => APressed = false;
+        Wheel.performed += ctx => move = ctx.ReadValue<float>();
+        Wheel.canceled += ctx => move = 0;
 
-        controls.Player1.Reverse.performed += ctx => BPressed = true;
-        controls.Player1.Reverse.canceled += ctx => BPressed = false;
+        Accelerate.performed += ctx => APressed = true;
+        Accelerate.canceled += ctx => APressed = false;
 
-        controls.Player1.UseItem.performed += ctx => XPressed = true;
-        controls.Player1.UseItem.canceled += ctx => XPressed = false;
+        Reverse.performed += ctx => BPressed = true;
+        Reverse.canceled += ctx => BPressed = false;
 
-        controls.Player1.Horn.performed += ctx => YPressed = true;
-        controls.Player1.Horn.canceled += ctx => YPressed = false;
+        UseItem.performed += ctx => XPressed = true;
+        UseItem.canceled += ctx => XPressed = false;
+
+        Horn.performed += ctx => YPressed = true;
+        Horn.canceled += ctx => YPressed = false;
     }
 
     private void Start()
@@ -70,6 +86,8 @@ public class ForwardMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         canMove = true;
+
+        
     }
 
     private void FixedUpdate()
