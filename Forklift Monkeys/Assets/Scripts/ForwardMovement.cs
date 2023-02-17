@@ -52,6 +52,9 @@ public class ForwardMovement : MonoBehaviour
     public InputAction UseItem;
     public InputAction Horn;
 
+    public bool IsOiled = false;
+    public bool oiledFirstTime = true;
+    public float OilTimer = 7;
     private void Awake()
     {
         
@@ -188,6 +191,12 @@ public class ForwardMovement : MonoBehaviour
 
                     Debug.Log(HorizontalKnockback + VerticalKnockback);
 
+                    if (collision.gameObject.GetComponent<ForwardMovement>().IsOiled)
+                    {
+                        HorizontalKnockback += (HorizontalKnockback * 0.5f);
+                        VerticalKnockback += (VerticalKnockback * 0.5f);
+                    }
+
                     collision.gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * HorizontalKnockback, VerticalKnockback, hitDirection.z * HorizontalKnockback, ForceMode.Force);
                     canMove = false;
                 }
@@ -206,6 +215,17 @@ public class ForwardMovement : MonoBehaviour
         if (collision.gameObject.tag == "Floor")
         {
             canMove = true;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Oil")
+        {
+            Debug.Log("OIL OIL OIL");
+            IsOiled = true;
+            oiledFirstTime = true;
+            StartCoroutine(Oiled());
         }
     }
 
@@ -237,5 +257,14 @@ public class ForwardMovement : MonoBehaviour
     public void PlayerRespawn()
     {
         gameObject.transform.position = RespawnPoint;
+    }
+
+    public IEnumerator Oiled()
+    {
+        while (IsOiled)
+        {
+            yield return new WaitForSeconds(OilTimer);
+            IsOiled = false;
+        }
     }
 }
