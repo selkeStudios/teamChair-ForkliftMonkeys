@@ -61,16 +61,15 @@ public class ForwardMovement : MonoBehaviour
     public int Score;
     //public float LPHClear;
 
-<<<<<<< HEAD
     public int PowerUp = 0;
 
     public GameObject oilReferance;
-=======
+
     public bool IsGrounded;
     public Transform GroundCheck;
     public float GroundDistance;
     public LayerMask GroundMask;
->>>>>>> marissa
+
 
     private void Awake()
     {
