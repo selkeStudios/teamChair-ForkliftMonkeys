@@ -738,8 +738,8 @@ MonoBehaviour:
   minX: -50
   minZ: -50
   spawnY: 50
-  boxChance: 20
-  boxCooldown: 2
+  boxChance: 30
+  boxCooldown: 6
   powerUpBoxRef: {fileID: 8035848134439080021, guid: 8153342771b0d824f8810abfd5f635fa, type: 3}
 --- !u!4 &1024322240
 Transform:
