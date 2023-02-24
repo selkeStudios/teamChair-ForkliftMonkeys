@@ -63,7 +63,6 @@ public class ForwardMovement : MonoBehaviour
     //public float LPHClear;
 
     public int PowerUp = 0;
-
     public GameObject oilReferance;
 
     public float movingTimer;
@@ -72,8 +71,7 @@ public class ForwardMovement : MonoBehaviour
     public Transform oilSpawner;
 
     private void Awake()
-    {
-        
+    {   
         //input system stuff
         controls = new InputActions();
 
