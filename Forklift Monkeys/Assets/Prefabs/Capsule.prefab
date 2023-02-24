@@ -186,13 +186,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 551e16fceeac36e409d9a670363c5980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 45
-  minimumMoveSpeed: 30
-  maximumMoveSpeed: 100
-  accelerationAmount: 15
+  moveSpeed: 35
+  minimumMoveSpeed: 35
+  maximumMoveSpeed: 90
+  accelerationAmount: 25
   decelerationAmount: 30
   canMove: 1
-  rotationSpeed: 2
+  rotationSpeed: 2.5
   orientation: {fileID: 4254739791603748244}
   move: 0
   APressed: 0
