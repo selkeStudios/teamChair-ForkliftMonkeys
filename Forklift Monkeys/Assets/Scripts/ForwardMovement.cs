@@ -58,6 +58,11 @@ public class ForwardMovement : MonoBehaviour
 
     public ForwardMovement LastPlayerHit;
     public int Score;
+
+    public GameObject BoxingGlove;
+
+    public bool HasItem = true;
+
     //public float LPHClear;
 
     private void Awake()
@@ -168,17 +173,21 @@ public class ForwardMovement : MonoBehaviour
         {
             //accelerate
             //Debug.Log("use item");
+            if (HasItem == true)
+            {
+                StartCoroutine(GlovePunch());
+            }
         }
         if (YPressed == true)
         {
             //reverse
-            Debug.Log("*horn noises*");
+            //Debug.Log("*horn noises*");
         }
     }
     private void OnCollisionEnter(Collision collision)
     {
         //probably replace this with colliding with another player later
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
             if (collision.gameObject.GetComponent<ForwardMovement>())
             {
@@ -232,7 +241,7 @@ public class ForwardMovement : MonoBehaviour
     {
         if (other.gameObject.tag == "Oil")
         {
-            Debug.Log("OIL OIL OIL");
+            //Debug.Log("OIL OIL OIL");
             IsOiled = true;
             oiledFirstTime = true;
             StartCoroutine(Oiled());
@@ -298,5 +307,20 @@ public class ForwardMovement : MonoBehaviour
             yield return new WaitForSeconds(OilTimer);
             IsOiled = false;
         }
+    }
+    public IEnumerator GlovePunch()
+    {
+        HasItem = false;
+        Vector3 spawnPos = transform.position + transform.forward * 4f;
+        var PunchGlove = Instantiate(BoxingGlove, spawnPos, transform.rotation);
+        PunchGlove.transform.parent = gameObject.transform;
+        for (int i = 0; i < 100; i++)
+        {
+            PunchGlove.transform.position += transform.forward * 0.1f;
+            yield return new WaitForSeconds(0.01f);
+        }
+        yield return new WaitForSeconds(0.25f);
+        Destroy(PunchGlove);
+        yield return null;
     }
 }

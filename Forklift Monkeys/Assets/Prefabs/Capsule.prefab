@@ -43,8 +43,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.0134268, y: 2.1498272, z: 2.696098}
-  m_Center: {x: -0.11536586, y: -0.5749136, z: 0.8480484}
+  m_Size: {x: 2, y: 2.4, z: 2.75}
+  m_Center: {x: -0.168, y: -0.6, z: 0.8}
 --- !u!1 &4254739791499119908
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,7 +262,8 @@ MonoBehaviour:
   OilTimer: 7
   LastPlayerHit: {fileID: 0}
   Score: 0
-  LPHClear: 0
+  BoxingGlove: {fileID: 3771068778829625128, guid: f936cb4f13f0e524db7c21c4b1bb3e84, type: 3}
+  HasItem: 0
 --- !u!114 &4684334650731031348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,8 +305,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.210209, y: 1.4101058, z: 1.7949433}
-  m_Center: {x: 0.105104685, y: -0.20505291, z: 0.05357492}
+  m_Size: {x: 1.2, y: 1.4, z: 1.8}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &6809996141886274720
 PrefabInstance:
   m_ObjectHideFlags: 0
