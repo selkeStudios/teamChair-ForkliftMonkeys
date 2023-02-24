@@ -58,7 +58,7 @@ public class ForwardMovement : MonoBehaviour
 
     public ForwardMovement LastPlayerHit;
     public int Score;
-    public float LPHClear;
+    //public float LPHClear;
 
     private void Awake()
     {
@@ -95,7 +95,7 @@ public class ForwardMovement : MonoBehaviour
         rb.freezeRotation = true;
         canMove = true;
 
-        LPHClear = 5f;
+        //LPHClear = 5f;
     }
 
     private void FixedUpdate()
@@ -182,8 +182,10 @@ public class ForwardMovement : MonoBehaviour
         {
             if (collision.gameObject.GetComponent<ForwardMovement>())
             {
+                //set the last player hit
                 LastPlayerHit = collision.gameObject.GetComponent<ForwardMovement>();
-                StartCoroutine(ClearLPH());
+                  
+                //StartCoroutine(ClearLPH());
 
                 if (collision.gameObject.GetComponent<ForwardMovement>().CanBeKnockedback == true)
                 {
@@ -281,11 +283,13 @@ public class ForwardMovement : MonoBehaviour
         }
     }
 
+    /*
     IEnumerator ClearLPH()
     {
         yield return new WaitForSeconds(LPHClear);
         LastPlayerHit = null;
     }
+    */
 
     public IEnumerator Oiled()
     {
