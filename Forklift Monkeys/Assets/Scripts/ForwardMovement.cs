@@ -64,6 +64,12 @@ public class ForwardMovement : MonoBehaviour
     public int PowerUp = 0;
     public GameObject oilReferance;
 
+    public bool IsGrounded;
+    public Transform GroundCheck;
+    public float GroundDistance;
+    public LayerMask GroundMask;
+
+
     private void Awake()
     {   
         //input system stuff
@@ -115,6 +121,13 @@ public class ForwardMovement : MonoBehaviour
 
     private void Update()
     {
+        IsGrounded = Physics.CheckSphere(GroundCheck.position, GroundDistance, GroundMask);
+
+        if (!IsGrounded)
+        {
+            CanBeKnockedback = false;
+        }
+
         GetInput();
 
         if (moveDirection.magnitude != 0)
@@ -188,7 +201,7 @@ public class ForwardMovement : MonoBehaviour
             {
                 //set the last player hit
                 LastPlayerHit = collision.gameObject.GetComponent<ForwardMovement>();
-                  
+
                 //StartCoroutine(ClearLPH());
 
                 if (collision.gameObject.GetComponent<ForwardMovement>().CanBeKnockedback == true)
@@ -278,10 +291,7 @@ public class ForwardMovement : MonoBehaviour
     }
     public void PlayerRespawn()
     {
-        //respawn player
-        gameObject.transform.position = RespawnPoint;
-
-        //score mode
+        //score mods
         if(LastPlayerHit != null)
         {
             LastPlayerHit.Score++;
@@ -293,6 +303,10 @@ public class ForwardMovement : MonoBehaviour
                 Score--;
             }
         }
+
+        //respawn player
+        gameObject.transform.position = RespawnPoint;
+        LastPlayerHit = null;
     }
 
     /*
