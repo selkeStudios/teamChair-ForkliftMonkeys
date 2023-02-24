@@ -187,10 +187,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 551e16fceeac36e409d9a670363c5980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 45
-  minimumMoveSpeed: 30
-  maximumMoveSpeed: 100
-  accelerationAmount: 15
+  moveSpeed: 35
+  minimumMoveSpeed: 35
+  maximumMoveSpeed: 90
+  accelerationAmount: 25
   decelerationAmount: 30
   canMove: 1
   rotationSpeed: 2
@@ -207,6 +207,7 @@ MonoBehaviour:
   knockback: 0
   shelfKnockback: -50
   CanBeKnockedback: 1
+  IsGettingKnockedBack: 0
   KnockbackDuration: 0
   HorizontalKnockback: 0
   VerticalKnockback: 0
@@ -263,6 +264,8 @@ MonoBehaviour:
   OilTimer: 7
   LastPlayerHit: {fileID: 0}
   Score: 0
+  PowerUp: 0
+  oilReferance: {fileID: 0}
   IsGrounded: 0
   GroundCheck: {fileID: 6674070265121305667}
   GroundDistance: 0.3
