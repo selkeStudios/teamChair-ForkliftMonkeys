@@ -187,12 +187,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 45
-  minimumMoveSpeed: 45
-  maximumMoveSpeed: 120
+  minimumMoveSpeed: 30
+  maximumMoveSpeed: 100
   accelerationAmount: 15
   decelerationAmount: 30
   canMove: 1
-  rotationSpeed: 6
+  rotationSpeed: 2
   orientation: {fileID: 4254739791603748244}
   move: 0
   APressed: 0
