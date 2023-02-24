@@ -314,7 +314,7 @@ public class ForwardMovement : MonoBehaviour
         Vector3 spawnPos = transform.position + transform.forward * 4f;
         var PunchGlove = Instantiate(BoxingGlove, spawnPos, transform.rotation);
         PunchGlove.transform.parent = gameObject.transform;
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 75; i++)
         {
             PunchGlove.transform.position += transform.forward * 0.1f;
             yield return new WaitForSeconds(0.01f);
