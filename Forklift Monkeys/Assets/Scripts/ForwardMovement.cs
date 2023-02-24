@@ -38,6 +38,7 @@ public class ForwardMovement : MonoBehaviour
     public float shelfKnockback;
 
     public bool CanBeKnockedback = true;
+    public bool IsGettingKnockedBack;
     public float KnockbackDuration;
     public float HorizontalKnockback;
     public float VerticalKnockback;
@@ -123,10 +124,14 @@ public class ForwardMovement : MonoBehaviour
     {
         IsGrounded = Physics.CheckSphere(GroundCheck.position, GroundDistance, GroundMask);
 
-        if (!IsGrounded)
+        /*
+        if (IsGrounded && !canMove)
         {
-            CanBeKnockedback = false;
+            IsGettingKnockedBack = false;
+           /canMove = true;
         }
+        */
+        
 
         GetInput();
 
@@ -213,6 +218,8 @@ public class ForwardMovement : MonoBehaviour
                     collision.gameObject.GetComponent<ForwardMovement>().hitDirection = (collision.transform.position - transform.position);
                     Vector3 hitDirection = collision.transform.position - transform.position;
 
+                    //IsGettingKnockedBack = true;
+
                     //apply those to the other object
                     //collision.gameObject.GetComponent<ForwardMovement>().Knockback();
 
@@ -238,6 +245,7 @@ public class ForwardMovement : MonoBehaviour
         
     }
 
+    /*
     private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.tag == "Floor")
@@ -245,6 +253,7 @@ public class ForwardMovement : MonoBehaviour
             canMove = true;
         }
     }
+    */
 
     private void OnTriggerEnter(Collider other)
     {
@@ -307,6 +316,7 @@ public class ForwardMovement : MonoBehaviour
         //respawn player
         gameObject.transform.position = RespawnPoint;
         LastPlayerHit = null;
+        IsGettingKnockedBack = false;
     }
 
     /*
