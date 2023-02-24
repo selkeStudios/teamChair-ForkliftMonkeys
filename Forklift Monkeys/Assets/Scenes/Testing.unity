@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571336, b: 0.3069219, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -613,8 +613,8 @@ MonoBehaviour:
   minX: -50
   minZ: -50
   spawnY: 50
-  boxChance: 20
-  boxCooldown: 2
+  boxChance: 30
+  boxCooldown: 6
   powerUpBoxRef: {fileID: 8035848134439080021, guid: 8153342771b0d824f8810abfd5f635fa, type: 3}
 --- !u!4 &1024322240
 Transform:
