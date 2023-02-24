@@ -155,6 +155,7 @@ Transform:
   - {fileID: 6416307948373678923}
   - {fileID: 4254739791499119913}
   - {fileID: 3158167424519201990}
+  - {fileID: 8791262005968557662}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 9.73, z: 0}
@@ -263,9 +264,10 @@ MonoBehaviour:
   LastPlayerHit: {fileID: 0}
   Score: 0
   PowerUp: 0
-  oilReferance: {fileID: 0}
+  oilReferance: {fileID: 937820757277789964, guid: ecda6884fa353d44a863aed836a2008d, type: 3}
   movingTimer: 0.5
   timerUp: 0
+  oilSpawner: {fileID: 8791262005968557662}
 --- !u!114 &4684334650731031348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,6 +311,37 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.210209, y: 1.4101058, z: 1.7949433}
   m_Center: {x: 0.105104685, y: -0.20505291, z: 0.05357492}
+--- !u!1 &8737472967489810644
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8791262005968557662}
+  m_Layer: 0
+  m_Name: OilSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8791262005968557662
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8737472967489810644}
+  m_LocalRotation: {x: -0, y: -0.0848083, z: -0, w: 0.9963973}
+  m_LocalPosition: {x: 0, y: -0.81, z: -1.5}
+  m_LocalScale: {x: 0.49999994, y: 0.5, z: 0.49999994}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4254739791603748244}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &6809996141886274720
 PrefabInstance:
   m_ObjectHideFlags: 0
