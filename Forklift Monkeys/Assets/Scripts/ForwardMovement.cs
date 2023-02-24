@@ -68,6 +68,8 @@ public class ForwardMovement : MonoBehaviour
     public float movingTimer;
     public bool timerUp;
 
+    public Transform oilSpawner;
+
     private void Awake()
     {   
         //input system stuff
@@ -351,6 +353,8 @@ public class ForwardMovement : MonoBehaviour
             case 1:
                 Debug.Log("get oiled nerd");
                 PowerUp = 0;
+                
+                Instantiate(oilReferance, oilSpawner.position , oilSpawner.rotation);
                 break;
             case 2:
                 Debug.Log("anvil");
