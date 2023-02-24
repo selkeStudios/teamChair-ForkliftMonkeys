@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -59,6 +60,10 @@ public class ForwardMovement : MonoBehaviour
     public ForwardMovement LastPlayerHit;
     public int Score;
     public float LPHClear;
+
+    public int PowerUp = 0;
+
+    public GameObject oilReferance;
 
     private void Awake()
     {
@@ -168,6 +173,7 @@ public class ForwardMovement : MonoBehaviour
         {
             //accelerate
             //Debug.Log("use item");
+            UseItemGo(PowerUp);
         }
         if (YPressed == true)
         {
@@ -216,6 +222,7 @@ public class ForwardMovement : MonoBehaviour
             //collision.gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * shelfKnockback, 450, hitDirection.z * shelfKnockback, ForceMode.Force);
             gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * shelfKnockback, 450, hitDirection.z * shelfKnockback, ForceMode.Force);
         }
+        
     }
 
     private void OnCollisionStay(Collision collision)
@@ -234,6 +241,13 @@ public class ForwardMovement : MonoBehaviour
             IsOiled = true;
             oiledFirstTime = true;
             StartCoroutine(Oiled());
+        }
+        else if(other.gameObject.tag == "Boxes")
+        {
+            if (PowerUp == 0)
+            {
+                PowerUp = Random.Range(1, 4);
+            }
         }
     }
 
@@ -293,6 +307,28 @@ public class ForwardMovement : MonoBehaviour
         {
             yield return new WaitForSeconds(OilTimer);
             IsOiled = false;
+        }
+    }
+
+    public void UseItemGo(int Item)
+    {
+        switch (Item)
+        {
+            case 1:
+                Debug.Log("get oiled nerd");
+                PowerUp = 0;
+                break;
+            case 2:
+                Debug.Log("anvil");
+                PowerUp = 0;
+                break;
+            case 3:
+                Debug.Log("Pawwnch");
+                PowerUp = 0;
+                break;
+            default:
+                Debug.Log("no item");
+                break;
         }
     }
 }
