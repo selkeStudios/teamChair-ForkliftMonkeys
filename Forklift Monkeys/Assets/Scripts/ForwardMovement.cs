@@ -64,6 +64,7 @@ public class ForwardMovement : MonoBehaviour
 
     public int PowerUp = 0;
     public GameObject oilReferance;
+    public GameObject anvilReference;
 
     public float movingTimer;
     public bool timerUp;
@@ -353,12 +354,12 @@ public class ForwardMovement : MonoBehaviour
             case 1:
                 Debug.Log("get oiled nerd");
                 PowerUp = 0;
-                
                 Instantiate(oilReferance, oilSpawner.position , oilSpawner.rotation);
                 break;
             case 2:
                 Debug.Log("anvil");
                 PowerUp = 0;
+                Instantiate(anvilReference, gameObject.transform.position, gameObject.transform.rotation);
                 break;
             case 3:
                 Debug.Log("Pawwnch");
