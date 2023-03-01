@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using TMPro;
 
 public class ForwardMovement : MonoBehaviour
 {
@@ -32,16 +34,17 @@ public class ForwardMovement : MonoBehaviour
     public float gravityScale;
     private float globalGravity = -9.81f;
 
-    public float maxKnockback;
-    public float minKnockback;
-    public float knockbackMultiplyer;
-    public float knockback;
-    public float shelfKnockback;
+    public float maxKnockBackAmt;
+    public float minKnockBackAmt;
+    public float knockBackAmtMultiplyer;
+    public float knockBackAmt;
+    public float shelfknockBackAmt;
+    public TextMeshProUGUI knockBackAmtText;
 
     public bool CanBeKnockedback = true;
-    public float KnockbackDuration;
-    public float HorizontalKnockback;
-    public float VerticalKnockback;
+    public float knockBackAmtDuration;
+    public float HorizontalKnockBackAmt;
+    public float VerticalKnockBackAmt;
     public Vector3 hitDirection;
 
     public Vector3 RespawnPoint;
@@ -70,6 +73,13 @@ public class ForwardMovement : MonoBehaviour
     public bool timerUp;
 
     public Transform oilSpawner;
+
+    public bool isGrounded;
+    public Transform groundCheck;
+    public float groundDistance;
+    public LayerMask groundMask;
+
+    private UIBehaviour uIB;
 
     private void Awake()
     {   
@@ -105,6 +115,8 @@ public class ForwardMovement : MonoBehaviour
         rb.freezeRotation = true;
         canMove = true;
 
+        uIB = FindObjectOfType<UIBehaviour>();
+        uIB.players.Add(gameObject.GetComponent<ForwardMovement>());
         //LPHClear = 5f;
     }
 
@@ -122,31 +134,42 @@ public class ForwardMovement : MonoBehaviour
 
     private void Update()
     {
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        knockBackAmtText.text = knockBackAmt.ToString("N0");
+
         GetInput();
 
         if (moveDirection.magnitude != 0)
         {
             moveSpeed += accelerationAmount * Time.deltaTime;
-            knockback += accelerationAmount * knockbackMultiplyer * Time.deltaTime;
+            knockBackAmt += accelerationAmount * knockBackAmtMultiplyer * Time.deltaTime;
         }
         else
         {
             moveSpeed -= decelerationAmount * Time.deltaTime;
-            knockback -= decelerationAmount * knockbackMultiplyer * Time.deltaTime;
+            knockBackAmt -= decelerationAmount * knockBackAmtMultiplyer * Time.deltaTime;
         }
 
         if (moveSpeed <= minimumMoveSpeed)
         {
             moveSpeed = minimumMoveSpeed;
-            knockback = minKnockback;
         }
 
         if (moveSpeed >= maximumMoveSpeed)
         {
             moveSpeed = maximumMoveSpeed;
-            knockback = maxKnockback;
         }
-        
+
+        if (knockBackAmt <= minKnockBackAmt)
+        {
+            knockBackAmt = minKnockBackAmt;
+        }
+
+        if (knockBackAmt >= maxKnockBackAmt)
+        {
+            knockBackAmt = maxKnockBackAmt;
+        }
+
     }
 
     private void GetInput()
@@ -206,28 +229,28 @@ public class ForwardMovement : MonoBehaviour
                 if (collision.gameObject.GetComponent<ForwardMovement>().CanBeKnockedback == true)
                 {
                     //determine collision properties
-                    collision.gameObject.GetComponent<ForwardMovement>().HorizontalKnockback = 200f;
-                    collision.gameObject.GetComponent<ForwardMovement>().VerticalKnockback = 450f;
-                    collision.gameObject.GetComponent<ForwardMovement>().KnockbackDuration = 5f;
+                    collision.gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt = 200f;
+                    collision.gameObject.GetComponent<ForwardMovement>().VerticalKnockBackAmt = 450f;
+                    collision.gameObject.GetComponent<ForwardMovement>().knockBackAmtDuration = 5f;
                     collision.gameObject.GetComponent<ForwardMovement>().hitDirection = (collision.transform.position - transform.position);
                     Vector3 hitDirection = collision.transform.position - transform.position;
 
                     //apply those to the other object
-                    //collision.gameObject.GetComponent<ForwardMovement>().Knockback();
+                    //collision.gameObject.GetComponent<ForwardMovement>().knockBackAmt();
 
-                    //Debug.Log(HorizontalKnockback + VerticalKnockback);
+                    //Debug.Log(HorizontalknockBackAmt + VerticalknockBackAmt);
 
                     if (collision.gameObject.GetComponent<ForwardMovement>().IsOiled)
                     {
-                        HorizontalKnockback += (HorizontalKnockback * 0.5f);
-                        VerticalKnockback += (VerticalKnockback * 0.5f);
+                        HorizontalKnockBackAmt += (HorizontalKnockBackAmt * 0.5f);
+                        VerticalKnockBackAmt += (VerticalKnockBackAmt * 0.5f);
                     }
 
-                    collision.gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * HorizontalKnockback, VerticalKnockback, hitDirection.z * HorizontalKnockback, ForceMode.Force);
+                    collision.gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * HorizontalKnockBackAmt, VerticalKnockBackAmt, hitDirection.z * HorizontalKnockBackAmt, ForceMode.Force);
                     canMove = false;
                     Debug.Log("NO MOVING");
                     timerUp = false;
-                    StartCoroutine(knockbackTimer());
+                    StartCoroutine(knockBackAmtTimer());
                 }
             }
         }
@@ -235,11 +258,11 @@ public class ForwardMovement : MonoBehaviour
         {
             Vector3 hitDirection = collision.transform.position;
             canMove = false;
-            //collision.gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * shelfKnockback, 450, hitDirection.z * shelfKnockback, ForceMode.Force);
-            gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * shelfKnockback, 450, hitDirection.z * shelfKnockback, ForceMode.Force);
+            //collision.gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * shelfknockBackAmt, 450, hitDirection.z * shelfknockBackAmt, ForceMode.Force);
+            gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * shelfknockBackAmt, 450, hitDirection.z * shelfknockBackAmt, ForceMode.Force);
             Debug.Log("NO MOVING");
             timerUp = false;
-            StartCoroutine(knockbackTimer());
+            StartCoroutine(knockBackAmtTimer());
         }
         
     }
@@ -338,7 +361,7 @@ public class ForwardMovement : MonoBehaviour
         }
     }
 
-    public IEnumerator knockbackTimer()
+    public IEnumerator knockBackAmtTimer()
     {
         while (!timerUp)
         {
