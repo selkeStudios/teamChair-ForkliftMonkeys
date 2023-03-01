@@ -238,7 +238,7 @@ MonoBehaviour:
   minKnockBackAmt: 0
   knockBackAmtMultiplyer: 0.5
   knockBackAmt: 0
-  shelfknockBackAmt: 0
+  shelfknockBackAmt: -30
   knockBackAmtText: {fileID: 127118914439792491}
   CanBeKnockedback: 1
   knockBackAmtDuration: 0

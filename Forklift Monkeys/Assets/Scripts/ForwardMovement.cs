@@ -79,7 +79,7 @@ public class ForwardMovement : MonoBehaviour
     public float groundDistance;
     public LayerMask groundMask;
 
-    private UIBehaviour uIB;
+    private UIUXCanvasScript uIB;
 
     private void Awake()
     {   
@@ -115,7 +115,7 @@ public class ForwardMovement : MonoBehaviour
         rb.freezeRotation = true;
         canMove = true;
 
-        uIB = FindObjectOfType<UIBehaviour>();
+        uIB = FindObjectOfType<UIUXCanvasScript>();
         uIB.players.Add(gameObject.GetComponent<ForwardMovement>());
         //LPHClear = 5f;
     }
@@ -170,6 +170,10 @@ public class ForwardMovement : MonoBehaviour
             knockBackAmt = maxKnockBackAmt;
         }
 
+        if(uIB.timer <= 0)
+        {
+            canMove = false;
+        }
     }
 
     private void GetInput()
