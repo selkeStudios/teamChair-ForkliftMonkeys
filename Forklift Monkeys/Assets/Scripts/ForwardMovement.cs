@@ -252,7 +252,7 @@ public class ForwardMovement : MonoBehaviour
 
                     collision.gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * HorizontalKnockBackAmt, VerticalKnockBackAmt, hitDirection.z * HorizontalKnockBackAmt, ForceMode.Force);
                     canMove = false;
-                    Debug.Log("NO MOVING");
+                    //Debug.Log("NO MOVING");
                     timerUp = false;
                     StartCoroutine(knockBackAmtTimer());
                 }
@@ -264,11 +264,16 @@ public class ForwardMovement : MonoBehaviour
             canMove = false;
             //collision.gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * shelfknockBackAmt, 450, hitDirection.z * shelfknockBackAmt, ForceMode.Force);
             gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * shelfknockBackAmt, 450, hitDirection.z * shelfknockBackAmt, ForceMode.Force);
-            Debug.Log("NO MOVING");
+            //Debug.Log("NO MOVING");
             timerUp = false;
             StartCoroutine(knockBackAmtTimer());
         }
         
+    }
+
+    public void knockBackPlayer()
+    {
+        print("Eh hem");
     }
 
     private void OnCollisionStay(Collision collision)
@@ -283,7 +288,7 @@ public class ForwardMovement : MonoBehaviour
     {
         if (other.gameObject.tag == "Oil")
         {
-            Debug.Log("OIL OIL OIL");
+            //Debug.Log("OIL OIL OIL");
             IsOiled = true;
             oiledFirstTime = true;
             StartCoroutine(Oiled());
@@ -316,7 +321,7 @@ public class ForwardMovement : MonoBehaviour
         }
         else
         {
-            Debug.Log("no Move");
+            //Debug.Log("no Move");
             rb.velocity = Vector3.zero;
         }
     }
@@ -379,21 +384,21 @@ public class ForwardMovement : MonoBehaviour
         switch (Item)
         {
             case 1:
-                Debug.Log("get oiled nerd");
+                //Debug.Log("get oiled nerd");
                 PowerUp = 0;
                 Instantiate(oilReferance, oilSpawner.position , oilSpawner.rotation);
                 break;
             case 2:
-                Debug.Log("anvil");
+                //Debug.Log("anvil");
                 PowerUp = 0;
                 Instantiate(anvilReference, gameObject.transform.position, gameObject.transform.rotation);
                 break;
             case 3:
-                Debug.Log("Pawwnch");
+                Debug.Log("Punch");
                 PowerUp = 0;
                 break;
             default:
-                Debug.Log("no item");
+                //Debug.Log("no item");
                 break;
         }
     }
