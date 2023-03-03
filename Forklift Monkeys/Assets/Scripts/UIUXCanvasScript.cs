@@ -18,7 +18,10 @@ public class UIUXCanvasScript : MonoBehaviour
     void Update()
     {
         //print(players.Count);
-        timer -= Time.deltaTime;
+        if(players.Count >= 4)
+        {
+            timer -= Time.deltaTime;
+        }
         timerText.text = timer.ToString("N0");
 
         if(timer <= 0)
