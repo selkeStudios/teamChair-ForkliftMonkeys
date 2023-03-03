@@ -226,6 +226,7 @@ MonoBehaviour:
   accelerationAmount: 25
   decelerationAmount: 30
   canMove: 1
+  isMovingForward: 0
   rotationSpeed: 2.5
   orientation: {fileID: 4254739791603748244}
   move: 0
@@ -661,19 +662,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a13eca85fb10442648f4ecf380c13e64, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9963973
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a13eca85fb10442648f4ecf380c13e64, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a13eca85fb10442648f4ecf380c13e64, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0848083
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a13eca85fb10442648f4ecf380c13e64, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a13eca85fb10442648f4ecf380c13e64, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
