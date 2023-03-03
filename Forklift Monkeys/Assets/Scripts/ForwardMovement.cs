@@ -389,10 +389,13 @@ public class ForwardMovement : MonoBehaviour
 
     public IEnumerator AnvilCoolDown()
     {
-        print("cooling down");
-        yield return new WaitForSeconds(AnvilTimer);
-        print("cool down over");
-        CanBeAnviled = true;
+        while(!CanBeAnviled)
+        {
+            print("cooling down");
+            yield return new WaitForSeconds(5f);
+            print("cool down over");
+            CanBeAnviled = true;
+        }
     }
 
     public void UseItemGo(int Item)
