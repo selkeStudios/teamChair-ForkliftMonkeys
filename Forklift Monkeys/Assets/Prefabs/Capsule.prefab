@@ -236,9 +236,9 @@ MonoBehaviour:
   gravityScale: 2
   maxKnockBackAmt: 100
   minKnockBackAmt: 0
-  knockBackAmtMultiplyer: 0.5
+  knockBackAmtMultiplyer: 3
   knockBackAmt: 0
-  shelfknockBackAmt: -30
+  shelfknockBackAmt: -5
   knockBackAmtText: {fileID: 127118914439792491}
   CanBeKnockedback: 1
   knockBackAmtDuration: 0

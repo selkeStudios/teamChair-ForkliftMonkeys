@@ -54,7 +54,11 @@ public class AnvilBehavior : MonoBehaviour
 
             //do knockback
             other.gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * other.gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt, other.gameObject.GetComponent<ForwardMovement>().VerticalKnockBackAmt, hitDirection.z * other.gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt, ForceMode.Force);
+            other.gameObject.GetComponent<ForwardMovement>().LastPlayerHit = monkeyNotToHurt.GetComponent<ForwardMovement>();
             other.gameObject.GetComponent<ForwardMovement>().CanBeAnviled = false;
+            other.gameObject.GetComponent<ForwardMovement>().canMove = false;
+            other.gameObject.GetComponent<ForwardMovement>().timerUp = false;
+            other.gameObject.GetComponent<ForwardMovement>().knockBackTime();
         }
         if (other.CompareTag("Boxes"))
         {
