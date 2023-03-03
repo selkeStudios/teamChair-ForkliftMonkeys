@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     }
 
     //public PlayerInput JoinPlayer(int playerIndex, int splitScreenIndex, string controlScheme = null, params InputDevice[] pairWithDevices)
-    {
+    //{
         //return GameObject;
-    }
+    //}
 }
