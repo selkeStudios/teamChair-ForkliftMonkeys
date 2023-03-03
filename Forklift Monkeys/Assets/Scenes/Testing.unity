@@ -312,6 +312,11 @@ MonoBehaviour:
   - {fileID: 140805932}
   - {fileID: 1096255780}
   - {fileID: 655908357}
+  scoreTexts:
+  - {fileID: 374064444}
+  - {fileID: 221137260}
+  - {fileID: 1183471300}
+  - {fileID: 1175421788}
   timer: 60
   timerText: {fileID: 2021250413}
   sRs:

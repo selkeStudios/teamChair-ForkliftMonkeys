@@ -8,6 +8,7 @@ public class UIUXCanvasScript : MonoBehaviour
 {
     public List<ForwardMovement> players = new List<ForwardMovement>();
     public TextMeshProUGUI[] powerUpTexts;
+    public TextMeshProUGUI[] scoreTexts;
 
     public float timer;
     public TextMeshProUGUI timerText;
@@ -47,6 +48,8 @@ public class UIUXCanvasScript : MonoBehaviour
                     powerUpTexts[players.IndexOf(fM)].text = "None";
                     break;
             }
+
+            scoreTexts[players.IndexOf(fM)].text = fM.Score.ToString();
         }
 
         foreach(Image s in sRs)

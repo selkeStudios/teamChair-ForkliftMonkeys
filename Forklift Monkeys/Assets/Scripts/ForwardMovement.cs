@@ -174,6 +174,11 @@ public class ForwardMovement : MonoBehaviour
         {
             canMove = false;
         }
+
+        if(timerUp && isGrounded)
+        {
+            LastPlayerHit = null;
+        }
     }
 
     private void GetInput()
