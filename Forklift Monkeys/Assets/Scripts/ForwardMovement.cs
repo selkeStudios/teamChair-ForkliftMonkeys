@@ -247,18 +247,16 @@ public class ForwardMovement : MonoBehaviour
                 if (collision.gameObject.GetComponent<ForwardMovement>().CanBeKnockedback == true)
                 {
                     //determine collision properties
-                    collision.gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt = 200f;
-                    collision.gameObject.GetComponent<ForwardMovement>().VerticalKnockBackAmt = 450f;
-                    collision.gameObject.GetComponent<ForwardMovement>().knockBackAmtDuration = 5f;
-                    collision.gameObject.GetComponent<ForwardMovement>().hitDirection = (collision.transform.position - transform.position);
+                    
+                    //collision.gameObject.GetComponent<ForwardMovement>().hitDirection = (collision.transform.position - transform.position);
                     Vector3 hitDirection = collision.transform.position - transform.position;
-
+                    collision.gameObject.GetComponent<ForwardMovement>().KnockbackSend(knockBackAmt, hitDirection);
                     //apply those to the other object
                     //collision.gameObject.GetComponent<ForwardMovement>().knockBackAmt();
 
                     //Debug.Log(HorizontalknockBackAmt + VerticalknockBackAmt);
 
-                    if (collision.gameObject.GetComponent<ForwardMovement>().IsOiled)
+                    /*if (collision.gameObject.GetComponent<ForwardMovement>().IsOiled)
                     {
                         HorizontalKnockBackAmt += (HorizontalKnockBackAmt * 0.5f);
                         VerticalKnockBackAmt += (VerticalKnockBackAmt * 0.5f);
@@ -268,17 +266,15 @@ public class ForwardMovement : MonoBehaviour
                     canMove = false;
                     //Debug.Log("NO MOVING");
                     timerUp = false;
-                    StartCoroutine(knockBackAmtTimer());
+                    StartCoroutine(knockBackAmtTimer());*/
                 }
             }
         }
         else if(collision.gameObject.tag == "Shelf")
         {
             Vector3 hitDirection = collision.transform.position;
+            KnockbackSend(shelfknockBackAmt, hitDirection);
             canMove = false;
-            //collision.gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * shelfknockBackAmt, 450, hitDirection.z * shelfknockBackAmt, ForceMode.Force);
-            gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * shelfknockBackAmt, 450, hitDirection.z * shelfknockBackAmt, ForceMode.Force);
-            //Debug.Log("NO MOVING");
             timerUp = false;
             StartCoroutine(knockBackAmtTimer());
         }
@@ -427,5 +423,21 @@ public class ForwardMovement : MonoBehaviour
                 //Debug.Log("no item");
                 break;
         }
+    }
+
+    public void KnockbackSend(float KB, Vector3 HitDir)
+    {
+        gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt = 6 * KB;
+        gameObject.GetComponent<ForwardMovement>().VerticalKnockBackAmt = 12 * KB;
+        gameObject.GetComponent<ForwardMovement>().knockBackAmtDuration = 5f;
+        if (gameObject.GetComponent<ForwardMovement>().IsOiled)
+        {
+            HorizontalKnockBackAmt += (HorizontalKnockBackAmt * 0.5f);
+            VerticalKnockBackAmt += (VerticalKnockBackAmt * 0.5f);
+        }
+        gameObject.GetComponent<Rigidbody>().AddForce(HitDir.x * HorizontalKnockBackAmt, VerticalKnockBackAmt, HitDir.z * HorizontalKnockBackAmt, ForceMode.Force);
+        canMove = false;
+        timerUp = false;
+        StartCoroutine(knockBackAmtTimer());
     }
 }
