@@ -16,6 +16,13 @@ public class UIUXCanvasScript : MonoBehaviour
     public Image[] sRs;
     public TextMeshProUGUI[] textColors;
 
+    public bool setScoresToZero;
+
+    private void Start()
+    {
+        setScoresToZero = true;
+    }
+
     void Update()
     {
         //print(players.Count);
@@ -50,6 +57,12 @@ public class UIUXCanvasScript : MonoBehaviour
             }
 
             scoreTexts[players.IndexOf(fM)].text = fM.Score.ToString();
+
+            if (setScoresToZero && players.Count >= 4)
+            {
+                fM.Score = 0;
+                setScoresToZero = false;
+            }
         }
 
         foreach(Image s in sRs)
