@@ -177,6 +177,11 @@ public class ForwardMovement : MonoBehaviour
         {
             canMove = false;
         }
+
+        if(timerUp && isGrounded)
+        {
+            LastPlayerHit = null;
+        }
     }
 
     private void GetInput()
@@ -300,7 +305,7 @@ public class ForwardMovement : MonoBehaviour
         {
             if (PowerUp == 0)
             {
-                PowerUp = Random.Range(1, 4);
+                PowerUp = Random.Range(1, 3);
             }
         }
     }
