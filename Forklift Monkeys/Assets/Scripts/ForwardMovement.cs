@@ -290,6 +290,11 @@ public class ForwardMovement : MonoBehaviour
         print("Eh hem");
     }
 
+    public void knockBackTime()
+    {
+        StartCoroutine(knockBackAmtTimer());
+    }
+
     private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.tag == "Floor" && timerUp)
