@@ -8,11 +8,11 @@ public class GameManager : MonoBehaviour
     public GameObject PlayerObject;
     void Start()
     {
-        JoinPlayer(0, 0);
+        //JoinPlayer(0, 0, );
     }
 
-    public PlayerInput JoinPlayer(int playerIndex, int splitScreenIndex, string controlScheme = null, params InputDevice[] pairWithDevices)
+    //public PlayerInput JoinPlayer(int playerIndex, int splitScreenIndex, string controlScheme = null, params InputDevice[] pairWithDevices)
     {
-        return PlayerObject;
+        //return GameObject;
     }
 }
