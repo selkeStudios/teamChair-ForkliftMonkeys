@@ -230,7 +230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -314,6 +314,28 @@ MonoBehaviour:
   - {fileID: 655908357}
   timer: 60
   timerText: {fileID: 2021250413}
+  sRs:
+  - {fileID: 187380996}
+  - {fileID: 524658035}
+  - {fileID: 1656515712}
+  - {fileID: 1735313592}
+  - {fileID: 581799846}
+  - {fileID: 1906672684}
+  - {fileID: 1644709016}
+  - {fileID: 984399345}
+  - {fileID: 878338008}
+  - {fileID: 2003913694}
+  - {fileID: 247623134}
+  textColors:
+  - {fileID: 2021250413}
+  - {fileID: 1222012010}
+  - {fileID: 140805932}
+  - {fileID: 1096255780}
+  - {fileID: 655908357}
+  - {fileID: 374064444}
+  - {fileID: 221137260}
+  - {fileID: 1183471300}
+  - {fileID: 1175421788}
 --- !u!1 &140805930
 GameObject:
   m_ObjectHideFlags: 0

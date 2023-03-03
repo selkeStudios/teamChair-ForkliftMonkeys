@@ -297,7 +297,7 @@ public class ForwardMovement : MonoBehaviour
         {
             if (PowerUp == 0)
             {
-                PowerUp = Random.Range(1, 4);
+                PowerUp = Random.Range(1, 3);
             }
         }
     }
