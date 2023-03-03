@@ -61,6 +61,9 @@ public class ForwardMovement : MonoBehaviour
     public bool oiledFirstTime = true;
     public float OilTimer = 7;
 
+    public bool CanBeAnviled = true;
+    public float AnvilTimer = 5f;
+
     public ForwardMovement LastPlayerHit;
     public int Score;
     //public float LPHClear;
@@ -271,7 +274,7 @@ public class ForwardMovement : MonoBehaviour
         
     }
 
-    public void knockBackPlayer()
+    public void KnockBackPlayer()
     {
         print("Eh hem");
     }
@@ -377,6 +380,14 @@ public class ForwardMovement : MonoBehaviour
             yield return new WaitForSeconds(movingTimer);
             timerUp = true;
         }
+    }
+
+    public IEnumerator AnvilCoolDown()
+    {
+        print("cooling down");
+        yield return new WaitForSeconds(AnvilTimer);
+        print("cool down over");
+        CanBeAnviled = true;
     }
 
     public void UseItemGo(int Item)

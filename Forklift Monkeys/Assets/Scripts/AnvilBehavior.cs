@@ -23,7 +23,7 @@ public class AnvilBehavior : MonoBehaviour
         //extend shockwave throughout arena
         for(int i = 0; i < ShockwaveSpreadLimit; i++)
         {
-            Debug.Log(i);
+            //Debug.Log(i);
 
             //scaling up the prefab
             initialScale = gameObject.transform.localScale;
@@ -41,9 +41,21 @@ public class AnvilBehavior : MonoBehaviour
     //How shockwave interacts with other objects
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && other.gameObject.GetComponent<ForwardMovement>().CanBeAnviled)
         {
-            //other.gameObject.GetComponent<Rigidbody>().AddForce();
+            //determine collision properties
+            other.gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt = 200f;
+            other.gameObject.GetComponent<ForwardMovement>().VerticalKnockBackAmt = 450f;
+            other.gameObject.GetComponent<ForwardMovement>().knockBackAmtDuration = 5f;
+            other.gameObject.GetComponent<ForwardMovement>().hitDirection = (other.transform.position - transform.position);
+            Vector3 hitDirection = other.transform.position - transform.position;
+
+            //do knockback
+            other.gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * other.gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt, other.gameObject.GetComponent<ForwardMovement>().VerticalKnockBackAmt, hitDirection.z * other.gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt, ForceMode.Force);
+            other.gameObject.GetComponent<ForwardMovement>().CanBeAnviled = false;
+
+            //start cooldown
+            StartCoroutine(other.gameObject.GetComponent<ForwardMovement>().AnvilCoolDown());
         }
         if (other.CompareTag("Boxes"))
         {
