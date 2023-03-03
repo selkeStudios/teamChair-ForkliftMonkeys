@@ -62,7 +62,8 @@ public class ForwardMovement : MonoBehaviour
     public float OilTimer = 7;
 
     public bool CanBeAnviled = true;
-    public float AnvilTimer = 5f;
+    public float AnvilTimer = 1f;
+    public AnvilBehavior aB;
 
     public ForwardMovement LastPlayerHit;
     public int Score;
@@ -181,6 +182,11 @@ public class ForwardMovement : MonoBehaviour
         if(timerUp && isGrounded)
         {
             LastPlayerHit = null;
+        }
+
+        if(!CanBeAnviled)
+        {
+            StartCoroutine(AnvilCoolDown());
         }
     }
 
@@ -389,13 +395,8 @@ public class ForwardMovement : MonoBehaviour
 
     public IEnumerator AnvilCoolDown()
     {
-        while(!CanBeAnviled)
-        {
-            print("cooling down");
-            yield return new WaitForSeconds(5f);
-            print("cool down over");
-            CanBeAnviled = true;
-        }
+        yield return new WaitForSeconds(AnvilTimer);
+        CanBeAnviled = true;
     }
 
     public void UseItemGo(int Item)
@@ -410,7 +411,8 @@ public class ForwardMovement : MonoBehaviour
             case 2:
                 //Debug.Log("anvil");
                 PowerUp = 0;
-                Instantiate(anvilReference, gameObject.transform.position, gameObject.transform.rotation);
+                aB = Instantiate(anvilReference, gameObject.transform.position, gameObject.transform.rotation).gameObject.GetComponent<AnvilBehavior>();
+                aB.monkeyNotToHurt = gameObject;
                 break;
             case 3:
                 Debug.Log("Punch");

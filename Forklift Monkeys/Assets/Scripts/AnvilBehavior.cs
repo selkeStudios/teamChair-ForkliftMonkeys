@@ -13,6 +13,8 @@ public class AnvilBehavior : MonoBehaviour
     //multiplied by scale to make shockwave bigger
     public float IncShockwave;
 
+    public GameObject monkeyNotToHurt;
+
     private void Awake()
     {
         StartCoroutine(Shockwave());
@@ -41,7 +43,7 @@ public class AnvilBehavior : MonoBehaviour
     //How shockwave interacts with other objects
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && other.gameObject.GetComponent<ForwardMovement>().CanBeAnviled)
+        if (other.CompareTag("Player") && other.gameObject.GetComponent<ForwardMovement>().CanBeAnviled && other.gameObject != monkeyNotToHurt)
         {
             //determine collision properties
             other.gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt = 200f;
@@ -53,9 +55,6 @@ public class AnvilBehavior : MonoBehaviour
             //do knockback
             other.gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * other.gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt, other.gameObject.GetComponent<ForwardMovement>().VerticalKnockBackAmt, hitDirection.z * other.gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt, ForceMode.Force);
             other.gameObject.GetComponent<ForwardMovement>().CanBeAnviled = false;
-
-            //start cooldown
-            StartCoroutine(other.gameObject.GetComponent<ForwardMovement>().AnvilCoolDown());
         }
         if (other.CompareTag("Boxes"))
         {
