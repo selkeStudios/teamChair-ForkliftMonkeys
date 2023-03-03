@@ -14,6 +14,7 @@ public class ForwardMovement : MonoBehaviour
     public float accelerationAmount;
     public float decelerationAmount;
     public bool canMove;
+    public bool isMovingForward;
 
     public float rotationSpeed;
     public Transform orientation;
@@ -198,16 +199,18 @@ public class ForwardMovement : MonoBehaviour
 
         hInput = move;
 
-        if (APressed == true && canMove == true)
+        if (APressed == true && canMove == true /*&& (isMovingForward || moveSpeed <= minimumMoveSpeed)*/)
         {
             //accelerate
             verticalInput = 1;
+            isMovingForward= true;
             //Debug.Log("you pressed A");
         }
-        else if (BPressed == true && canMove == true)
+        else if (BPressed == true && canMove == true /*&& (!isMovingForward || moveSpeed <= minimumMoveSpeed)*/)
         {
             //reverse
             verticalInput = -1;
+            isMovingForward= false;
             //Debug.Log("you pressed B");
         }
         else
@@ -251,22 +254,6 @@ public class ForwardMovement : MonoBehaviour
                     //collision.gameObject.GetComponent<ForwardMovement>().hitDirection = (collision.transform.position - transform.position);
                     Vector3 hitDirection = collision.transform.position - transform.position;
                     collision.gameObject.GetComponent<ForwardMovement>().KnockbackSend(knockBackAmt, hitDirection);
-                    //apply those to the other object
-                    //collision.gameObject.GetComponent<ForwardMovement>().knockBackAmt();
-
-                    //Debug.Log(HorizontalknockBackAmt + VerticalknockBackAmt);
-
-                    /*if (collision.gameObject.GetComponent<ForwardMovement>().IsOiled)
-                    {
-                        HorizontalKnockBackAmt += (HorizontalKnockBackAmt * 0.5f);
-                        VerticalKnockBackAmt += (VerticalKnockBackAmt * 0.5f);
-                    }
-
-                    collision.gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * HorizontalKnockBackAmt, VerticalKnockBackAmt, hitDirection.z * HorizontalKnockBackAmt, ForceMode.Force);
-                    canMove = false;
-                    //Debug.Log("NO MOVING");
-                    timerUp = false;
-                    StartCoroutine(knockBackAmtTimer());*/
                 }
             }
         }
