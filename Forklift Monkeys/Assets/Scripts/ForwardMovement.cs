@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using TMPro;
 
 public class ForwardMovement : MonoBehaviour
 {
@@ -26,20 +29,22 @@ public class ForwardMovement : MonoBehaviour
     public bool BPressed = false;
     public bool YPressed = false;
     public bool XPressed = false;
+    bool XPressPrevious = false;
 
     public float gravityScale;
     private float globalGravity = -9.81f;
 
-    public float maxKnockback;
-    public float minKnockback;
-    public float knockbackMultiplyer;
-    public float knockback;
-    public float shelfKnockback;
+    public float maxKnockBackAmt;
+    public float minKnockBackAmt;
+    public float knockBackAmtMultiplyer;
+    public float knockBackAmt;
+    public float shelfknockBackAmt;
+    public TextMeshProUGUI knockBackAmtText;
 
     public bool CanBeKnockedback = true;
-    public float KnockbackDuration;
-    public float HorizontalKnockback;
-    public float VerticalKnockback;
+    public float knockBackAmtDuration;
+    public float HorizontalKnockBackAmt;
+    public float VerticalKnockBackAmt;
     public Vector3 hitDirection;
 
     public Vector3 RespawnPoint;
@@ -56,18 +61,32 @@ public class ForwardMovement : MonoBehaviour
     public bool oiledFirstTime = true;
     public float OilTimer = 7;
 
+    public bool CanBeAnviled = true;
+    public float AnvilTimer = 1f;
+    public AnvilBehavior aB;
+
     public ForwardMovement LastPlayerHit;
     public int Score;
-
-    public GameObject BoxingGlove;
-
-    public bool HasItem = true;
-
     //public float LPHClear;
 
+    public int PowerUp = 0;
+    public GameObject oilReferance;
+    public GameObject anvilReference;
+
+    public float movingTimer;
+    public bool timerUp;
+
+    public Transform oilSpawner;
+
+    public bool isGrounded;
+    public Transform groundCheck;
+    public float groundDistance;
+    public LayerMask groundMask;
+
+    private UIUXCanvasScript uIB;
+
     private void Awake()
-    {
-        
+    {   
         //input system stuff
         controls = new InputActions();
 
@@ -100,6 +119,8 @@ public class ForwardMovement : MonoBehaviour
         rb.freezeRotation = true;
         canMove = true;
 
+        uIB = FindObjectOfType<UIUXCanvasScript>();
+        uIB.players.Add(gameObject.GetComponent<ForwardMovement>());
         //LPHClear = 5f;
     }
 
@@ -117,31 +138,56 @@ public class ForwardMovement : MonoBehaviour
 
     private void Update()
     {
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        knockBackAmtText.text = knockBackAmt.ToString("N0");
+
         GetInput();
 
         if (moveDirection.magnitude != 0)
         {
             moveSpeed += accelerationAmount * Time.deltaTime;
-            knockback += accelerationAmount * knockbackMultiplyer * Time.deltaTime;
+            knockBackAmt += accelerationAmount * knockBackAmtMultiplyer * Time.deltaTime;
         }
         else
         {
             moveSpeed -= decelerationAmount * Time.deltaTime;
-            knockback -= decelerationAmount * knockbackMultiplyer * Time.deltaTime;
+            knockBackAmt -= decelerationAmount * knockBackAmtMultiplyer * Time.deltaTime;
         }
 
         if (moveSpeed <= minimumMoveSpeed)
         {
             moveSpeed = minimumMoveSpeed;
-            knockback = minKnockback;
         }
 
         if (moveSpeed >= maximumMoveSpeed)
         {
             moveSpeed = maximumMoveSpeed;
-            knockback = maxKnockback;
         }
-        
+
+        if (knockBackAmt <= minKnockBackAmt)
+        {
+            knockBackAmt = minKnockBackAmt;
+        }
+
+        if (knockBackAmt >= maxKnockBackAmt)
+        {
+            knockBackAmt = maxKnockBackAmt;
+        }
+
+        if(uIB.timer <= 0)
+        {
+            canMove = false;
+        }
+
+        if(timerUp && isGrounded)
+        {
+            LastPlayerHit = null;
+        }
+
+        if(!CanBeAnviled)
+        {
+            StartCoroutine(AnvilCoolDown());
+        }
     }
 
     private void GetInput()
@@ -169,25 +215,27 @@ public class ForwardMovement : MonoBehaviour
             verticalInput = 0;
         }
 
-        if (XPressed == true && canMove == true)
+        if (XPressed == true && canMove == true && XPressPrevious == false)
         {
             //accelerate
             //Debug.Log("use item");
-            if (HasItem == true)
-            {
-                StartCoroutine(GlovePunch());
-            }
+            UseItemGo(PowerUp);
+            XPressPrevious = true;
+        }
+        else if(XPressed== false && XPressPrevious == true)
+        {
+            XPressPrevious = false;
         }
         if (YPressed == true)
         {
             //reverse
-            //Debug.Log("*horn noises*");
+            Debug.Log("*horn noises*");
         }
     }
     private void OnCollisionEnter(Collision collision)
     {
         //probably replace this with colliding with another player later
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.tag == "Player")
         {
             if (collision.gameObject.GetComponent<ForwardMovement>())
             {
@@ -199,39 +247,52 @@ public class ForwardMovement : MonoBehaviour
                 if (collision.gameObject.GetComponent<ForwardMovement>().CanBeKnockedback == true)
                 {
                     //determine collision properties
-                    collision.gameObject.GetComponent<ForwardMovement>().HorizontalKnockback = 200f;
-                    collision.gameObject.GetComponent<ForwardMovement>().VerticalKnockback = 450f;
-                    collision.gameObject.GetComponent<ForwardMovement>().KnockbackDuration = 5f;
+                    collision.gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt = 200f;
+                    collision.gameObject.GetComponent<ForwardMovement>().VerticalKnockBackAmt = 450f;
+                    collision.gameObject.GetComponent<ForwardMovement>().knockBackAmtDuration = 5f;
                     collision.gameObject.GetComponent<ForwardMovement>().hitDirection = (collision.transform.position - transform.position);
                     Vector3 hitDirection = collision.transform.position - transform.position;
 
                     //apply those to the other object
-                    //collision.gameObject.GetComponent<ForwardMovement>().Knockback();
+                    //collision.gameObject.GetComponent<ForwardMovement>().knockBackAmt();
 
-                    //Debug.Log(HorizontalKnockback + VerticalKnockback);
+                    //Debug.Log(HorizontalknockBackAmt + VerticalknockBackAmt);
 
                     if (collision.gameObject.GetComponent<ForwardMovement>().IsOiled)
                     {
-                        HorizontalKnockback += (HorizontalKnockback * 0.5f);
-                        VerticalKnockback += (VerticalKnockback * 0.5f);
+                        HorizontalKnockBackAmt += (HorizontalKnockBackAmt * 0.5f);
+                        VerticalKnockBackAmt += (VerticalKnockBackAmt * 0.5f);
                     }
 
-                    collision.gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * HorizontalKnockback, VerticalKnockback, hitDirection.z * HorizontalKnockback, ForceMode.Force);
+                    collision.gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * HorizontalKnockBackAmt, VerticalKnockBackAmt, hitDirection.z * HorizontalKnockBackAmt, ForceMode.Force);
                     canMove = false;
+                    //Debug.Log("NO MOVING");
+                    timerUp = false;
+                    StartCoroutine(knockBackAmtTimer());
                 }
             }
         }
         else if(collision.gameObject.tag == "Shelf")
         {
             Vector3 hitDirection = collision.transform.position;
-            //collision.gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * shelfKnockback, 450, hitDirection.z * shelfKnockback, ForceMode.Force);
-            gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * shelfKnockback, 450, hitDirection.z * shelfKnockback, ForceMode.Force);
+            canMove = false;
+            //collision.gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * shelfknockBackAmt, 450, hitDirection.z * shelfknockBackAmt, ForceMode.Force);
+            gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * shelfknockBackAmt, 450, hitDirection.z * shelfknockBackAmt, ForceMode.Force);
+            //Debug.Log("NO MOVING");
+            timerUp = false;
+            StartCoroutine(knockBackAmtTimer());
         }
+        
+    }
+
+    public void KnockBackPlayer()
+    {
+        print("Eh hem");
     }
 
     private void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.tag == "Floor")
+        if (collision.gameObject.tag == "Floor" && timerUp)
         {
             canMove = true;
         }
@@ -245,6 +306,13 @@ public class ForwardMovement : MonoBehaviour
             IsOiled = true;
             oiledFirstTime = true;
             StartCoroutine(Oiled());
+        }
+        else if(other.gameObject.tag == "Boxes")
+        {
+            if (PowerUp == 0)
+            {
+                PowerUp = Random.Range(1, 3);
+            }
         }
     }
 
@@ -260,9 +328,16 @@ public class ForwardMovement : MonoBehaviour
             moveDirection = orientation.forward;
             orientation.Rotate(0, 0, 0);
         }
-        
 
-        rb.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
+        if (canMove)
+        {
+            rb.AddForce(moveDirection.normalized * moveSpeed, ForceMode.Force);
+        }
+        else
+        {
+            //Debug.Log("no Move");
+            rb.velocity = Vector3.zero;
+        }
     }
 
     private void OnEnable()
@@ -308,19 +383,44 @@ public class ForwardMovement : MonoBehaviour
             IsOiled = false;
         }
     }
-    public IEnumerator GlovePunch()
+
+    public IEnumerator knockBackAmtTimer()
     {
-        HasItem = false;
-        Vector3 spawnPos = transform.position + transform.forward * 4f;
-        var PunchGlove = Instantiate(BoxingGlove, spawnPos, transform.rotation);
-        PunchGlove.transform.parent = gameObject.transform;
-        for (int i = 0; i < 75; i++)
+        while (!timerUp)
         {
-            PunchGlove.transform.position += transform.forward * 0.1f;
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(movingTimer);
+            timerUp = true;
         }
-        yield return new WaitForSeconds(0.25f);
-        Destroy(PunchGlove);
-        yield return null;
+    }
+
+    public IEnumerator AnvilCoolDown()
+    {
+        yield return new WaitForSeconds(AnvilTimer);
+        CanBeAnviled = true;
+    }
+
+    public void UseItemGo(int Item)
+    {
+        switch (Item)
+        {
+            case 1:
+                //Debug.Log("get oiled nerd");
+                PowerUp = 0;
+                Instantiate(oilReferance, oilSpawner.position , oilSpawner.rotation);
+                break;
+            case 2:
+                //Debug.Log("anvil");
+                PowerUp = 0;
+                aB = Instantiate(anvilReference, gameObject.transform.position, gameObject.transform.rotation).gameObject.GetComponent<AnvilBehavior>();
+                aB.monkeyNotToHurt = gameObject;
+                break;
+            case 3:
+                Debug.Log("Punch");
+                PowerUp = 0;
+                break;
+            default:
+                //Debug.Log("no item");
+                break;
+        }
     }
 }

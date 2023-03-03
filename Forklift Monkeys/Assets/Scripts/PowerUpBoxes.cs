@@ -20,12 +20,13 @@ public class PowerUpBoxes : MonoBehaviour
         rb.AddForce(gravity, ForceMode.Acceleration);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if(collision.gameObject.tag == "Player")
+        if(other.gameObject.tag == "Player")
         {
             Destroy(gameObject);
         }
     }
+
 
 }
