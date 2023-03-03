@@ -188,6 +188,11 @@ public class ForwardMovement : MonoBehaviour
         {
             StartCoroutine(AnvilCoolDown());
         }
+
+        if(gameObject.transform.position.y <= -10)
+        {
+            PlayerRespawn();
+        }
     }
 
     private void GetInput()
@@ -353,6 +358,7 @@ public class ForwardMovement : MonoBehaviour
     {
         controls.Player1.Disable();
     }
+
     public void PlayerRespawn()
     {
         //respawn player
