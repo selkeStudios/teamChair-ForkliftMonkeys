@@ -5,6 +5,7 @@ using UnityEngine;
 public class BoxingGloveBehaviour : MonoBehaviour
 {
     public GameObject monkeyNotToHurt;
+    public float GloveKnockbackModifier;
     void Awake()
     {
         StartCoroutine(GlovePunch());
@@ -27,14 +28,11 @@ public class BoxingGloveBehaviour : MonoBehaviour
         if (other.CompareTag("Player") && other.gameObject != monkeyNotToHurt)
         {
             //determine collision properties
-            other.gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt = 200f;
-            other.gameObject.GetComponent<ForwardMovement>().VerticalKnockBackAmt = 450f;
-            other.gameObject.GetComponent<ForwardMovement>().knockBackAmtDuration = 5f;
-            other.gameObject.GetComponent<ForwardMovement>().hitDirection = (other.transform.position - transform.position);
             Vector3 hitDirection = other.transform.position - transform.position;
 
             //do knockback
-            other.gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * other.gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt, other.gameObject.GetComponent<ForwardMovement>().VerticalKnockBackAmt, hitDirection.z * other.gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt, ForceMode.Force);
+            //other.gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * other.gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt, other.gameObject.GetComponent<ForwardMovement>().VerticalKnockBackAmt, hitDirection.z * other.gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt, ForceMode.Force);
+            other.gameObject.GetComponent<ForwardMovement>().KnockbackSend(GloveKnockbackModifier, hitDirection);
         }
     }
 }

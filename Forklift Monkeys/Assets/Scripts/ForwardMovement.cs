@@ -278,7 +278,7 @@ public class ForwardMovement : MonoBehaviour
                 }
             }
         }
-        else if(collision.gameObject.tag == "Shelf")
+        else if(collision.gameObject.CompareTag("Shelf"))
         {
             Vector3 hitDirection = collision.transform.position;
             KnockbackSend(shelfknockBackAmt, hitDirection);
@@ -309,14 +309,14 @@ public class ForwardMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Oil")
+        if (other.gameObject.CompareTag("Oil"))
         {
             //Debug.Log("OIL OIL OIL");
             IsOiled = true;
             oiledFirstTime = true;
             StartCoroutine(Oiled());
         }
-        else if(other.gameObject.tag == "Boxes")
+        else if(other.gameObject.CompareTag("Boxes"))
         {
             if (PowerUp == 0)
             {
