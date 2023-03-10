@@ -245,27 +245,7 @@ public class ForwardMovement : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        //probably replace this with colliding with another player later
-        if (collision.gameObject.tag == "Player")
-        {
-            if (collision.gameObject.GetComponent<ForwardMovement>())
-            {
-                //set the last player hit
-                LastPlayerHit = collision.gameObject.GetComponent<ForwardMovement>();
-                  
-                //StartCoroutine(ClearLPH());
-
-                if (collision.gameObject.GetComponent<ForwardMovement>().CanBeKnockedback == true)
-                {
-                    //determine collision properties
-                    
-                    //collision.gameObject.GetComponent<ForwardMovement>().hitDirection = (collision.transform.position - transform.position);
-                    Vector3 hitDirection = collision.transform.position - transform.position;
-                    collision.gameObject.GetComponent<ForwardMovement>().KnockbackSend(knockBackAmt, hitDirection);
-                }
-            }
-        }
-        else if(collision.gameObject.CompareTag("Shelf"))
+        if(collision.gameObject.CompareTag("Shelf"))
         {
             Vector3 hitDirection = collision.transform.position;
             KnockbackSend(shelfknockBackAmt, hitDirection);
@@ -273,7 +253,6 @@ public class ForwardMovement : MonoBehaviour
             timerUp = false;
             StartCoroutine(knockBackAmtTimer());
         }
-        
     }
 
     public void KnockBackPlayer()
@@ -296,6 +275,27 @@ public class ForwardMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //probably replace this with colliding with another player later
+        if (other.CompareTag("Forks"))
+        {
+            if (other.transform.parent.gameObject.GetComponent<ForwardMovement>())
+            {
+                //set the last player hit
+                LastPlayerHit = other.transform.parent.gameObject.GetComponent<ForwardMovement>();
+
+                //StartCoroutine(ClearLPH());
+
+                if (other.transform.parent.gameObject.GetComponent<ForwardMovement>().CanBeKnockedback == true)
+                {
+                    //determine collision properties
+
+                    //collision.gameObject.GetComponent<ForwardMovement>().hitDirection = (collision.transform.position - transform.position);
+                    Vector3 hitDirection = other.transform.parent.gameObject.transform.position - transform.position;
+                    other.transform.parent.gameObject.GetComponent<ForwardMovement>().KnockbackSend(knockBackAmt, hitDirection);
+                }
+            }
+        }
+
         if (other.gameObject.CompareTag("Oil"))
         {
             //Debug.Log("OIL OIL OIL");
