@@ -304,6 +304,7 @@ MonoBehaviour:
   PowerUp: 0
   oilReferance: {fileID: 937820757277789964, guid: ecda6884fa353d44a863aed836a2008d, type: 3}
   anvilReference: {fileID: 6458490802078123461, guid: 7f8f0765f0e7fc84b9d2a45e360ade45, type: 3}
+  gloveReference: {fileID: 3771068778829625128, guid: f936cb4f13f0e524db7c21c4b1bb3e84, type: 3}
   movingTimer: 0.5
   timerUp: 0
   oilSpawner: {fileID: 8791262005968557662}

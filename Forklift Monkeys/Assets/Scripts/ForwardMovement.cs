@@ -66,6 +66,8 @@ public class ForwardMovement : MonoBehaviour
     public float AnvilTimer = 1f;
     public AnvilBehavior aB;
 
+    public BoxingGloveBehaviour gB;
+
     public ForwardMovement LastPlayerHit;
     public int Score;
     //public float LPHClear;
@@ -73,6 +75,7 @@ public class ForwardMovement : MonoBehaviour
     public int PowerUp = 0;
     public GameObject oilReferance;
     public GameObject anvilReference;
+    public GameObject gloveReference;
 
     public float movingTimer;
     public bool timerUp;
@@ -262,7 +265,7 @@ public class ForwardMovement : MonoBehaviour
                 }
             }
         }
-        else if(collision.gameObject.tag == "Shelf")
+        else if(collision.gameObject.CompareTag("Shelf"))
         {
             Vector3 hitDirection = collision.transform.position;
             KnockbackSend(shelfknockBackAmt, hitDirection);
@@ -293,18 +296,18 @@ public class ForwardMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Oil")
+        if (other.gameObject.CompareTag("Oil"))
         {
             //Debug.Log("OIL OIL OIL");
             IsOiled = true;
             oiledFirstTime = true;
             StartCoroutine(Oiled());
         }
-        else if(other.gameObject.tag == "Boxes")
+        else if(other.gameObject.CompareTag("Boxes"))
         {
             if (PowerUp == 0)
             {
-                PowerUp = Random.Range(1, 3);
+                PowerUp = Random.Range(1, 4);
             }
             other.gameObject.GetComponent<PowerUpBoxes>().BreakBox();
         }
@@ -410,8 +413,11 @@ public class ForwardMovement : MonoBehaviour
                 aB.monkeyNotToHurt = gameObject;
                 break;
             case 3:
-                Debug.Log("Punch");
+                //Debug.Log("Punch");
                 PowerUp = 0;
+                gB = Instantiate(gloveReference, transform.position + transform.forward * 3.75f, transform.rotation).gameObject.GetComponent<BoxingGloveBehaviour>();
+                gB.transform.parent = gameObject.transform;
+                gB.monkeyNotToHurt = gameObject;
                 break;
             default:
                 //Debug.Log("no item");
