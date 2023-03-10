@@ -2,10 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject PlayerPrefab;
+
+    public static InputUser PerformPairingWithDevice(InputDevice device, InputUser user = default(InputUser), InputUserPairingOptions options = InputUserPairingOptions.None)
+    {
+        return ;
+    }
 
     static PlayerInput Instantiate(GameObject PlayerPrefab, int playerIndex, string controlScheme = null, int splitScreenIndex = 0, InputDevice pairWithDevice = null)
     {
