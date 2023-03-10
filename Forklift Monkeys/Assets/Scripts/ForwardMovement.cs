@@ -309,6 +309,7 @@ public class ForwardMovement : MonoBehaviour
             {
                 PowerUp = Random.Range(1, 4);
             }
+            other.gameObject.GetComponent<PowerUpBoxes>().BreakBox();
         }
     }
 
