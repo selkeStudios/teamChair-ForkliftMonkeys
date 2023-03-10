@@ -33,6 +33,8 @@ public class BoxingGloveBehaviour : MonoBehaviour
             //determine collision properties
             Vector3 hitDirection = other.transform.position - transform.position;
 
+            other.gameObject.GetComponent<ForwardMovement>().LastPlayerHit = monkeyNotToHurt.GetComponent<ForwardMovement>();
+
             //do knockback
             //other.gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * other.gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt, other.gameObject.GetComponent<ForwardMovement>().VerticalKnockBackAmt, hitDirection.z * other.gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt, ForceMode.Force);
             other.gameObject.GetComponent<ForwardMovement>().KnockbackSend(GloveKnockbackModifier, hitDirection);
