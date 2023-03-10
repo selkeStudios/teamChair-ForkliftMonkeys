@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class PowerUpBoxes : MonoBehaviour
@@ -28,5 +29,8 @@ public class PowerUpBoxes : MonoBehaviour
         }
     }
 
-
+    public void BreakBox()
+    {
+        Destroy(gameObject);
+    }
 }
