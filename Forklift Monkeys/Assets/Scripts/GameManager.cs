@@ -2,30 +2,59 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Users;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject PlayerPrefab;
-
-    public static InputUser PerformPairingWithDevice(InputDevice device, InputUser user = default(InputUser), InputUserPairingOptions options = InputUserPairingOptions.None)
-    {
-        return ;
-    }
-
-    static PlayerInput Instantiate(GameObject PlayerPrefab, int playerIndex, string controlScheme = null, int splitScreenIndex = 0, InputDevice pairWithDevice = null)
-    {
-        return PlayerPrefab.GetComponent<PlayerInput>();
-    }
-
+    public GameObject PlayerObject;
+    public PlayerInputManager pIM;
+    public Transform[] playerSpawnPts;
 
     void Start()
     {
-        Instantiate(PlayerPrefab, 0, null, 0, null);
+        joinANewPlayer();
+        /*
+        for (int i = 0; i < 4; ++i)
+        {
+            joinANewPlayer();
+            //The first parameter controls which screen the respective player is on
+
+            //print(i);
+        }
+        */
+        //pIM.JoinPlayer(1, 1, null);
+        /*
+        for (int i = 0; i < 2; i++)
+        {
+            pIM.JoinPlayer(i, i, "test", inputDevice);
+            //pIM.playerPrefab.transform.position = playerSpawnPts[i].position;
+        }
+        */
+        //JoinPlayer(0, 0, );
+    }
+
+    private void Update()
+    {
+        /*
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            joinANewPlayer();
+        }
+        */
+    }
+
+    public void joinANewPlayer()
+    {
+        if(pIM.playerCount < pIM.maxPlayerCount)
+        {
+            int playerIndex = pIM.playerCount;
+            pIM.JoinPlayer(playerIndex);
+
+            pIM.playerPrefab.gameObject.transform.position = playerSpawnPts[playerIndex].position;
+        }
     }
 
     //public PlayerInput JoinPlayer(int playerIndex, int splitScreenIndex, string controlScheme = null, params InputDevice[] pairWithDevices)
     //{
-        //return GameObject;
+    //return GameObject;
     //}
-  }
+}
