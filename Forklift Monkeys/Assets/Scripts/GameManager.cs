@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         joinANewPlayer();
+
+        //JoinFourPlayers();
+
         /*
         for (int i = 0; i < 4; ++i)
         {
@@ -49,12 +52,26 @@ public class GameManager : MonoBehaviour
             int playerIndex = pIM.playerCount;
             pIM.JoinPlayer(playerIndex);
 
+            Debug.Log("index = " + playerIndex);
+
+
             pIM.playerPrefab.gameObject.transform.position = playerSpawnPts[playerIndex].position;
         }
     }
 
+    //this only joined one player, though it prints through all the loops. I tried adding themsplit screen index but that didn't work.
+    /*
+    public void JoinFourPlayers()
+    {
+        for(int i = 0; i < 2; i++)
+        {
+            pIM.JoinPlayer(i, i);
+            //Debug.Log(i);
+
+            //pIM.playerPrefab.gameObject.transform.position = playerSpawnPts[i].position;
+        }
+    }
+    */
+
     //public PlayerInput JoinPlayer(int playerIndex, int splitScreenIndex, string controlScheme = null, params InputDevice[] pairWithDevices)
-    //{
-    //return GameObject;
-    //}
 }
