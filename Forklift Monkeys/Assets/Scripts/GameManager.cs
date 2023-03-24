@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
             pIM.playerPrefab.GetComponent<ForwardMovement>().RespawnPoint = playerSpawnPts[i].position;
         }
         
-
         //JoinFourPlayers();
 
         /*
