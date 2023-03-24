@@ -401,7 +401,7 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 8
-  playerIndex: 0
+  playerIndex: 3
   forkliftPlayerMaterials:
   - {fileID: 2100000, guid: 78492cf0a8df84fdcbd38f3afa54032d, type: 2}
   - {fileID: 2100000, guid: cdb982ff9090346caa581505549c6779, type: 2}

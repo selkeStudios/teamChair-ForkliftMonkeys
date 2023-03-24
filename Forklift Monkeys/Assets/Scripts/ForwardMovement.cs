@@ -362,9 +362,12 @@ public class ForwardMovement : MonoBehaviour
     {
         //respawn player
         gameObject.transform.position = RespawnPoint;
+        //make poweup none
+        PowerUp = 0;
+
 
         //score mode
-        if(LastPlayerHit != null)
+        if (LastPlayerHit != null)
         {
             LastPlayerHit.Score++;
         }
