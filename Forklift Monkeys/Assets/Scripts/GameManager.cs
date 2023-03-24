@@ -11,10 +11,13 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        //joinANewPlayer();
+
         for (int i = 0; i < 4; i++)
         {
             PlayerInput.Instantiate(PlayerObject, i, null, -1);
-            //player.gameObject.transform.position = playerSpawnPts[i].position;
+            pIM.playerPrefab.transform.position = playerSpawnPts[i].position;
+            pIM.playerPrefab.GetComponent<ForwardMovement>().RespawnPoint = playerSpawnPts[i].position;
         }
         
 
