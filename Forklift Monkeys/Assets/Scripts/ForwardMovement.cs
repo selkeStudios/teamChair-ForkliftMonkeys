@@ -41,6 +41,8 @@ public class ForwardMovement : MonoBehaviour
     public float knockBackAmt;
     public float shelfknockBackAmt;
     public TextMeshProUGUI knockBackAmtText;
+    public float knockBackAccel;
+    public float knockBackDecel;
 
     public bool CanBeKnockedback = true;
     public float knockBackAmtDuration;
@@ -150,12 +152,12 @@ public class ForwardMovement : MonoBehaviour
         if (moveDirection.magnitude != 0)
         {
             moveSpeed += accelerationAmount * Time.deltaTime;
-            knockBackAmt += accelerationAmount * knockBackAmtMultiplyer * Time.deltaTime;
+            knockBackAmt += knockBackAccel * knockBackAmtMultiplyer * Time.deltaTime;
         }
         else
         {
             moveSpeed -= decelerationAmount * Time.deltaTime;
-            knockBackAmt -= decelerationAmount * knockBackAmtMultiplyer * Time.deltaTime;
+            knockBackAmt -= knockBackDecel * knockBackAmtMultiplyer * Time.deltaTime;
         }
 
         if (moveSpeed <= minimumMoveSpeed)

@@ -9,21 +9,23 @@ public class GameManager : MonoBehaviour
     public PlayerInputManager pIM;
     public Transform[] playerSpawnPts;
 
+    public event System.Action<PlayerInput> onPlayerJoined;
+
+    public PlayerInput pI;
+
     void Start()
     {
-        joinANewPlayer();
+        //joinANewPlayer();
 
         //JoinFourPlayers();
 
-        /*
         for (int i = 0; i < 4; ++i)
         {
-            joinANewPlayer();
+            joinANewPlayer(i);
             //The first parameter controls which screen the respective player is on
 
             //print(i);
         }
-        */
         //pIM.JoinPlayer(1, 1, null);
         /*
         for (int i = 0; i < 2; i++)
@@ -45,18 +47,19 @@ public class GameManager : MonoBehaviour
         */
     }
 
-    public void joinANewPlayer()
+    public void joinANewPlayer(int playerIndex)
     {
-        if(pIM.playerCount < pIM.maxPlayerCount)
-        {
-            int playerIndex = pIM.playerCount;
-            pIM.JoinPlayer(playerIndex);
 
-            Debug.Log("index = " + playerIndex);
+        //int playerIndex = pIM.playerCount;
+        pIM.JoinPlayer(playerIndex);
 
+        //PlayerInput.Instantiate(pIM.playerPrefab, );
 
-            pIM.playerPrefab.gameObject.transform.position = playerSpawnPts[playerIndex].position;
-        }
+        //Debug.Log("index = " + playerIndex);
+
+        //Instantiate player prefab
+
+        pIM.playerPrefab.gameObject.transform.position = playerSpawnPts[playerIndex].position;
     }
 
     //this only joined one player, though it prints through all the loops. I tried adding the split screen index but that didn't work.
