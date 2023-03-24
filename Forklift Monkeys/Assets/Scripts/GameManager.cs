@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //this only joined one player, though it prints through all the loops. I tried adding themsplit screen index but that didn't work.
+    //this only joined one player, though it prints through all the loops. I tried adding the split screen index but that didn't work.
     /*
     public void JoinFourPlayers()
     {
