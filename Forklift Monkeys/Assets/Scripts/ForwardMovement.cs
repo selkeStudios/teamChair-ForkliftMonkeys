@@ -89,7 +89,9 @@ public class ForwardMovement : MonoBehaviour
     public float groundDistance;
     public LayerMask groundMask;
 
+    public int playerIndex = 0;
     public Material[] forkliftPlayerMaterials;
+    public MeshRenderer[] meshObjects;
 
     private UIUXCanvasScript uIB;
 
@@ -141,7 +143,6 @@ public class ForwardMovement : MonoBehaviour
             MovePlayer();
         }
         
-
         Vector3 gravity = globalGravity * gravityScale * Vector3.up;
         rb.AddForce(gravity, ForceMode.Acceleration);
     }
@@ -153,7 +154,10 @@ public class ForwardMovement : MonoBehaviour
 
         GetInput();
 
-        //print(MyInput.currentControlScheme);
+        foreach(MeshRenderer m in meshObjects)
+        {
+            m.materials[0] = forkliftPlayerMaterials[playerIndex];
+        }
 
         if (moveDirection.magnitude != 0)
         {
