@@ -130,6 +130,8 @@ public class ForwardMovement : MonoBehaviour
         uIB = FindObjectOfType<UIUXCanvasScript>();
         uIB.players.Add(gameObject.GetComponent<ForwardMovement>());
         //LPHClear = 5f;
+
+        //Assign each of the players their correct forklift material
     }
 
     private void FixedUpdate()
