@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShockwaveSpreadTime: 0.2
-  ShockwaveSpreadLimit: 15
+  ShockwaveSpreadLimit: 10
   initialScale: {x: 0, y: 0, z: 0}
-  IncShockwave: 2
+  IncShockwave: 1.5
+  monkeyNotToHurt: {fileID: 0}
