@@ -89,6 +89,8 @@ public class ForwardMovement : MonoBehaviour
     public float groundDistance;
     public LayerMask groundMask;
 
+    public Material[] forkliftPlayerMaterials;
+
     private UIUXCanvasScript uIB;
 
     private void Awake()
@@ -148,6 +150,8 @@ public class ForwardMovement : MonoBehaviour
         knockBackAmtText.text = knockBackAmt.ToString("N0");
 
         GetInput();
+
+        //print(MyInput.currentControlScheme);
 
         if (moveDirection.magnitude != 0)
         {
