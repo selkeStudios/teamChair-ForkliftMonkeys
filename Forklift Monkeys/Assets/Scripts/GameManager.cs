@@ -9,23 +9,27 @@ public class GameManager : MonoBehaviour
     public PlayerInputManager pIM;
     public Transform[] playerSpawnPts;
 
-    public event System.Action<PlayerInput> onPlayerJoined;
-
-    public PlayerInput pI;
-
     void Start()
     {
         //joinANewPlayer();
 
+        for (int i = 0; i < 4; i++)
+        {
+            PlayerInput.Instantiate(PlayerObject, i, null, -1);
+        }
+        
+
         //JoinFourPlayers();
 
+        /*
         for (int i = 0; i < 4; ++i)
         {
-            joinANewPlayer(i);
+            joinANewPlayer();
             //The first parameter controls which screen the respective player is on
 
             //print(i);
         }
+        */
         //pIM.JoinPlayer(1, 1, null);
         /*
         for (int i = 0; i < 2; i++)
@@ -34,7 +38,10 @@ public class GameManager : MonoBehaviour
             //pIM.playerPrefab.transform.position = playerSpawnPts[i].position;
         }
         */
-        //JoinPlayer(0, 0, );
+
+        //joins one player with camera not working
+        //pIM.JoinPlayer(0, 0);
+        //pIM.JoinPlayer(1, 1);
     }
 
     private void Update()
@@ -46,30 +53,29 @@ public class GameManager : MonoBehaviour
         }
         */
     }
-
-    public void joinANewPlayer(int playerIndex)
+    /*
+    public void joinANewPlayer()
     {
+        if(pIM.playerCount < pIM.maxPlayerCount)
+        {
+            int playerIndex = pIM.playerCount;
+            pIM.JoinPlayer(playerIndex);
 
-        //int playerIndex = pIM.playerCount;
-        pIM.JoinPlayer(playerIndex);
+            Debug.Log("index = " + playerIndex);
 
-        //PlayerInput.Instantiate(pIM.playerPrefab, );
 
-        //Debug.Log("index = " + playerIndex);
-
-        //Instantiate player prefab
-
-        pIM.playerPrefab.gameObject.transform.position = playerSpawnPts[playerIndex].position;
+            pIM.playerPrefab.gameObject.transform.position = playerSpawnPts[playerIndex].position;
+        }
     }
-
-    //this only joined one player, though it prints through all the loops. I tried adding the split screen index but that didn't work.
+    */
+    //this only joined one player, though it prints through all the loops. One player shows up with the camera not working
     /*
     public void JoinFourPlayers()
     {
-        for(int i = 0; i < 2; i++)
+        for(int i = 0; i < 4; i++)
         {
-            pIM.JoinPlayer(i, i);
-            //Debug.Log(i);
+            PlayerInput.Instantiate(PlayerObject, i, null, i);
+            Debug.Log(i);
 
             //pIM.playerPrefab.gameObject.transform.position = playerSpawnPts[i].position;
         }
