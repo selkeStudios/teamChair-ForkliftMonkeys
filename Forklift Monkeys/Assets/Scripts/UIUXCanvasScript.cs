@@ -25,7 +25,6 @@ public class UIUXCanvasScript : MonoBehaviour
 
     void Update()
     {
-        //print(players.Count);
         if(players.Count >= 4)
         {
             timer -= Time.deltaTime;
@@ -55,6 +54,8 @@ public class UIUXCanvasScript : MonoBehaviour
                     powerUpTexts[players.IndexOf(fM)].text = "None";
                     break;
             }
+
+            fM.playerIndex = players.IndexOf(fM);
 
             scoreTexts[players.IndexOf(fM)].text = fM.Score.ToString();
 

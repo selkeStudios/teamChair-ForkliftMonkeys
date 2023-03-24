@@ -21,8 +21,6 @@ public class GameManager : MonoBehaviour
             //places players at their respawn point 
             pIM.playerPrefab.transform.position = playerSpawnPts[i].position;
             pIM.playerPrefab.GetComponent<ForwardMovement>().RespawnPoint = playerSpawnPts[i].position;
-
-            pIM.playerPrefab.GetComponent<ForwardMovement>().playerIndex = i;
         }
     }
 }
