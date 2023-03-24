@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571336, b: 0.3069219, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2574,7 +2574,7 @@ MonoBehaviour:
   m_PlayerPrefab: {fileID: 4254739791603748242, guid: 493265ab8d6cf93489925cc2e183ec57, type: 3}
   m_SplitScreen: 1
   m_MaintainAspectRatioInSplitScreen: 1
-  m_FixedNumberOfSplitScreens: -1
+  m_FixedNumberOfSplitScreens: 4
   m_SplitScreenRect:
     serializedVersion: 2
     x: 0
@@ -3962,7 +3962,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 60728480ebc6f344492b9e46f82b72bb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d28045053ac45dd4695993438664d4a1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
