@@ -11,7 +11,13 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        joinANewPlayer();
+        //joinANewPlayer();
+
+        for (int i = 0; i < 4; i++)
+        {
+            PlayerInput.Instantiate(PlayerObject, i, null, -1);
+        }
+        
 
         //JoinFourPlayers();
 
@@ -32,7 +38,10 @@ public class GameManager : MonoBehaviour
             //pIM.playerPrefab.transform.position = playerSpawnPts[i].position;
         }
         */
-        //JoinPlayer(0, 0, );
+
+        //joins one player with camera not working
+        //pIM.JoinPlayer(0, 0);
+        //pIM.JoinPlayer(1, 1);
     }
 
     private void Update()
@@ -44,7 +53,7 @@ public class GameManager : MonoBehaviour
         }
         */
     }
-
+    /*
     public void joinANewPlayer()
     {
         if(pIM.playerCount < pIM.maxPlayerCount)
@@ -58,15 +67,15 @@ public class GameManager : MonoBehaviour
             pIM.playerPrefab.gameObject.transform.position = playerSpawnPts[playerIndex].position;
         }
     }
-
-    //this only joined one player, though it prints through all the loops. I tried adding themsplit screen index but that didn't work.
+    */
+    //this only joined one player, though it prints through all the loops. One player shows up with the camera not working
     /*
     public void JoinFourPlayers()
     {
-        for(int i = 0; i < 2; i++)
+        for(int i = 0; i < 4; i++)
         {
-            pIM.JoinPlayer(i, i);
-            //Debug.Log(i);
+            PlayerInput.Instantiate(PlayerObject, i, null, i);
+            Debug.Log(i);
 
             //pIM.playerPrefab.gameObject.transform.position = playerSpawnPts[i].position;
         }
