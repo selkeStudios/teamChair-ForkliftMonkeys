@@ -156,7 +156,7 @@ public class ForwardMovement : MonoBehaviour
 
         foreach(MeshRenderer m in meshObjects)
         {
-            m.materials[0] = forkliftPlayerMaterials[playerIndex];
+            m.material = forkliftPlayerMaterials[playerIndex];
         }
 
         if (moveDirection.magnitude != 0)
