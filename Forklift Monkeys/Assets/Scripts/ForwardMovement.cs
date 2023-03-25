@@ -51,6 +51,7 @@ public class ForwardMovement : MonoBehaviour
     public Vector3 hitDirection;
 
     public Vector3 RespawnPoint;
+    public Vector3 RespawnYRotationPoint; //The y rotation the players will be set to, so they're all facing the center
 
     public PlayerInput MyInput;
 
