@@ -260,6 +260,7 @@ public class ForwardMovement : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Shelf"))
         {
+            //FindObjectOfType<audioManager>().Play("boxingGlove"); //This was for testing purposes
             Vector3 hitDirection = collision.transform.position;
             KnockbackSend(shelfknockBackAmt, hitDirection);
             canMove = false;

@@ -26,10 +26,13 @@ public class BoxingGloveBehaviour : MonoBehaviour
         Destroy(gameObject);
         yield return null;
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && other.gameObject != monkeyNotToHurt)
         {
+            FindObjectOfType<audioManager>().Play("boxingGlove");
+
             //determine collision properties
             Vector3 hitDirection = other.transform.position - transform.position;
 
