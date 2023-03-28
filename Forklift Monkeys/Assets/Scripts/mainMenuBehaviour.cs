@@ -1,18 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class mainMenuBehaviour : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Animator monkeyTransition;
+
+    public void buttonClicked()
     {
-        
+        monkeyTransition.SetTrigger("monkeyCanTransition");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void LoadScene()
     {
-        
+        SceneManager.LoadScene("Testing");
     }
 }
