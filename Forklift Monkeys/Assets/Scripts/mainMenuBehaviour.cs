@@ -7,6 +7,14 @@ public class mainMenuBehaviour : MonoBehaviour
 {
     public Animator monkeyTransition;
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            buttonClicked();
+        }
+    }
+
     public void buttonClicked()
     {
         monkeyTransition.SetTrigger("monkeyCanTransition");
