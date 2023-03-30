@@ -11,6 +11,12 @@ public class UIUXCanvasScript : MonoBehaviour
     public TextMeshProUGUI[] scoreTexts;
     public float[] playerRespawnRotationYValues;
 
+    public bool canCountDown;
+    public float timeUntilBeginning;
+
+    public AudioSource music;
+    public float musicCountUp;
+
     public float timer;
     public TextMeshProUGUI timerText;
 
@@ -24,13 +30,20 @@ public class UIUXCanvasScript : MonoBehaviour
     private void Start()
     {
         setScoresToZero = true;
+        music.volume = 0;
+        StartCoroutine(playMusic());
     }
 
     void Update()
     {
-        if(players.Count >= 4)
+        if(players.Count >= 4 && canCountDown)
         {
             timer -= Time.deltaTime;
+            music.volume += musicCountUp;
+            if(music.volume >= 1)
+            {
+                music.volume = 1;
+            }
         }
         timerText.text = timer.ToString("N0");
 
@@ -123,5 +136,12 @@ public class UIUXCanvasScript : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         fadingRect.SetTrigger("fadeInTrans");
+    }
+
+    IEnumerator playMusic()
+    {
+        yield return new WaitForSeconds(timeUntilBeginning);
+        canCountDown = true;
+        music.Play();
     }
 }
