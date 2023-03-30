@@ -14,7 +14,12 @@ public class UIUXCanvasScript : MonoBehaviour
     public float timer;
     public TextMeshProUGUI timerText;
 
+    public TextMeshProUGUI winnerText;
+    public int winnerIndexValue = 0;
+
     public bool setScoresToZero;
+    public Animator fadingRect;
+    public bool haveScoresTied = false;
 
     private void Start()
     {
@@ -33,6 +38,7 @@ public class UIUXCanvasScript : MonoBehaviour
         {
             timerText.color = Color.red;
             timer = 0;
+            StartCoroutine(fadeToBlack());
         }
 
         foreach (ForwardMovement fM in players)
@@ -64,5 +70,58 @@ public class UIUXCanvasScript : MonoBehaviour
             }
         }
 
+        for (int i = 0; i < players.Count; ++i)
+        {
+            int largestNumber = players[winnerIndexValue].Score;
+
+            if (players[i].Score > largestNumber)
+            {
+                largestNumber = players[i].Score;
+                winnerIndexValue = players.IndexOf(players[i]);
+                //haveScoresTied = false;
+                //print(largestNumber);
+            }
+            /*
+            else if (players[i].Score == largestNumber)
+            {
+                haveScoresTied = true;
+            }
+            */
+        }
+
+        switch (winnerIndexValue)
+        {
+            case 0:
+                winnerText.text = "Player 1 Wins!";
+                break;
+            case 1:
+                winnerText.text = "Player 2 Wins!";
+                break;
+            case 2:
+                winnerText.text = "Player 3 Wins!";
+                break;
+            case 3:
+                winnerText.text = "Player 4 Wins!";
+                break;
+            default:
+                winnerText.text = "Player 1 Wins!";
+                break;
+        }
+
+        /*
+        if (!haveScoresTied)
+        {
+            
+        } else
+        {
+            winnerText.text = "Tie!";
+        }
+        */
+    }
+
+    IEnumerator fadeToBlack()
+    {
+        yield return new WaitForSeconds(2f);
+        fadingRect.SetTrigger("fadeInTrans");
     }
 }

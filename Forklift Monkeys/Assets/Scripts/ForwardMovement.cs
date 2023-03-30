@@ -96,7 +96,7 @@ public class ForwardMovement : MonoBehaviour
     private UIUXCanvasScript uIB;
 
     private void Awake()
-    {   
+    {
         //input system stuff
         controls = new InputActions();
 
@@ -150,6 +150,7 @@ public class ForwardMovement : MonoBehaviour
         }
         */
 
+        playerRespawnYRotation = possibleRespawnYRotations[uIB.players.IndexOf(GetComponent<ForwardMovement>())];
         transform.rotation = Quaternion.Euler(transform.rotation.x, playerRespawnYRotation, transform.rotation.z);
         //LPHClear = 5f;
 
@@ -170,8 +171,6 @@ public class ForwardMovement : MonoBehaviour
     private void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-
-        playerRespawnYRotation = possibleRespawnYRotations[playerIndex];
 
         GetInput();
 
