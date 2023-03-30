@@ -174,6 +174,8 @@ public class ForwardMovement : MonoBehaviour
 
         GetInput();
 
+        RespawnPoint.y = 14;
+
         foreach(MeshRenderer m in meshObjects)
         {
             m.material = forkliftPlayerMaterials[playerIndex];
