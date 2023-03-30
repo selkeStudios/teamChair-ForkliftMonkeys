@@ -405,6 +405,7 @@ public class ForwardMovement : MonoBehaviour
         if (LastPlayerHit != null)
         {
             LastPlayerHit.Score++;
+            LastPlayerHit = null;
         }
         else if(LastPlayerHit == null )
         {
