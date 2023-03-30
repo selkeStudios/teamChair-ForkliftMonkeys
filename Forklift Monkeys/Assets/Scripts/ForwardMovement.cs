@@ -323,13 +323,13 @@ public class ForwardMovement : MonoBehaviour
                     //determine collision properties
 
                     //collision.gameObject.GetComponent<ForwardMovement>().hitDirection = (collision.transform.position - transform.position);
-                    Vector3 hitDirection = other.transform.parent.gameObject.transform.position - transform.position;
-                    other.transform.parent.gameObject.GetComponent<ForwardMovement>().KnockbackSend(knockBackAmt, hitDirection);
+                    Vector3 hitDirection =  transform.position - other.transform.parent.gameObject.transform.position;
+                    KnockbackSend(other.transform.parent.gameObject.GetComponent<ForwardMovement>().knockBackAmt, hitDirection);
                 }
             }
         }
 
-        if (other.gameObject.CompareTag("Oil"))
+        if (other.gameObject.CompareTag("Oil"))  
         {
             //Debug.Log("OIL OIL OIL");
             IsOiled = true;
@@ -463,8 +463,8 @@ public class ForwardMovement : MonoBehaviour
 
     public void KnockbackSend(float KB, Vector3 HitDir)
     {
-        gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt = 6 * KB;
-        gameObject.GetComponent<ForwardMovement>().VerticalKnockBackAmt = 12 * KB;
+        gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt = 3 * KB;
+        gameObject.GetComponent<ForwardMovement>().VerticalKnockBackAmt = 6 * KB;
         gameObject.GetComponent<ForwardMovement>().knockBackAmtDuration = 5f;
         if (gameObject.GetComponent<ForwardMovement>().IsOiled)
         {
