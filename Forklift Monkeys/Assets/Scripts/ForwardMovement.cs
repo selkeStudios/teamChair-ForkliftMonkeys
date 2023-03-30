@@ -455,6 +455,7 @@ public class ForwardMovement : MonoBehaviour
                 //Debug.Log("get oiled nerd");
                 PowerUp = 0;
                 Instantiate(oilReferance, oilSpawner.position , oilSpawner.rotation);
+                FindObjectOfType<audioManager>().Play("OilUse");
                 break;
             case 2:
                 //Debug.Log("anvil");
