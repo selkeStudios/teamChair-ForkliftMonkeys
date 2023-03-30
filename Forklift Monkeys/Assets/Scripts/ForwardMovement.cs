@@ -50,6 +50,7 @@ public class ForwardMovement : MonoBehaviour
 
     public Vector3 RespawnPoint;
     public float playerRespawnYRotation; //The y rotation the players will be set to, so they're all facing the center
+    public float[] possibleRespawnYRotations;
 
     public PlayerInput MyInput;
 
@@ -131,6 +132,24 @@ public class ForwardMovement : MonoBehaviour
         uIB = FindObjectOfType<UIUXCanvasScript>();
         uIB.players.Add(gameObject.GetComponent<ForwardMovement>());
 
+        /*
+        switch (playerIndex)
+        {
+            case 0:
+                playerRespawnYRotation = 225;
+                break;
+            case 1:
+                playerRespawnYRotation = 135;
+                break;
+            case 2:
+                playerRespawnYRotation = 45;
+                break;
+            case 3:
+                playerRespawnYRotation = -45; //They're all getting set to this value???
+                break;
+        }
+        */
+
         transform.rotation = Quaternion.Euler(transform.rotation.x, playerRespawnYRotation, transform.rotation.z);
         //LPHClear = 5f;
 
@@ -151,6 +170,8 @@ public class ForwardMovement : MonoBehaviour
     private void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        playerRespawnYRotation = possibleRespawnYRotations[playerIndex];
 
         GetInput();
 

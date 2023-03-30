@@ -55,22 +55,6 @@ public class UIUXCanvasScript : MonoBehaviour
 
             fM.playerIndex = players.IndexOf(fM);
 
-            switch(fM.playerIndex)
-            {
-                case 0:
-                    fM.playerRespawnYRotation = 225;
-                    break;
-                case 1:
-                    fM.playerRespawnYRotation = 135;
-                    break;
-                case 2:
-                    fM.playerRespawnYRotation = 45;
-                    break;
-                case 3:
-                    fM.playerRespawnYRotation = -45;
-                    break;
-            }
-
             scoreTexts[players.IndexOf(fM)].text = fM.Score.ToString();
 
             if (setScoresToZero && players.Count >= 4)
