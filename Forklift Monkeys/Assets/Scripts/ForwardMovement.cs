@@ -229,6 +229,15 @@ public class ForwardMovement : MonoBehaviour
         {
             PlayerRespawn();
         }
+
+        /*
+        //when the player is falling
+        if(gameObject.transform.position.y < 0)
+        {
+            gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            //gameObject.GetComponent<BoxCollider>().enabled = false;
+        }
+        */
     }
 
     private void GetInput()
@@ -382,6 +391,8 @@ public class ForwardMovement : MonoBehaviour
     public void PlayerRespawn()
     {
         //respawn player
+        //gameObject.GetComponent<BoxCollider>().enabled = true;
+        //gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         gameObject.transform.position = RespawnPoint;
         transform.rotation = Quaternion.Euler(transform.rotation.x, playerRespawnYRotation, transform.rotation.z);
         //make poweup none
