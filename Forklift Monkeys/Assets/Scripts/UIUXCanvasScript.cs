@@ -9,12 +9,10 @@ public class UIUXCanvasScript : MonoBehaviour
     public List<ForwardMovement> players = new List<ForwardMovement>();
     public TextMeshProUGUI[] powerUpTexts;
     public TextMeshProUGUI[] scoreTexts;
+    public float[] playerRespawnRotationYValues;
 
     public float timer;
     public TextMeshProUGUI timerText;
-
-    public Image[] sRs;
-    public TextMeshProUGUI[] textColors;
 
     public bool setScoresToZero;
 
@@ -57,35 +55,28 @@ public class UIUXCanvasScript : MonoBehaviour
 
             fM.playerIndex = players.IndexOf(fM);
 
+            switch(fM.playerIndex)
+            {
+                case 0:
+                    fM.playerRespawnYRotation = 225;
+                    break;
+                case 1:
+                    fM.playerRespawnYRotation = 135;
+                    break;
+                case 2:
+                    fM.playerRespawnYRotation = 45;
+                    break;
+                case 3:
+                    fM.playerRespawnYRotation = -45;
+                    break;
+            }
+
             scoreTexts[players.IndexOf(fM)].text = fM.Score.ToString();
 
             if (setScoresToZero && players.Count >= 4)
             {
                 fM.Score = 0;
                 setScoresToZero = false;
-            }
-        }
-
-        foreach(Image s in sRs)
-        {
-            if(players.Count >= 4)
-            {
-                s.color = new Color(1, 1, 1, 1);
-            } else
-            {
-                s.color = new Color(1, 1, 1, 0);
-            }
-        }
-
-        foreach (TextMeshProUGUI t in textColors)
-        {
-            if (players.Count >= 4)
-            {
-                t.color = new Color(1, 1, 1, 1);
-            }
-            else
-            {
-                t.color = new Color(1, 1, 1, 0);
             }
         }
 

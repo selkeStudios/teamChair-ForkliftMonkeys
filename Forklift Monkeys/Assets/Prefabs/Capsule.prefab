@@ -324,7 +324,6 @@ MonoBehaviour:
   knockBackAmtMultiplyer: 3
   knockBackAmt: 0
   shelfknockBackAmt: -5
-  knockBackAmtText: {fileID: 127118914439792491}
   knockBackAccel: 25
   knockBackDecel: 30
   CanBeKnockedback: 1
@@ -333,7 +332,7 @@ MonoBehaviour:
   VerticalKnockBackAmt: 0
   hitDirection: {x: 0, y: 0, z: 0}
   RespawnPoint: {x: 29, y: 9.2, z: -47}
-  RespawnYRotationPoint: {x: 0, y: 0, z: 0}
+  playerRespawnYRotation: -45
   MyInput: {fileID: 4684334650731031348}
   Wheel:
     m_Name: Wheel
@@ -473,7 +472,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6102274505207241200
 RectTransform:
   m_ObjectHideFlags: 0

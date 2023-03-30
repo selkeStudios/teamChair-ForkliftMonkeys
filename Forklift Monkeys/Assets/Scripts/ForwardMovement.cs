@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 using TMPro;
 
 public class ForwardMovement : MonoBehaviour
@@ -40,7 +39,6 @@ public class ForwardMovement : MonoBehaviour
     public float knockBackAmtMultiplyer;
     public float knockBackAmt;
     public float shelfknockBackAmt;
-    public TextMeshProUGUI knockBackAmtText;
     public float knockBackAccel;
     public float knockBackDecel;
 
@@ -51,7 +49,7 @@ public class ForwardMovement : MonoBehaviour
     public Vector3 hitDirection;
 
     public Vector3 RespawnPoint;
-    public Vector3 RespawnYRotationPoint; //The y rotation the players will be set to, so they're all facing the center
+    public float playerRespawnYRotation; //The y rotation the players will be set to, so they're all facing the center
 
     public PlayerInput MyInput;
 
@@ -132,6 +130,8 @@ public class ForwardMovement : MonoBehaviour
 
         uIB = FindObjectOfType<UIUXCanvasScript>();
         uIB.players.Add(gameObject.GetComponent<ForwardMovement>());
+
+        transform.rotation = Quaternion.Euler(transform.rotation.x, playerRespawnYRotation, transform.rotation.z);
         //LPHClear = 5f;
 
         //Assign each of the players their correct forklift material
@@ -151,7 +151,6 @@ public class ForwardMovement : MonoBehaviour
     private void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        knockBackAmtText.text = knockBackAmt.ToString("N0");
 
         GetInput();
 
@@ -364,9 +363,9 @@ public class ForwardMovement : MonoBehaviour
     {
         //respawn player
         gameObject.transform.position = RespawnPoint;
+        transform.rotation = Quaternion.Euler(transform.rotation.x, playerRespawnYRotation, transform.rotation.z);
         //make poweup none
         PowerUp = 0;
-
 
         //score mode
         if (LastPlayerHit != null)
