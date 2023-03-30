@@ -336,7 +336,7 @@ public class ForwardMovement : MonoBehaviour
                     //collision.gameObject.GetComponent<ForwardMovement>().hitDirection = (collision.transform.position - transform.position);
                     Vector3 hitDirection =  transform.position - other.transform.parent.gameObject.transform.position;
                     KnockbackSend(other.transform.parent.gameObject.GetComponent<ForwardMovement>().knockBackAmt, hitDirection);
-                    FindObjectOfType<audioManager>().Play("boxingGlove");
+                    //FindObjectOfType<audioManager>().Play("boxingGlove");
                 }
             }
         }
