@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571336, b: 0.3069219, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2542,12 +2542,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: boxingGlove
-    clip: {fileID: 8300000, guid: 781b23b72467f4c89891371c0b14ea3f, type: 3}
-    mixer: {fileID: 24300002, guid: 784486e70f3364c3fb9992f3b4618651, type: 2}
-    volume: 1
-    pitch: 0.5
-    source: {fileID: 0}
   - name: forkliftCollision
     clip: {fileID: 8300000, guid: 45e70fb968258471e9c7ebe1544675d7, type: 3}
     mixer: {fileID: 24300002, guid: 784486e70f3364c3fb9992f3b4618651, type: 2}
@@ -2556,6 +2550,30 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: monkeyFall
     clip: {fileID: 8300000, guid: f16e236dc9b954defb82df7cfd7373e6, type: 3}
+    mixer: {fileID: 24300002, guid: 784486e70f3364c3fb9992f3b4618651, type: 2}
+    volume: 1
+    pitch: 0.5
+    source: {fileID: 0}
+  - name: OilUse
+    clip: {fileID: 8300000, guid: 36174a4e981a744d29665f59418c787f, type: 3}
+    mixer: {fileID: 24300002, guid: 784486e70f3364c3fb9992f3b4618651, type: 2}
+    volume: 1
+    pitch: 0.5
+    source: {fileID: 0}
+  - name: Boxing
+    clip: {fileID: 8300000, guid: 940a7b61ab4dd4a50aeef290ea6afd1a, type: 3}
+    mixer: {fileID: 24300002, guid: 784486e70f3364c3fb9992f3b4618651, type: 2}
+    volume: 1
+    pitch: 0.5
+    source: {fileID: 0}
+  - name: Anvil
+    clip: {fileID: 8300000, guid: 2eb2057a7153c41c9ae58086c93d9827, type: 3}
+    mixer: {fileID: 24300002, guid: 784486e70f3364c3fb9992f3b4618651, type: 2}
+    volume: 1
+    pitch: 0.5
+    source: {fileID: 0}
+  - name: MonkeyHit
+    clip: {fileID: 8300000, guid: 2d1c6ba037c6b4df39f7825ad77cce73, type: 3}
     mixer: {fileID: 24300002, guid: 784486e70f3364c3fb9992f3b4618651, type: 2}
     volume: 1
     pitch: 0.5

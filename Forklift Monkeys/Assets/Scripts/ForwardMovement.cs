@@ -290,12 +290,13 @@ public class ForwardMovement : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Shelf"))
         {
-            //FindObjectOfType<audioManager>().Play("boxingGlove"); //This was for testing purposes
+            FindObjectOfType<audioManager>().Play("ShelfHit");
             Vector3 hitDirection = collision.transform.position;
             KnockbackSend(shelfknockBackAmt, hitDirection);
             canMove = false;
             timerUp = false;
             StartCoroutine(knockBackAmtTimer());
+
         }
     }
 
@@ -336,7 +337,8 @@ public class ForwardMovement : MonoBehaviour
                     //collision.gameObject.GetComponent<ForwardMovement>().hitDirection = (collision.transform.position - transform.position);
                     Vector3 hitDirection =  transform.position - other.transform.parent.gameObject.transform.position;
                     KnockbackSend(other.transform.parent.gameObject.GetComponent<ForwardMovement>().knockBackAmt, hitDirection);
-                    //FindObjectOfType<audioManager>().Play("boxingGlove");
+                    FindObjectOfType<audioManager>().Play("MonkeyHit");
+                    FindObjectOfType<audioManager>().Play("forkliftCollision");
                 }
             }
         }
@@ -405,7 +407,7 @@ public class ForwardMovement : MonoBehaviour
         if (LastPlayerHit != null)
         {
             LastPlayerHit.Score++;
-            LastPlayerHit = null;
+            FindObjectOfType<audioManager>().Play("monkeyFall");
         }
         else if(LastPlayerHit == null )
         {
@@ -456,12 +458,14 @@ public class ForwardMovement : MonoBehaviour
                 //Debug.Log("get oiled nerd");
                 PowerUp = 0;
                 Instantiate(oilReferance, oilSpawner.position , oilSpawner.rotation);
+                FindObjectOfType<audioManager>().Play("OilUse");
                 break;
             case 2:
                 //Debug.Log("anvil");
                 PowerUp = 0;
                 aB = Instantiate(anvilReference, gameObject.transform.position, gameObject.transform.rotation).gameObject.GetComponent<AnvilBehavior>();
                 aB.monkeyNotToHurt = gameObject;
+                FindObjectOfType<audioManager>().Play("Anvil");
                 break;
             case 3:
                 //Debug.Log("Punch");
@@ -469,6 +473,7 @@ public class ForwardMovement : MonoBehaviour
                 gB = Instantiate(gloveReference, transform.position + transform.forward * 3.75f, transform.rotation).gameObject.GetComponent<BoxingGloveBehaviour>();
                 gB.transform.parent = gameObject.transform;
                 gB.monkeyNotToHurt = gameObject;
+                FindObjectOfType<audioManager>().Play("Boxing");
                 break;
             default:
                 //Debug.Log("no item");
