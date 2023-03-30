@@ -171,7 +171,6 @@ public class ForwardMovement : MonoBehaviour
     private void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        RespawnPoint.y = 14;
 
         GetInput();
 
@@ -392,7 +391,6 @@ public class ForwardMovement : MonoBehaviour
         if (LastPlayerHit != null)
         {
             LastPlayerHit.Score++;
-            LastPlayerHit = null;
         }
         else if(LastPlayerHit == null )
         {
