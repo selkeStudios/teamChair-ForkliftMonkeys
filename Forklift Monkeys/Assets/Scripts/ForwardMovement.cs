@@ -93,8 +93,10 @@ public class ForwardMovement : MonoBehaviour
     public Material[] forkliftPlayerMaterials;
     public MeshRenderer[] meshObjects;
 
+    public float groundedFriction;
+    public float notGroundedFriction;
+
     private UIUXCanvasScript uIB;
-    public bool canUseItem;
 
     private void Awake()
     {
@@ -171,14 +173,13 @@ public class ForwardMovement : MonoBehaviour
 
     private void Update()
     {
-
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         GetInput();
 
         RespawnPoint.y = 14;
 
-        foreach(MeshRenderer m in meshObjects)
+        foreach (MeshRenderer m in meshObjects)
         {
             m.material = forkliftPlayerMaterials[playerIndex];
         }
@@ -456,35 +457,32 @@ public class ForwardMovement : MonoBehaviour
 
     public void UseItemGo(int Item)
     {
-        if(canMove)
+        switch (Item)
         {
-            switch (Item)
-            {
-                case 1:
-                    //Debug.Log("get oiled nerd");
-                    PowerUp = 0;
-                    Instantiate(oilReferance, oilSpawner.position, oilSpawner.rotation);
-                    FindObjectOfType<audioManager>().Play("OilUse");
-                    break;
-                case 2:
-                    //Debug.Log("anvil");
-                    PowerUp = 0;
-                    aB = Instantiate(anvilReference, gameObject.transform.position, gameObject.transform.rotation).gameObject.GetComponent<AnvilBehavior>();
-                    aB.monkeyNotToHurt = gameObject;
-                    FindObjectOfType<audioManager>().Play("Anvil");
-                    break;
-                case 3:
-                    //Debug.Log("Punch");
-                    PowerUp = 0;
-                    gB = Instantiate(gloveReference, transform.position + transform.forward * 3.75f, transform.rotation).gameObject.GetComponent<BoxingGloveBehaviour>();
-                    gB.transform.parent = gameObject.transform;
-                    gB.monkeyNotToHurt = gameObject;
-                    FindObjectOfType<audioManager>().Play("Boxing");
-                    break;
-                default:
-                    //Debug.Log("no item");
-                    break;
-            }
+            case 1:
+                //Debug.Log("get oiled nerd");
+                PowerUp = 0;
+                Instantiate(oilReferance, oilSpawner.position , oilSpawner.rotation);
+                FindObjectOfType<audioManager>().Play("OilUse");
+                break;
+            case 2:
+                //Debug.Log("anvil");
+                PowerUp = 0;
+                aB = Instantiate(anvilReference, gameObject.transform.position, gameObject.transform.rotation).gameObject.GetComponent<AnvilBehavior>();
+                aB.monkeyNotToHurt = gameObject;
+                FindObjectOfType<audioManager>().Play("Anvil");
+                break;
+            case 3:
+                //Debug.Log("Punch");
+                PowerUp = 0;
+                gB = Instantiate(gloveReference, transform.position + transform.forward * 3.75f, transform.rotation).GetComponent<BoxingGloveBehaviour>();
+                //gB.transform.parent = gameObject.transform;
+                gB.monkeyNotToHurt = gameObject;
+                FindObjectOfType<audioManager>().Play("Boxing");
+                break;
+            default:
+                //Debug.Log("no item");
+                break;
         }
     }
 
