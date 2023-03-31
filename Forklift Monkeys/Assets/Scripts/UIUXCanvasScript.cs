@@ -54,6 +54,7 @@ public class UIUXCanvasScript : MonoBehaviour
 
         if (timer <= 0)
         {
+
             timerText.color = Color.red;
             timer = 0;
             checkForTies();
