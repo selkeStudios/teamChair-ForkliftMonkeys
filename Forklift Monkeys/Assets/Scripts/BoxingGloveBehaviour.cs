@@ -7,15 +7,16 @@ public class BoxingGloveBehaviour : MonoBehaviour
     public GameObject monkeyNotToHurt;
     public float GloveKnockbackModifier;
     public float GloveSpeed;
+    public float GloveMultiplier;
     void Awake()
     {
+        transform.position = new Vector3(transform.position.x, 3.2f, transform.position.z);
         StartCoroutine(GlovePunch());
     }
 
     public IEnumerator GlovePunch()
     {
         //Debug.Log("hi");
-        GloveSpeed = 0.1f;
         /*for (int i = 0; i < 13; i++)
         {
             transform.position += transform.forward * GloveSpeed;
@@ -28,7 +29,7 @@ public class BoxingGloveBehaviour : MonoBehaviour
         while (Mathf.Abs(transform.position.x) < 180 && Mathf.Abs(transform.position.y) < 180) 
         {
             transform.position += transform.forward * GloveSpeed;
-            GloveSpeed *= 1.008f;
+            GloveSpeed *= GloveMultiplier;
             yield return new WaitForSeconds(0.01f);
         }
         Destroy(gameObject);
