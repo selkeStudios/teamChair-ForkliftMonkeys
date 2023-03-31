@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monkeyNotToHurt: {fileID: 0}
-  GloveKnockbackModifier: 100
+  GloveKnockbackModifier: 400
   GloveSpeed: 0
 --- !u!1001 &8192620578765173299
 PrefabInstance:

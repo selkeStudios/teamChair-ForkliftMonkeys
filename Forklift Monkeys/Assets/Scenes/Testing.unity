@@ -529,7 +529,7 @@ MonoBehaviour:
   winnerIndexValue: 0
   setScoresToZero: 0
   fadingRect: {fileID: 1466780636}
-  haveScoresTied: 0
+  canCheckForTies: 1
   calculatedKnockBackToNeedleAmts:
   - 0
   - 0
@@ -540,11 +540,8 @@ MonoBehaviour:
   - {fileID: 1344775539}
   - {fileID: 109742804}
   - {fileID: 246298353}
-  needleNewRotations:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
+  highestPlayerScore: 0
+  playersWhoTied: 0
 --- !u!1 &132748019
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,7 +552,7 @@ GameObject:
   m_Component:
   - component: {fileID: 132748020}
   - component: {fileID: 132748021}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Box-Collider
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -2640,7 +2637,7 @@ GameObject:
   - component: {fileID: 887135449}
   - component: {fileID: 887135448}
   m_Layer: 0
-  m_Name: Monkeying_Around_v2.1
+  m_Name: Monkeying_Around - MUSIC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2791,43 +2788,49 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 45e70fb968258471e9c7ebe1544675d7, type: 3}
     mixer: {fileID: 24300002, guid: 784486e70f3364c3fb9992f3b4618651, type: 2}
     volume: 1
-    pitch: 0.5
+    pitch: 1
     source: {fileID: 0}
   - name: monkeyFall
     clip: {fileID: 8300000, guid: f16e236dc9b954defb82df7cfd7373e6, type: 3}
     mixer: {fileID: 24300002, guid: 784486e70f3364c3fb9992f3b4618651, type: 2}
     volume: 1
-    pitch: 0.5
+    pitch: 1
     source: {fileID: 0}
   - name: OilUse
     clip: {fileID: 8300000, guid: 36174a4e981a744d29665f59418c787f, type: 3}
     mixer: {fileID: 24300002, guid: 784486e70f3364c3fb9992f3b4618651, type: 2}
     volume: 1
-    pitch: 0.5
+    pitch: 1
     source: {fileID: 0}
   - name: Boxing
     clip: {fileID: 8300000, guid: 940a7b61ab4dd4a50aeef290ea6afd1a, type: 3}
     mixer: {fileID: 24300002, guid: 784486e70f3364c3fb9992f3b4618651, type: 2}
     volume: 1
-    pitch: 0.5
+    pitch: 1
     source: {fileID: 0}
   - name: Anvil
     clip: {fileID: 8300000, guid: 2eb2057a7153c41c9ae58086c93d9827, type: 3}
     mixer: {fileID: 24300002, guid: 784486e70f3364c3fb9992f3b4618651, type: 2}
     volume: 1
-    pitch: 0.5
+    pitch: 1
     source: {fileID: 0}
   - name: MonkeyHit
     clip: {fileID: 8300000, guid: 2d1c6ba037c6b4df39f7825ad77cce73, type: 3}
     mixer: {fileID: 24300002, guid: 784486e70f3364c3fb9992f3b4618651, type: 2}
     volume: 1
-    pitch: 0.5
+    pitch: 1
     source: {fileID: 0}
   - name: ShelfHit
     clip: {fileID: 8300000, guid: 7dcc8f404ec17498f8054194624f2a1d, type: 3}
     mixer: {fileID: 24300002, guid: 784486e70f3364c3fb9992f3b4618651, type: 2}
     volume: 1
     pitch: 0.5
+    source: {fileID: 0}
+  - name: boxingGlove
+    clip: {fileID: 8300000, guid: 781b23b72467f4c89891371c0b14ea3f, type: 3}
+    mixer: {fileID: 24300002, guid: 784486e70f3364c3fb9992f3b4618651, type: 2}
+    volume: 1
+    pitch: 1
     source: {fileID: 0}
 --- !u!4 &956651296
 Transform:
@@ -3841,7 +3844,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1466780635
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3932,6 +3935,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c89f557e1e4a846d9a7aef698475d972, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winnerText: {fileID: 1579396788}
 --- !u!1 &1521639179
 GameObject:
   m_ObjectHideFlags: 0
@@ -4040,6 +4044,7 @@ GameObject:
   - component: {fileID: 1579396789}
   - component: {fileID: 1579396791}
   - component: {fileID: 1579396790}
+  - component: {fileID: 1579396792}
   m_Layer: 5
   m_Name: WinnerText
   m_TagString: Untagged
@@ -4096,7 +4101,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 16777215
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -4164,6 +4169,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1579396788}
   m_CullTransparentMesh: 1
+--- !u!95 &1579396792
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1579396788}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 050f7c1d92ee641beb4afb496cf03c63, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &1591636844
 GameObject:
   m_ObjectHideFlags: 0

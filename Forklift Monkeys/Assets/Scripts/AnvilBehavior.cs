@@ -75,7 +75,7 @@ public class AnvilBehavior : MonoBehaviour
                 }
             }
             
-            other.gameObject.GetComponent<ForwardMovement>().KnockbackSend(100, sendDirection);
+            other.gameObject.GetComponent<ForwardMovement>().KnockbackSend(400, sendDirection);
             //do knockback
             other.gameObject.GetComponent<ForwardMovement>().LastPlayerHit = monkeyNotToHurt.GetComponent<ForwardMovement>();
             other.gameObject.GetComponent<ForwardMovement>().CanBeAnviled = false;

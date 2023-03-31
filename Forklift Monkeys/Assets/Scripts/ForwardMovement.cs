@@ -296,7 +296,6 @@ public class ForwardMovement : MonoBehaviour
             canMove = false;
             timerUp = false;
             StartCoroutine(knockBackAmtTimer());
-
         }
     }
 
@@ -410,6 +409,7 @@ public class ForwardMovement : MonoBehaviour
             //FindObjectOfType<audioManager>().Play("monkeyFall");
             LastPlayerHit = null;
         }
+        /*
         else if(LastPlayerHit == null )
         {
             if (Score > 0)
@@ -417,6 +417,7 @@ public class ForwardMovement : MonoBehaviour
                 Score--;
             }
         }
+        */
     }
 
     /*

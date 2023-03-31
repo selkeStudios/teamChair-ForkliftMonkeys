@@ -25,11 +25,12 @@ public class UIUXCanvasScript : MonoBehaviour
 
     public bool setScoresToZero;
     public Animator fadingRect;
-    public bool haveScoresTied = false;
+    public bool canCheckForTies = true;
 
     public float[] calculatedKnockBackToNeedleAmts;
     public Transform[] speedometerNeedleTransforms;
-    public Vector3[] needleNewRotations;
+    public int highestPlayerScore = -1;
+    public int playersWhoTied;
 
     private void Start()
     {
@@ -40,22 +41,28 @@ public class UIUXCanvasScript : MonoBehaviour
 
     void Update()
     {
-        if(players.Count >= 4 && canCountDown)
+        if (players.Count >= 4 && canCountDown)
         {
             timer -= Time.deltaTime;
             music.volume += musicCountUp;
-            if(music.volume >= 1)
+            if (music.volume >= 1)
             {
                 music.volume = 1;
             }
         }
         timerText.text = timer.ToString("N0");
 
-        if(timer <= 0)
+        if (timer <= 0)
         {
             timerText.color = Color.red;
             timer = 0;
+            checkForTies();
             StartCoroutine(fadeToBlack());
+        }
+
+        if (playersWhoTied > 1)
+        {
+            winnerIndexValue = 4;
         }
 
         foreach (ForwardMovement fM in players)
@@ -86,30 +93,17 @@ public class UIUXCanvasScript : MonoBehaviour
                 setScoresToZero = false;
             }
 
-            for(int i = 0; i < players.Count; ++i)
+            for (int i = 0; i < players.Count; ++i)
             {
                 calculatedKnockBackToNeedleAmts[i] = ((-players[i].knockBackAmt / 100 + 1) * 180) - 90;
                 speedometerNeedleTransforms[i].rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, calculatedKnockBackToNeedleAmts[i]);
             }
-        }
 
-        for (int i = 0; i < players.Count; ++i)
-        {
-            int largestNumber = players[winnerIndexValue].Score;
-
-            if (players[i].Score > largestNumber)
+            if (fM.Score > highestPlayerScore) //This part works, it's just the ties that don't
             {
-                largestNumber = players[i].Score;
-                winnerIndexValue = players.IndexOf(players[i]);
-                //haveScoresTied = false;
-                //print(largestNumber);
+                highestPlayerScore = fM.Score;
+                winnerIndexValue = players.IndexOf(fM);
             }
-            /*
-            else if (players[i].Score == largestNumber)
-            {
-                haveScoresTied = true;
-            }
-            */
         }
 
         switch (winnerIndexValue)
@@ -127,19 +121,24 @@ public class UIUXCanvasScript : MonoBehaviour
                 winnerText.text = "Player 4 Wins!";
                 break;
             default:
-                winnerText.text = "Player 1 Wins!";
+                winnerText.text = "Tie!";
                 break;
         }
+    }
 
-        /*
-        if (!haveScoresTied)
+    public void checkForTies()
+    {
+        if(canCheckForTies)
         {
-            
-        } else
-        {
-            winnerText.text = "Tie!";
+            for (int i = 0; i < players.Count; ++i)
+            {
+                if (players[i].Score == highestPlayerScore)
+                {
+                    playersWhoTied++;
+                }
+            }
+            canCheckForTies = false;
         }
-        */
     }
 
     IEnumerator fadeToBlack()
