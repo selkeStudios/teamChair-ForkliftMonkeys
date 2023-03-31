@@ -452,8 +452,8 @@ public class ForwardMovement : MonoBehaviour
             case 3:
                 //Debug.Log("Punch");
                 PowerUp = 0;
-                gB = Instantiate(gloveReference, transform.position + transform.forward * 3.75f, transform.rotation).gameObject.GetComponent<BoxingGloveBehaviour>();
-                gB.transform.parent = gameObject.transform;
+                gB = Instantiate(gloveReference, transform.position + transform.forward * 3.75f, transform.rotation).GetComponent<BoxingGloveBehaviour>();
+                //gB.transform.parent = gameObject.transform;
                 gB.monkeyNotToHurt = gameObject;
                 break;
             default:
