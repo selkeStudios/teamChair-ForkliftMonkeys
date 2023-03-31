@@ -15,14 +15,22 @@ public class BoxingGloveBehaviour : MonoBehaviour
     public IEnumerator GlovePunch()
     {
         //Debug.Log("hi");
-        GloveSpeed = 0.01f;
-        for (int i = 0; i < 13; i++)
+        GloveSpeed = 0.1f;
+        /*for (int i = 0; i < 13; i++)
         {
             transform.position += transform.forward * GloveSpeed;
             GloveSpeed *= 1.5f;
             yield return new WaitForSeconds(0.01f);
         }
         yield return new WaitForSeconds(0.25f);
+        Destroy(gameObject);*/
+        //while in bounds
+        while (Mathf.Abs(transform.position.x) < 180 && Mathf.Abs(transform.position.y) < 180) 
+        {
+            transform.position += transform.forward * GloveSpeed;
+            GloveSpeed *= 1.008f;
+            yield return new WaitForSeconds(0.01f);
+        }
         Destroy(gameObject);
         yield return null;
     }
