@@ -27,6 +27,10 @@ public class UIUXCanvasScript : MonoBehaviour
     public Animator fadingRect;
     public bool haveScoresTied = false;
 
+    public float[] calculatedKnockBackToNeedleAmts;
+    public Transform[] speedometerNeedleTransforms;
+    public Vector3[] needleNewRotations;
+
     private void Start()
     {
         setScoresToZero = true;
@@ -80,6 +84,12 @@ public class UIUXCanvasScript : MonoBehaviour
             {
                 fM.Score = 0;
                 setScoresToZero = false;
+            }
+
+            for(int i = 0; i < players.Count; ++i)
+            {
+                calculatedKnockBackToNeedleAmts[i] = ((-players[i].knockBackAmt / 100 + 1) * 180) - 90;
+                speedometerNeedleTransforms[i].rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, calculatedKnockBackToNeedleAmts[i]);
             }
         }
 

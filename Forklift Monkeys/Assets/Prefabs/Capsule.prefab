@@ -324,7 +324,7 @@ MonoBehaviour:
   minKnockBackAmt: 0
   knockBackAmtMultiplyer: 3
   knockBackAmt: 0
-  shelfknockBackAmt: -5
+  shelfknockBackAmt: -10
   knockBackAccel: 25
   knockBackDecel: 30
   CanBeKnockedback: 1

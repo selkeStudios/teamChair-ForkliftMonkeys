@@ -407,7 +407,7 @@ public class ForwardMovement : MonoBehaviour
         if (LastPlayerHit != null)
         {
             LastPlayerHit.Score++;
-            FindObjectOfType<audioManager>().Play("monkeyFall");
+            //FindObjectOfType<audioManager>().Play("monkeyFall");
             LastPlayerHit = null;
         }
         else if(LastPlayerHit == null )
