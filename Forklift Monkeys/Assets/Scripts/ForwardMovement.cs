@@ -96,7 +96,7 @@ public class ForwardMovement : MonoBehaviour
     private UIUXCanvasScript uIB;
 
     private void Awake()
-    {   
+    {
         //input system stuff
         controls = new InputActions();
 
@@ -150,6 +150,7 @@ public class ForwardMovement : MonoBehaviour
         }
         */
 
+        playerRespawnYRotation = possibleRespawnYRotations[uIB.players.IndexOf(GetComponent<ForwardMovement>())];
         transform.rotation = Quaternion.Euler(transform.rotation.x, playerRespawnYRotation, transform.rotation.z);
         //LPHClear = 5f;
 
@@ -171,9 +172,9 @@ public class ForwardMovement : MonoBehaviour
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        playerRespawnYRotation = possibleRespawnYRotations[playerIndex];
-
         GetInput();
+
+        RespawnPoint.y = 14;
 
         foreach(MeshRenderer m in meshObjects)
         {
@@ -230,6 +231,15 @@ public class ForwardMovement : MonoBehaviour
         {
             PlayerRespawn();
         }
+
+        /*
+        //when the player is falling
+        if(gameObject.transform.position.y < 0)
+        {
+            gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            //gameObject.GetComponent<BoxCollider>().enabled = false;
+        }
+        */
     }
 
     private void GetInput()
@@ -280,7 +290,7 @@ public class ForwardMovement : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Shelf"))
         {
-            //FindObjectOfType<audioManager>().Play("boxingGlove"); //This was for testing purposes
+            FindObjectOfType<audioManager>().Play("ShelfHit");
             Vector3 hitDirection = collision.transform.position;
             KnockbackSend(shelfknockBackAmt, hitDirection);
             canMove = false;
@@ -324,13 +334,15 @@ public class ForwardMovement : MonoBehaviour
                     //determine collision properties
 
                     //collision.gameObject.GetComponent<ForwardMovement>().hitDirection = (collision.transform.position - transform.position);
-                    Vector3 hitDirection = other.transform.parent.gameObject.transform.position - transform.position;
-                    other.transform.parent.gameObject.GetComponent<ForwardMovement>().KnockbackSend(knockBackAmt, hitDirection);
+                    Vector3 hitDirection =  transform.position - other.transform.parent.gameObject.transform.position;
+                    KnockbackSend(other.transform.parent.gameObject.GetComponent<ForwardMovement>().knockBackAmt, hitDirection);
+                    FindObjectOfType<audioManager>().Play("MonkeyHit");
+                    FindObjectOfType<audioManager>().Play("forkliftCollision");
                 }
             }
         }
 
-        if (other.gameObject.CompareTag("Oil"))
+        if (other.gameObject.CompareTag("Oil"))  
         {
             //Debug.Log("OIL OIL OIL");
             IsOiled = true;
@@ -383,6 +395,8 @@ public class ForwardMovement : MonoBehaviour
     public void PlayerRespawn()
     {
         //respawn player
+        //gameObject.GetComponent<BoxCollider>().enabled = true;
+        //gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         gameObject.transform.position = RespawnPoint;
         transform.rotation = Quaternion.Euler(transform.rotation.x, playerRespawnYRotation, transform.rotation.z);
         //make poweup none
@@ -392,7 +406,10 @@ public class ForwardMovement : MonoBehaviour
         if (LastPlayerHit != null)
         {
             LastPlayerHit.Score++;
+            //FindObjectOfType<audioManager>().Play("monkeyFall");
+            LastPlayerHit = null;
         }
+        /*
         else if(LastPlayerHit == null )
         {
             if (Score > 0)
@@ -400,6 +417,7 @@ public class ForwardMovement : MonoBehaviour
                 Score--;
             }
         }
+        */
     }
 
     /*
@@ -442,12 +460,14 @@ public class ForwardMovement : MonoBehaviour
                 //Debug.Log("get oiled nerd");
                 PowerUp = 0;
                 Instantiate(oilReferance, oilSpawner.position , oilSpawner.rotation);
+                FindObjectOfType<audioManager>().Play("OilUse");
                 break;
             case 2:
                 //Debug.Log("anvil");
                 PowerUp = 0;
                 aB = Instantiate(anvilReference, gameObject.transform.position, gameObject.transform.rotation).gameObject.GetComponent<AnvilBehavior>();
                 aB.monkeyNotToHurt = gameObject;
+                FindObjectOfType<audioManager>().Play("Anvil");
                 break;
             case 3:
                 //Debug.Log("Punch");
@@ -455,6 +475,7 @@ public class ForwardMovement : MonoBehaviour
                 gB = Instantiate(gloveReference, transform.position + transform.forward * 3.75f, transform.rotation).GetComponent<BoxingGloveBehaviour>();
                 //gB.transform.parent = gameObject.transform;
                 gB.monkeyNotToHurt = gameObject;
+                FindObjectOfType<audioManager>().Play("Boxing");
                 break;
             default:
                 //Debug.Log("no item");
@@ -464,8 +485,8 @@ public class ForwardMovement : MonoBehaviour
 
     public void KnockbackSend(float KB, Vector3 HitDir)
     {
-        gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt = 6 * KB;
-        gameObject.GetComponent<ForwardMovement>().VerticalKnockBackAmt = 12 * KB;
+        gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt = 3 * KB;
+        gameObject.GetComponent<ForwardMovement>().VerticalKnockBackAmt = 6 * KB;
         gameObject.GetComponent<ForwardMovement>().knockBackAmtDuration = 5f;
         if (gameObject.GetComponent<ForwardMovement>().IsOiled)
         {

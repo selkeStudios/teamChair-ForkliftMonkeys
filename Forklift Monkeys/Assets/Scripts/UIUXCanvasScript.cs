@@ -11,28 +11,58 @@ public class UIUXCanvasScript : MonoBehaviour
     public TextMeshProUGUI[] scoreTexts;
     public float[] playerRespawnRotationYValues;
 
+    public bool canCountDown;
+    public float timeUntilBeginning;
+
+    public AudioSource music;
+    public float musicCountUp;
+
     public float timer;
     public TextMeshProUGUI timerText;
 
+    public TextMeshProUGUI winnerText;
+    public int winnerIndexValue = 0;
+
     public bool setScoresToZero;
+    public Animator fadingRect;
+    public bool canCheckForTies = true;
+
+    public float[] calculatedKnockBackToNeedleAmts;
+    public Transform[] speedometerNeedleTransforms;
+    public int highestPlayerScore = -1;
+    public int playersWhoTied;
 
     private void Start()
     {
         setScoresToZero = true;
+        music.volume = 0;
+        StartCoroutine(playMusic());
     }
 
     void Update()
     {
-        if(players.Count >= 4)
+        if (players.Count >= 4 && canCountDown)
         {
             timer -= Time.deltaTime;
+            music.volume += musicCountUp;
+            if (music.volume >= 1)
+            {
+                music.volume = 1;
+            }
         }
         timerText.text = timer.ToString("N0");
 
-        if(timer <= 0)
+        if (timer <= 0)
         {
             timerText.color = Color.red;
             timer = 0;
+            checkForTies();
+            StartCoroutine(fadeToBlack());
+        }
+
+        if (playersWhoTied > 1)
+        {
+            winnerIndexValue = 4;
         }
 
         foreach (ForwardMovement fM in players)
@@ -62,7 +92,65 @@ public class UIUXCanvasScript : MonoBehaviour
                 fM.Score = 0;
                 setScoresToZero = false;
             }
+
+            for (int i = 0; i < players.Count; ++i)
+            {
+                calculatedKnockBackToNeedleAmts[i] = ((-players[i].knockBackAmt / 100 + 1) * 180) - 90;
+                speedometerNeedleTransforms[i].rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, calculatedKnockBackToNeedleAmts[i]);
+            }
+
+            if (fM.Score > highestPlayerScore) //This part works, it's just the ties that don't
+            {
+                highestPlayerScore = fM.Score;
+                winnerIndexValue = players.IndexOf(fM);
+            }
         }
 
+        switch (winnerIndexValue)
+        {
+            case 0:
+                winnerText.text = "Player 1 Wins!";
+                break;
+            case 1:
+                winnerText.text = "Player 2 Wins!";
+                break;
+            case 2:
+                winnerText.text = "Player 3 Wins!";
+                break;
+            case 3:
+                winnerText.text = "Player 4 Wins!";
+                break;
+            default:
+                winnerText.text = "Tie!";
+                break;
+        }
+    }
+
+    public void checkForTies()
+    {
+        if(canCheckForTies)
+        {
+            for (int i = 0; i < players.Count; ++i)
+            {
+                if (players[i].Score == highestPlayerScore)
+                {
+                    playersWhoTied++;
+                }
+            }
+            canCheckForTies = false;
+        }
+    }
+
+    IEnumerator fadeToBlack()
+    {
+        yield return new WaitForSeconds(2f);
+        fadingRect.SetTrigger("fadeInTrans");
+    }
+
+    IEnumerator playMusic()
+    {
+        yield return new WaitForSeconds(timeUntilBeginning);
+        canCountDown = true;
+        music.Play();
     }
 }
