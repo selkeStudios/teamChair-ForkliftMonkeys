@@ -37,6 +37,11 @@ public class BoxingGloveBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.CompareTag("Wall"))
+        {
+            Destroy(gameObject);
+        }
+
         if (other.CompareTag("Player") && other.gameObject != monkeyNotToHurt)
         {
             FindObjectOfType<audioManager>().Play("boxingGlove");
@@ -49,6 +54,8 @@ public class BoxingGloveBehaviour : MonoBehaviour
             //do knockback
             //other.gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * other.gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt, other.gameObject.GetComponent<ForwardMovement>().VerticalKnockBackAmt, hitDirection.z * other.gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt, ForceMode.Force);
             other.gameObject.GetComponent<ForwardMovement>().KnockbackSend(GloveKnockbackModifier, hitDirection);
+
+            Destroy(gameObject);
         }
     }
 }
