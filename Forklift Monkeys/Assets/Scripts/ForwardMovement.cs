@@ -93,6 +93,9 @@ public class ForwardMovement : MonoBehaviour
     public Material[] forkliftPlayerMaterials;
     public MeshRenderer[] meshObjects;
 
+    public float groundedFriction;
+    public float notGroundedFriction;
+
     private UIUXCanvasScript uIB;
 
     private void Awake()
@@ -176,7 +179,7 @@ public class ForwardMovement : MonoBehaviour
 
         RespawnPoint.y = 14;
 
-        foreach(MeshRenderer m in meshObjects)
+        foreach (MeshRenderer m in meshObjects)
         {
             m.material = forkliftPlayerMaterials[playerIndex];
         }
