@@ -93,6 +93,9 @@ public class ForwardMovement : MonoBehaviour
     public Material[] forkliftPlayerMaterials;
     public MeshRenderer[] meshObjects;
 
+    public float groundedFriction;
+    public float notGroundedFriction;
+
     private UIUXCanvasScript uIB;
 
     private void Awake()
@@ -176,7 +179,7 @@ public class ForwardMovement : MonoBehaviour
 
         RespawnPoint.y = 14;
 
-        foreach(MeshRenderer m in meshObjects)
+        foreach (MeshRenderer m in meshObjects)
         {
             m.material = forkliftPlayerMaterials[playerIndex];
         }
@@ -472,8 +475,8 @@ public class ForwardMovement : MonoBehaviour
             case 3:
                 //Debug.Log("Punch");
                 PowerUp = 0;
-                gB = Instantiate(gloveReference, transform.position + transform.forward * 3.75f, transform.rotation).gameObject.GetComponent<BoxingGloveBehaviour>();
-                gB.transform.parent = gameObject.transform;
+                gB = Instantiate(gloveReference, transform.position + transform.forward * 4.25f, transform.rotation).GetComponent<BoxingGloveBehaviour>();
+                //gB.transform.parent = gameObject.transform;
                 gB.monkeyNotToHurt = gameObject;
                 FindObjectOfType<audioManager>().Play("Boxing");
                 break;

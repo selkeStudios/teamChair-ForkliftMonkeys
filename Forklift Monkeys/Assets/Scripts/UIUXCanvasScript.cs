@@ -54,6 +54,7 @@ public class UIUXCanvasScript : MonoBehaviour
 
         if (timer <= 0)
         {
+
             timerText.color = Color.red;
             timer = 0;
             checkForTies();
@@ -103,6 +104,16 @@ public class UIUXCanvasScript : MonoBehaviour
             {
                 highestPlayerScore = fM.Score;
                 winnerIndexValue = players.IndexOf(fM);
+            }
+
+            if(fM.isGrounded)
+            {
+                fM.GetComponent<BoxCollider>().material.dynamicFriction = fM.groundedFriction;
+                fM.GetComponent<BoxCollider>().material.staticFriction = fM.groundedFriction;
+            } else if(!fM.isGrounded)
+            {
+                fM.GetComponent<BoxCollider>().material.dynamicFriction = fM.notGroundedFriction;
+                fM.GetComponent<BoxCollider>().material.staticFriction = fM.notGroundedFriction;
             }
         }
 
