@@ -24,6 +24,9 @@ public class GameManager : MonoBehaviour
         */
 
         PlayerInput.Instantiate(PlayerObject, 0, null, -1, pairWithDevice: Keyboard.current);
+        PlayerInput.Instantiate(PlayerObject, 1, null, -1, pairWithDevice: Keyboard.current);
+        PlayerInput.Instantiate(PlayerObject, 2, null, -1, pairWithDevice: Keyboard.current);
+        PlayerInput.Instantiate(PlayerObject, 3, null, -1, pairWithDevice: Keyboard.current);
         //PlayerInput.Instantiate(PlayerObject, 1, null, -1, pairWithDevice: Gamepad.all[0]);
 
         /*
