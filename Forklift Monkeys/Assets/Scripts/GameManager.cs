@@ -11,76 +11,29 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        //joinANewPlayer();
-
         for (int i = 0; i < 4; i++)
         {
-            PlayerInput.Instantiate(PlayerObject, i, null, -1);
-        }
-        
+            //spawns in the four players paired to their device
+            PlayerInput.Instantiate(PlayerObject, i, null, -1, pairWithDevice: Keyboard.current);
 
-        //JoinFourPlayers();
+            //places players at their respawn point 
+            pIM.playerPrefab.transform.position = playerSpawnPts[i].position;
+            pIM.playerPrefab.GetComponent<ForwardMovement>().RespawnPoint = playerSpawnPts[i].position;
+        }
+
+        //PlayerInput.Instantiate(PlayerObject, 0, null, -1, pairWithDevice: Keyboard.current);
+        //PlayerInput.Instantiate(PlayerObject, 1, null, -1, pairWithDevice: Gamepad.all[0]);
 
         /*
-        for (int i = 0; i < 4; ++i)
+        for (int i = 0; i < 4; i++)
         {
-            joinANewPlayer();
-            //The first parameter controls which screen the respective player is on
+            //spawns in the four players paired to their device
+            PlayerInput.Instantiate(PlayerObject, i, null, -1, pairWithDevice: Gamepad.all[i]);
 
-            //print(i);
-        }
-        */
-        //pIM.JoinPlayer(1, 1, null);
-        /*
-        for (int i = 0; i < 2; i++)
-        {
-            pIM.JoinPlayer(i, i, "test", inputDevice);
-            //pIM.playerPrefab.transform.position = playerSpawnPts[i].position;
-        }
-        */
-
-        //joins one player with camera not working
-        //pIM.JoinPlayer(0, 0);
-        //pIM.JoinPlayer(1, 1);
-    }
-
-    private void Update()
-    {
-        /*
-        if(Input.GetKeyDown(KeyCode.L))
-        {
-            joinANewPlayer();
+            //places players at their respawn point 
+            pIM.playerPrefab.transform.position = playerSpawnPts[i].position;
+            pIM.playerPrefab.GetComponent<ForwardMovement>().RespawnPoint = playerSpawnPts[i].position;
         }
         */
     }
-    /*
-    public void joinANewPlayer()
-    {
-        if(pIM.playerCount < pIM.maxPlayerCount)
-        {
-            int playerIndex = pIM.playerCount;
-            pIM.JoinPlayer(playerIndex);
-
-            Debug.Log("index = " + playerIndex);
-
-
-            pIM.playerPrefab.gameObject.transform.position = playerSpawnPts[playerIndex].position;
-        }
-    }
-    */
-    //this only joined one player, though it prints through all the loops. One player shows up with the camera not working
-    /*
-    public void JoinFourPlayers()
-    {
-        for(int i = 0; i < 4; i++)
-        {
-            PlayerInput.Instantiate(PlayerObject, i, null, i);
-            Debug.Log(i);
-
-            //pIM.playerPrefab.gameObject.transform.position = playerSpawnPts[i].position;
-        }
-    }
-    */
-
-    //public PlayerInput JoinPlayer(int playerIndex, int splitScreenIndex, string controlScheme = null, params InputDevice[] pairWithDevices)
 }

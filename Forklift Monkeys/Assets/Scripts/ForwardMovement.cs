@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 using TMPro;
 
 public class ForwardMovement : MonoBehaviour
@@ -40,7 +39,6 @@ public class ForwardMovement : MonoBehaviour
     public float knockBackAmtMultiplyer;
     public float knockBackAmt;
     public float shelfknockBackAmt;
-    public TextMeshProUGUI knockBackAmtText;
     public float knockBackAccel;
     public float knockBackDecel;
 
@@ -51,6 +49,8 @@ public class ForwardMovement : MonoBehaviour
     public Vector3 hitDirection;
 
     public Vector3 RespawnPoint;
+    public float playerRespawnYRotation; //The y rotation the players will be set to, so they're all facing the center
+    public float[] possibleRespawnYRotations;
 
     public PlayerInput MyInput;
 
@@ -88,6 +88,10 @@ public class ForwardMovement : MonoBehaviour
     public Transform groundCheck;
     public float groundDistance;
     public LayerMask groundMask;
+
+    public int playerIndex = 0;
+    public Material[] forkliftPlayerMaterials;
+    public MeshRenderer[] meshObjects;
 
     private UIUXCanvasScript uIB;
 
@@ -127,7 +131,29 @@ public class ForwardMovement : MonoBehaviour
 
         uIB = FindObjectOfType<UIUXCanvasScript>();
         uIB.players.Add(gameObject.GetComponent<ForwardMovement>());
+
+        /*
+        switch (playerIndex)
+        {
+            case 0:
+                playerRespawnYRotation = 225;
+                break;
+            case 1:
+                playerRespawnYRotation = 135;
+                break;
+            case 2:
+                playerRespawnYRotation = 45;
+                break;
+            case 3:
+                playerRespawnYRotation = -45; //They're all getting set to this value???
+                break;
+        }
+        */
+
+        transform.rotation = Quaternion.Euler(transform.rotation.x, playerRespawnYRotation, transform.rotation.z);
         //LPHClear = 5f;
+
+        //Assign each of the players their correct forklift material
     }
 
     private void FixedUpdate()
@@ -137,7 +163,6 @@ public class ForwardMovement : MonoBehaviour
             MovePlayer();
         }
         
-
         Vector3 gravity = globalGravity * gravityScale * Vector3.up;
         rb.AddForce(gravity, ForceMode.Acceleration);
     }
@@ -145,9 +170,15 @@ public class ForwardMovement : MonoBehaviour
     private void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        knockBackAmtText.text = knockBackAmt.ToString("N0");
+
+        playerRespawnYRotation = possibleRespawnYRotations[playerIndex];
 
         GetInput();
+
+        foreach(MeshRenderer m in meshObjects)
+        {
+            m.material = forkliftPlayerMaterials[playerIndex];
+        }
 
         if (moveDirection.magnitude != 0)
         {
@@ -249,6 +280,7 @@ public class ForwardMovement : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Shelf"))
         {
+            //FindObjectOfType<audioManager>().Play("boxingGlove"); //This was for testing purposes
             Vector3 hitDirection = collision.transform.position;
             KnockbackSend(shelfknockBackAmt, hitDirection);
             canMove = false;
@@ -352,9 +384,12 @@ public class ForwardMovement : MonoBehaviour
     {
         //respawn player
         gameObject.transform.position = RespawnPoint;
+        transform.rotation = Quaternion.Euler(transform.rotation.x, playerRespawnYRotation, transform.rotation.z);
+        //make poweup none
+        PowerUp = 0;
 
         //score mode
-        if(LastPlayerHit != null)
+        if (LastPlayerHit != null)
         {
             LastPlayerHit.Score++;
         }

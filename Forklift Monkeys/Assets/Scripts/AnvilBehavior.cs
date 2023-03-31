@@ -47,7 +47,35 @@ public class AnvilBehavior : MonoBehaviour
         {
             //determine collision properties
             Vector3 hitDirection = other.transform.position - transform.position;
-            other.gameObject.GetComponent<ForwardMovement>().KnockbackSend(50, hitDirection);
+            Vector3 sendDirection = new Vector3(0,0,0);
+            if(hitDirection.x > hitDirection.z)
+            {
+                if (hitDirection.x < 0)
+                {
+                    sendDirection.z = hitDirection.z / Mathf.Abs(hitDirection.x);
+                    sendDirection.x = -1;
+                }
+                else if (hitDirection.x > 0)
+                {
+                    sendDirection.z = hitDirection.z / Mathf.Abs(hitDirection.x);
+                    sendDirection.x = 1;
+                }
+            }
+            else
+            {
+                if (hitDirection.z < 0)
+                {
+                    sendDirection.x = hitDirection.x / Mathf.Abs(hitDirection.z);
+                    sendDirection.z = -1;
+                }
+                else if (hitDirection.z > 0)
+                {
+                    sendDirection.x = hitDirection.x / Mathf.Abs(hitDirection.z);
+                    sendDirection.z = 1;
+                }
+            }
+            
+            other.gameObject.GetComponent<ForwardMovement>().KnockbackSend(100, sendDirection);
             //do knockback
             other.gameObject.GetComponent<ForwardMovement>().LastPlayerHit = monkeyNotToHurt.GetComponent<ForwardMovement>();
             other.gameObject.GetComponent<ForwardMovement>().CanBeAnviled = false;

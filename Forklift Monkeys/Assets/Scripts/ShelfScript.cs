@@ -17,6 +17,14 @@ public class ShelfScript : MonoBehaviour
         bc = GetComponent<BoxCollider>();
     }
 
+    private void Update()
+    {
+        if(gameObject.transform.position.y <= -300)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void FixedUpdate()
     {
         Vector3 gravity = globalGravity * gravityScale * Vector3.up;
