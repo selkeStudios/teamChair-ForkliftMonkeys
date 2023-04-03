@@ -240,7 +240,7 @@ public class ForwardMovement : MonoBehaviour
         if(gameObject.transform.position.y < 0)
         {
             gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-            //gameObject.GetComponent<BoxCollider>().enabled = false;
+            gameObject.GetComponent<BoxCollider>().enabled = false;
         }
         */
     }
@@ -399,7 +399,7 @@ public class ForwardMovement : MonoBehaviour
     {
         //respawn player
         //gameObject.GetComponent<BoxCollider>().enabled = true;
-        //gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+        gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         gameObject.transform.position = RespawnPoint;
         transform.rotation = Quaternion.Euler(transform.rotation.x, playerRespawnYRotation, transform.rotation.z);
         //make poweup none

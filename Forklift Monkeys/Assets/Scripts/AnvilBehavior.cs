@@ -43,6 +43,8 @@ public class AnvilBehavior : MonoBehaviour
     //How shockwave interacts with other objects
     private void OnTriggerEnter(Collider other)
     {
+        //Debug.Log(other);
+        
         if (other.CompareTag("Player") && other.gameObject.GetComponent<ForwardMovement>().CanBeAnviled && other.gameObject != monkeyNotToHurt)
         {
             //determine collision properties
