@@ -96,6 +96,10 @@ public class ForwardMovement : MonoBehaviour
     public float groundedFriction;
     public float notGroundedFriction;
 
+    public GameObject forkLiftModel;
+    public float knockBackRotationSpeed;
+    public Vector3 playerRotationResetPos;
+
     private UIUXCanvasScript uIB;
 
     private void Awake()
@@ -134,6 +138,8 @@ public class ForwardMovement : MonoBehaviour
 
         uIB = FindObjectOfType<UIUXCanvasScript>();
         uIB.players.Add(gameObject.GetComponent<ForwardMovement>());
+
+        playerRotationResetPos = new Vector3(0, 0, 0);
 
         /*
         switch (playerIndex)
@@ -174,6 +180,8 @@ public class ForwardMovement : MonoBehaviour
     private void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        //forkLiftModel.transform.Rotate(knockBackRotationSpeed, 0, 0);
 
         GetInput();
 
@@ -363,8 +371,8 @@ public class ForwardMovement : MonoBehaviour
     }
 
     private void MovePlayer()
-    {
-        if(canMove)
+    { 
+        if (canMove)
         {
             moveDirection = orientation.forward * verticalInput;
             orientation.Rotate(0, hInput * rotationSpeed, 0);
