@@ -4221,7 +4221,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1024322238}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ecf8d754a65bd4f44950da60b6a66db7, type: 3}
   m_Name: 
@@ -4702,7 +4702,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5848704881998614315, guid: a3e4dc918985b4fa98488b2ccd000df6, type: 3}
       propertyPath: boxes.Array.size
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5848704881998614315, guid: a3e4dc918985b4fa98488b2ccd000df6, type: 3}
       propertyPath: boxes.Array.data[0]
@@ -4732,6 +4732,10 @@ PrefabInstance:
       propertyPath: boxes.Array.data[6]
       value: 
       objectReference: {fileID: 290954755}
+    - target: {fileID: 5848704881998614315, guid: a3e4dc918985b4fa98488b2ccd000df6, type: 3}
+      propertyPath: boxes.Array.data[7]
+      value: 
+      objectReference: {fileID: 1920757171}
     - target: {fileID: 5848704881998614325, guid: a3e4dc918985b4fa98488b2ccd000df6, type: 3}
       propertyPath: m_Name
       value: Shelf (3)
@@ -7146,6 +7150,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 7842263806723876140, guid: d07c7d9b17ef3524ba62c3aad8d5f905, type: 3}
   m_PrefabInstance: {fileID: 1917939501}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &1920757171 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 3217282552446269712, guid: 8153342771b0d824f8810abfd5f635fa, type: 3}
+  m_PrefabInstance: {fileID: 74036410}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1928500560
 PrefabInstance:
