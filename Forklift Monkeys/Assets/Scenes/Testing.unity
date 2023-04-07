@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571336, b: 0.3069219, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3912,6 +3912,18 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: boxingGlove
     clip: {fileID: 8300000, guid: 781b23b72467f4c89891371c0b14ea3f, type: 3}
+    mixer: {fileID: 24300002, guid: 784486e70f3364c3fb9992f3b4618651, type: 2}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: horn1
+    clip: {fileID: 8300000, guid: 84df4818ddba13446919c235692c8409, type: 3}
+    mixer: {fileID: 24300002, guid: 784486e70f3364c3fb9992f3b4618651, type: 2}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+  - name: horn2
+    clip: {fileID: 8300000, guid: 8bfa2e6bbc43db74b98f21a82bd9f83f, type: 3}
     mixer: {fileID: 24300002, guid: 784486e70f3364c3fb9992f3b4618651, type: 2}
     volume: 1
     pitch: 1
