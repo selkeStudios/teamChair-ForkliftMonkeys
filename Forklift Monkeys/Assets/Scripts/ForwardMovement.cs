@@ -360,14 +360,14 @@ public class ForwardMovement : MonoBehaviour
             oiledFirstTime = true;
             StartCoroutine(Oiled());
         }
-        else if(other.gameObject.CompareTag("Boxes"))
+        /*else if(other.gameObject.CompareTag("Boxes"))
         {
             if (PowerUp == 0)
             {
                 PowerUp = Random.Range(1, 4);
             }
             other.gameObject.GetComponent<PowerUpBoxes>().BreakBox();
-        }
+        }*/
     }
 
     private void MovePlayer()
