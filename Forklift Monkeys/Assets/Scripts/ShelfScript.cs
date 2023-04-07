@@ -7,6 +7,7 @@ public class ShelfScript : MonoBehaviour
     public float shelfGravity;
     public float gravityScale;
     private float globalGravity = -9.81f;
+    public Rigidbody[] boxes;
 
     Rigidbody rb;
     BoxCollider bc;
@@ -37,6 +38,14 @@ public class ShelfScript : MonoBehaviour
         {
             gravityScale = shelfGravity;
             bc.enabled = false;
+            foreach(Rigidbody box in boxes)
+            {
+                Vector3 newdirection = new Vector3(Random.Range(-50, 50),Random.Range(-50, 50), Random.Range(-50, 50));
+                box.isKinematic= false;
+                box.useGravity = true;
+                box.GetComponent<BoxCollider>().enabled= true;
+                box.AddForce(newdirection, ForceMode.Impulse);
+            }
         }
     }
 }
