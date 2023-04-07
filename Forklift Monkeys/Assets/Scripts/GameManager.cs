@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < 4; i++)
         {
-            //spawns in the four players paired to their device
             PlayerInput.Instantiate(PlayerObject, i, null, -1, pairWithDevice: Keyboard.current);
 
             //places players at their respawn point 
@@ -21,8 +20,8 @@ public class GameManager : MonoBehaviour
             pIM.playerPrefab.GetComponent<ForwardMovement>().RespawnPoint = playerSpawnPts[i].position;
         }
 
-        PlayerInput.Instantiate(PlayerObject, 0, null, -1, pairWithDevice: Keyboard.current);
-        PlayerInput.Instantiate(PlayerObject, 1, null, -1, pairWithDevice: Gamepad.all[0]);
+        //PlayerInput.Instantiate(PlayerObject, 0, null, -1, pairWithDevice: Keyboard.current);
+        //PlayerInput.Instantiate(PlayerObject, 1, null, -1, pairWithDevice: Gamepad.all[0]);
 
         /*
         for (int i = 0; i < 4; i++)
