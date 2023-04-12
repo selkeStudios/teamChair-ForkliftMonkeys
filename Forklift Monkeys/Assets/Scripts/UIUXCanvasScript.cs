@@ -7,7 +7,7 @@ using TMPro;
 public class UIUXCanvasScript : MonoBehaviour
 {
     public List<ForwardMovement> players = new List<ForwardMovement>();
-    public TextMeshProUGUI[] powerUpTexts;
+    //public TextMeshProUGUI[] powerUpTexts;
     public TextMeshProUGUI[] scoreTexts;
     public float[] playerRespawnRotationYValues;
 
@@ -68,6 +68,7 @@ public class UIUXCanvasScript : MonoBehaviour
 
         foreach (ForwardMovement fM in players)
         {
+            /*
             switch (fM.PowerUp)
             {
                 case 1:
@@ -83,6 +84,7 @@ public class UIUXCanvasScript : MonoBehaviour
                     powerUpTexts[players.IndexOf(fM)].text = "None";
                     break;
             }
+            */
 
             fM.playerIndex = players.IndexOf(fM);
 
