@@ -113,7 +113,7 @@ public class ForwardMovement : MonoBehaviour
     public GameObject starExplosionParticleEffect;
     public bool canSendOutConfettiAndBoom;
 
-    public bool canMoveAfterRespawning;
+    public bool canGetPointsWhileBelow;
 
     private UIUXCanvasScript uIB;
 
@@ -155,10 +155,10 @@ public class ForwardMovement : MonoBehaviour
         uIB.players.Add(gameObject.GetComponent<ForwardMovement>());
 
         canSendOutConfettiAndBoom = true;
-        canMoveAfterRespawning = true;
+        canGetPointsWhileBelow = true;
 
-        temporaryPoint.x = playerRespawnYRotation * 2;
-        temporaryPoint.z = playerRespawnYRotation * 2;
+        temporaryPoint.x = possibleRespawnYRotations[uIB.players.IndexOf(GetComponent<ForwardMovement>())] * 2;
+        temporaryPoint.z = possibleRespawnYRotations[uIB.players.IndexOf(GetComponent<ForwardMovement>())] * 2;
 
         /*
         switch (playerIndex)
@@ -205,6 +205,11 @@ public class ForwardMovement : MonoBehaviour
         foreach (MeshRenderer m in meshObjects)
         {
             m.material = forkliftPlayerMaterials[playerIndex];
+        }
+
+        if(isGrounded)
+        {
+            canGetPointsWhileBelow = true;
         }
 
         if (moveDirection.magnitude != 0)
@@ -533,30 +538,17 @@ public class ForwardMovement : MonoBehaviour
         //score mode
         if (LastPlayerHit != null)
         {
-            LastPlayerHit.Score++;
+            if(canGetPointsWhileBelow)
+            {
+                LastPlayerHit.Score++;
+                canGetPointsWhileBelow = false;
+            }
             //FindObjectOfType<audioManager>().Play("monkeyFall");
             LastPlayerHit = null;
         }
 
         StartCoroutine(respawnTruly());
-        /*
-        else if(LastPlayerHit == null )
-        {
-            if (Score > 0)
-            {
-                Score--;
-            }
-        }
-        */
     }
-
-    /*
-    IEnumerator ClearLPH()
-    {
-        yield return new WaitForSeconds(LPHClear);
-        LastPlayerHit = null;
-    }
-    */
 
     public IEnumerator Oiled()
     {
@@ -591,7 +583,6 @@ public class ForwardMovement : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, playerRespawnYRotation, transform.rotation.z);
         mCB.isChilded = true;
         canMove = true;
-        canMoveAfterRespawning = true;
         //mCB.gameObject.transform.position = mCB.startPos;
     }
 
