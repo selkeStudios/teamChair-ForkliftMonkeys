@@ -122,16 +122,16 @@ public class UIUXCanvasScript : MonoBehaviour
         switch (winnerIndexValue)
         {
             case 0:
-                winnerText.text = "Player 1 Wins!";
+                winnerText.text = "Yellow Player Wins!";
                 break;
             case 1:
-                winnerText.text = "Player 2 Wins!";
+                winnerText.text = "Red Player Wins!";
                 break;
             case 2:
-                winnerText.text = "Player 3 Wins!";
+                winnerText.text = "Blue Player Wins!";
                 break;
             case 3:
-                winnerText.text = "Player 4 Wins!";
+                winnerText.text = "Green Player Wins!";
                 break;
             default:
                 winnerText.text = "Tie!";
