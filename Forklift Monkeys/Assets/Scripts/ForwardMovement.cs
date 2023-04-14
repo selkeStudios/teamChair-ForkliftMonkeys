@@ -117,6 +117,8 @@ public class ForwardMovement : MonoBehaviour
 
     private UIUXCanvasScript uIB;
 
+    private bool canHorn = true;
+
     private void Awake()
     {
         //input system stuff
@@ -356,7 +358,7 @@ public class ForwardMovement : MonoBehaviour
             XPressPrevious = false;
         }
 
-        if (YPressed == true)
+        if (YPressed == true && canHorn)
         {
             Debug.Log("*horn noises*");
             StartCoroutine(HornSounds());
@@ -366,56 +368,48 @@ public class ForwardMovement : MonoBehaviour
     }
     IEnumerator HornSounds()
     {
+        YPressed = false;
+        canHorn = false;
+
         int hornInt = Random.Range(0, 9);
-        Debug.Log(hornInt);
-        int hornCooldownUse;
-        int hornCooldown;
+        //Debug.Log(hornInt);
 
         switch (hornInt)
         {
             case 0:
-                FindObjectOfType<audioManager>().Play("Horn0");
-                hornCooldown = 3;
+                FindObjectOfType<audioManager>().Play("horn0");
                 break;
             case 1:
-                FindObjectOfType<audioManager>().Play("Horn1");
-                hornCooldown = 3;
+                FindObjectOfType<audioManager>().Play("horn1");
                 break;
             case 2:
-                FindObjectOfType<audioManager>().Play("Horn2");
-                hornCooldown = 3;
+                FindObjectOfType<audioManager>().Play("horn2");
                 break;
             case 3:
-                FindObjectOfType<audioManager>().Play("Horn3");
-                hornCooldown = 3;
+                FindObjectOfType<audioManager>().Play("horn3");
                 break;
             case 4:
-                FindObjectOfType<audioManager>().Play("Horn4");
-                hornCooldown = 3;
+                FindObjectOfType<audioManager>().Play("horn4");
                 break;
             case 5:
-                FindObjectOfType<audioManager>().Play("Horn5");
-                hornCooldown = 3;
+                FindObjectOfType<audioManager>().Play("horn5");
                 break;
             case 6:
-                FindObjectOfType<audioManager>().Play("Horn6");
-                hornCooldown = 3;
+                FindObjectOfType<audioManager>().Play("horn6");
                 break;
             case 7:
-                FindObjectOfType<audioManager>().Play("Horn7");
-                hornCooldown = 3;
+                FindObjectOfType<audioManager>().Play("horn7");
                 break;
             case 8:
-                FindObjectOfType<audioManager>().Play("Horn8");
-                hornCooldown = 3;
+                FindObjectOfType<audioManager>().Play("horn8");
                 break;
             case 9:
-                FindObjectOfType<audioManager>().Play("Horn9");
-                hornCooldown = 3;
+                FindObjectOfType<audioManager>().Play("horn9");
                 break;
         }
-        //hornCooldown = hornCooldownUse;
-        yield return new WaitForSeconds(5);
+
+        yield return new WaitForSeconds(0.5f);
+        canHorn = true;
     }
 
     private void OnCollisionEnter(Collision collision)
