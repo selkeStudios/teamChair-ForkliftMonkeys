@@ -52,6 +52,8 @@ public class ForwardMovement : MonoBehaviour
     public float playerRespawnYRotation; //The y rotation the players will be set to, so they're all facing the center
     public float[] possibleRespawnYRotations;
 
+    public Vector3 temporaryPoint;
+
     public PlayerInput MyInput;
 
     public InputAction Wheel;
@@ -83,7 +85,7 @@ public class ForwardMovement : MonoBehaviour
     public bool timerUp;
 
     public Transform oilSpawner;
-
+    
     public bool isGrounded;
     public Transform groundCheck;
     public float groundDistance;
@@ -98,7 +100,20 @@ public class ForwardMovement : MonoBehaviour
 
     public GameObject forkLiftModel;
     public float knockBackRotationSpeed;
-    public Vector3 playerRotationResetPos;
+    public Vector3 modelRotation;
+
+    public ParticleSystem[] smokeParticleEffects;
+
+    //public GameObject tireTrack;
+
+    public mainCameraBehaviour mCB;
+    public GameObject boomEffect;
+    public GameObject powEffect;
+    public GameObject confettiBurstParticleEffect;
+    public GameObject starExplosionParticleEffect;
+    public bool canSendOutConfettiAndBoom;
+
+    public bool canMoveAfterRespawning;
 
     private UIUXCanvasScript uIB;
 
@@ -139,7 +154,11 @@ public class ForwardMovement : MonoBehaviour
         uIB = FindObjectOfType<UIUXCanvasScript>();
         uIB.players.Add(gameObject.GetComponent<ForwardMovement>());
 
-        playerRotationResetPos = new Vector3(0, 0, 0);
+        canSendOutConfettiAndBoom = true;
+        canMoveAfterRespawning = true;
+
+        temporaryPoint.x = playerRespawnYRotation * 2;
+        temporaryPoint.z = playerRespawnYRotation * 2;
 
         /*
         switch (playerIndex)
@@ -160,10 +179,8 @@ public class ForwardMovement : MonoBehaviour
         */
 
         playerRespawnYRotation = possibleRespawnYRotations[uIB.players.IndexOf(GetComponent<ForwardMovement>())];
-        transform.rotation = Quaternion.Euler(transform.rotation.x, playerRespawnYRotation, transform.rotation.z);
+        transform.rotation = Quaternion.Euler(0, playerRespawnYRotation, transform.rotation.z);
         //LPHClear = 5f;
-
-        //Assign each of the players their correct forklift material
     }
 
     private void FixedUpdate()
@@ -181,8 +198,6 @@ public class ForwardMovement : MonoBehaviour
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        //forkLiftModel.transform.Rotate(knockBackRotationSpeed, 0, 0);
-
         GetInput();
 
         RespawnPoint.y = 14;
@@ -196,12 +211,45 @@ public class ForwardMovement : MonoBehaviour
         {
             moveSpeed += accelerationAmount * Time.deltaTime;
             knockBackAmt += knockBackAccel * knockBackAmtMultiplyer * Time.deltaTime;
+            /*
+            if(isGrounded && APressed)
+            {
+                Instantiate(tireTrack, groundCheck.position + new Vector3(0, 0.4f, 0), transform.rotation);
+            }
+            */
+            if(isGrounded && uIB.timer > 0)
+            {
+                foreach (ParticleSystem ps in smokeParticleEffects)
+                {
+                    ParticleSystem.EmissionModule em = ps.emission;
+                    em.enabled = true;
+                }
+            } else
+            {
+                foreach (ParticleSystem ps in smokeParticleEffects)
+                {
+                    ParticleSystem.EmissionModule em = ps.emission;
+                    em.enabled = false;
+                }
+            }
         }
         else
         {
             moveSpeed -= decelerationAmount * Time.deltaTime;
             knockBackAmt -= knockBackDecel * knockBackAmtMultiplyer * Time.deltaTime;
+            foreach (ParticleSystem ps in smokeParticleEffects)
+            {
+                ParticleSystem.EmissionModule em = ps.emission;
+                em.enabled = false;
+            }
         }
+
+        /*
+        if (!isGrounded && !canMove)
+        {
+            forkLiftModel.transform.Rotate(knockBackRotationSpeed, 0, 0);
+        }
+        */
 
         if (moveSpeed <= minimumMoveSpeed)
         {
@@ -238,8 +286,19 @@ public class ForwardMovement : MonoBehaviour
             StartCoroutine(AnvilCoolDown());
         }
 
-        if(gameObject.transform.position.y <= -10)
+        if(gameObject.transform.position.y <= -8)
         {
+            mCB.isChilded = false;
+        }
+
+        if (gameObject.transform.position.y <= -10)
+        {
+            if(canSendOutConfettiAndBoom)
+            {
+                Instantiate(confettiBurstParticleEffect, transform.position, transform.rotation);
+                Instantiate(boomEffect, transform.position, transform.rotation * Quaternion.Euler(0, -180, 0));
+                canSendOutConfettiAndBoom = false;
+            }
             PlayerRespawn();
         }
 
@@ -291,6 +350,7 @@ public class ForwardMovement : MonoBehaviour
         {
             XPressPrevious = false;
         }
+
         if (YPressed == true)
         {
             //reverse
@@ -349,11 +409,13 @@ public class ForwardMovement : MonoBehaviour
                     KnockbackSend(other.transform.parent.gameObject.GetComponent<ForwardMovement>().knockBackAmt, hitDirection);
                     FindObjectOfType<audioManager>().Play("MonkeyHit");
                     FindObjectOfType<audioManager>().Play("forkliftCollision");
+                    Instantiate(powEffect, transform.position, transform.rotation * Quaternion.Euler(0, -180, 0));
+                    Instantiate(starExplosionParticleEffect, transform.position, transform.rotation);
                 }
             }
         }
 
-        if (other.gameObject.CompareTag("Oil"))  
+        if (other.gameObject.CompareTag("Oil"))
         {
             //Debug.Log("OIL OIL OIL");
             IsOiled = true;
@@ -376,11 +438,11 @@ public class ForwardMovement : MonoBehaviour
         {
             moveDirection = orientation.forward * verticalInput;
             orientation.Rotate(0, hInput * rotationSpeed, 0);
+            //modelRotation.y = hInput * rotationSpeed;
         }
         else
         {
             moveDirection = orientation.forward;
-            orientation.Rotate(0, 0, 0);
         }
 
         if (canMove)
@@ -398,6 +460,7 @@ public class ForwardMovement : MonoBehaviour
     {
         controls.Player1.Enable();
     }
+
     private void OnDisable()
     {
         controls.Player1.Disable();
@@ -406,10 +469,8 @@ public class ForwardMovement : MonoBehaviour
     public void PlayerRespawn()
     {
         //respawn player
-        //gameObject.GetComponent<BoxCollider>().enabled = true;
         gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-        gameObject.transform.position = RespawnPoint;
-        transform.rotation = Quaternion.Euler(transform.rotation.x, playerRespawnYRotation, transform.rotation.z);
+        gameObject.transform.position = temporaryPoint;
         //make poweup none
         PowerUp = 0;
 
@@ -420,6 +481,8 @@ public class ForwardMovement : MonoBehaviour
             //FindObjectOfType<audioManager>().Play("monkeyFall");
             LastPlayerHit = null;
         }
+
+        StartCoroutine(respawnTruly());
         /*
         else if(LastPlayerHit == null )
         {
@@ -463,6 +526,19 @@ public class ForwardMovement : MonoBehaviour
         CanBeAnviled = true;
     }
 
+    public IEnumerator respawnTruly()
+    {
+        canMove = false;
+        yield return new WaitForSeconds(2f);
+        canSendOutConfettiAndBoom = true;
+        gameObject.transform.position = RespawnPoint;
+        transform.rotation = Quaternion.Euler(0, playerRespawnYRotation, transform.rotation.z);
+        mCB.isChilded = true;
+        canMove = true;
+        canMoveAfterRespawning = true;
+        //mCB.gameObject.transform.position = mCB.startPos;
+    }
+
     public void UseItemGo(int Item)
     {
         switch (Item)
@@ -496,8 +572,8 @@ public class ForwardMovement : MonoBehaviour
 
     public void KnockbackSend(float KB, Vector3 HitDir)
     {
-        gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt = 3 * KB;
-        gameObject.GetComponent<ForwardMovement>().VerticalKnockBackAmt = 6 * KB;
+        gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt = 4.5f * KB;
+        gameObject.GetComponent<ForwardMovement>().VerticalKnockBackAmt = 9 * KB;
         gameObject.GetComponent<ForwardMovement>().knockBackAmtDuration = 5f;
         if (gameObject.GetComponent<ForwardMovement>().IsOiled)
         {
