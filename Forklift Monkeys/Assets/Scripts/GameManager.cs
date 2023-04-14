@@ -11,67 +11,28 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        joinANewPlayer();
-
-        //JoinFourPlayers();
-
-        /*
-        for (int i = 0; i < 4; ++i)
+        for (int i = 0; i < 4; i++)
         {
-            joinANewPlayer();
-            //The first parameter controls which screen the respective player is on
+            PlayerInput.Instantiate(PlayerObject, i, null, -1, pairWithDevice: Keyboard.current);
 
-            //print(i);
+            //places players at their respawn point 
+            pIM.playerPrefab.transform.position = playerSpawnPts[i].position;
+            pIM.playerPrefab.GetComponent<ForwardMovement>().RespawnPoint = playerSpawnPts[i].position;
         }
-        */
-        //pIM.JoinPlayer(1, 1, null);
-        /*
-        for (int i = 0; i < 2; i++)
-        {
-            pIM.JoinPlayer(i, i, "test", inputDevice);
-            //pIM.playerPrefab.transform.position = playerSpawnPts[i].position;
-        }
-        */
-        //JoinPlayer(0, 0, );
-    }
 
-    private void Update()
-    {
+        //PlayerInput.Instantiate(PlayerObject, 0, null, -1, pairWithDevice: Keyboard.current);
+        //PlayerInput.Instantiate(PlayerObject, 1, null, -1, pairWithDevice: Gamepad.all[0]);
+
         /*
-        if(Input.GetKeyDown(KeyCode.L))
+        for (int i = 0; i < 4; i++)
         {
-            joinANewPlayer();
+            //spawns in the four players paired to their device
+            PlayerInput.Instantiate(PlayerObject, i, null, -1, pairWithDevice: Gamepad.all[i]);
+
+            //places players at their respawn point 
+            pIM.playerPrefab.transform.position = playerSpawnPts[i].position;
+            pIM.playerPrefab.GetComponent<ForwardMovement>().RespawnPoint = playerSpawnPts[i].position;
         }
         */
     }
-
-    public void joinANewPlayer()
-    {
-        if(pIM.playerCount < pIM.maxPlayerCount)
-        {
-            int playerIndex = pIM.playerCount;
-            pIM.JoinPlayer(playerIndex);
-
-            Debug.Log("index = " + playerIndex);
-
-
-            pIM.playerPrefab.gameObject.transform.position = playerSpawnPts[playerIndex].position;
-        }
-    }
-
-    //this only joined one player, though it prints through all the loops. I tried adding the split screen index but that didn't work.
-    /*
-    public void JoinFourPlayers()
-    {
-        for(int i = 0; i < 2; i++)
-        {
-            pIM.JoinPlayer(i, i);
-            //Debug.Log(i);
-
-            //pIM.playerPrefab.gameObject.transform.position = playerSpawnPts[i].position;
-        }
-    }
-    */
-
-    //public PlayerInput JoinPlayer(int playerIndex, int splitScreenIndex, string controlScheme = null, params InputDevice[] pairWithDevices)
 }

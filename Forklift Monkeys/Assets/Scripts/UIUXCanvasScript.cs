@@ -7,39 +7,68 @@ using TMPro;
 public class UIUXCanvasScript : MonoBehaviour
 {
     public List<ForwardMovement> players = new List<ForwardMovement>();
-    public TextMeshProUGUI[] powerUpTexts;
+    //public TextMeshProUGUI[] powerUpTexts;
     public TextMeshProUGUI[] scoreTexts;
+    public float[] playerRespawnRotationYValues;
+
+    public bool canCountDown;
+    public float timeUntilBeginning;
+
+    public AudioSource music;
+    public float musicCountUp;
 
     public float timer;
     public TextMeshProUGUI timerText;
 
-    public Image[] sRs;
-    public TextMeshProUGUI[] textColors;
+    public TextMeshProUGUI winnerText;
+    public int winnerIndexValue = 0;
 
     public bool setScoresToZero;
+    public Animator fadingRect;
+    public bool canCheckForTies = true;
+
+    public float[] calculatedKnockBackToNeedleAmts;
+    public Transform[] speedometerNeedleTransforms;
+    public int highestPlayerScore = -1;
+    public int playersWhoTied;
 
     private void Start()
     {
         setScoresToZero = true;
+        music.volume = 0;
+        StartCoroutine(playMusic());
     }
 
     void Update()
     {
-        //print(players.Count);
-        if(players.Count >= 4)
+        if (players.Count >= 4 && canCountDown)
         {
             timer -= Time.deltaTime;
+            music.volume += musicCountUp;
+            if (music.volume >= 1)
+            {
+                music.volume = 1;
+            }
         }
         timerText.text = timer.ToString("N0");
 
-        if(timer <= 0)
+        if (timer <= 0)
         {
+
             timerText.color = Color.red;
             timer = 0;
+            checkForTies();
+            StartCoroutine(fadeToBlack());
+        }
+
+        if (playersWhoTied > 1)
+        {
+            winnerIndexValue = 4;
         }
 
         foreach (ForwardMovement fM in players)
         {
+            /*
             switch (fM.PowerUp)
             {
                 case 1:
@@ -55,6 +84,9 @@ public class UIUXCanvasScript : MonoBehaviour
                     powerUpTexts[players.IndexOf(fM)].text = "None";
                     break;
             }
+            */
+
+            fM.playerIndex = players.IndexOf(fM);
 
             scoreTexts[players.IndexOf(fM)].text = fM.Score.ToString();
 
@@ -63,30 +95,75 @@ public class UIUXCanvasScript : MonoBehaviour
                 fM.Score = 0;
                 setScoresToZero = false;
             }
+
+            for (int i = 0; i < players.Count; ++i)
+            {
+                calculatedKnockBackToNeedleAmts[i] = ((-players[i].knockBackAmt / 100 + 1) * 180) - 90;
+                speedometerNeedleTransforms[i].rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, calculatedKnockBackToNeedleAmts[i]);
+            }
+
+            if (fM.Score > highestPlayerScore) //This part works, it's just the ties that don't
+            {
+                highestPlayerScore = fM.Score;
+                winnerIndexValue = players.IndexOf(fM);
+            }
+
+            if(fM.isGrounded)
+            {
+                fM.GetComponent<BoxCollider>().material.dynamicFriction = fM.groundedFriction;
+                fM.GetComponent<BoxCollider>().material.staticFriction = fM.groundedFriction;
+            } else if(!fM.isGrounded)
+            {
+                fM.GetComponent<BoxCollider>().material.dynamicFriction = fM.notGroundedFriction;
+                fM.GetComponent<BoxCollider>().material.staticFriction = fM.notGroundedFriction;
+            }
         }
 
-        foreach(Image s in sRs)
+        switch (winnerIndexValue)
         {
-            if(players.Count >= 4)
-            {
-                s.color = new Color(1, 1, 1, 1);
-            } else
-            {
-                s.color = new Color(1, 1, 1, 0);
-            }
+            case 0:
+                winnerText.text = "Player 1 Wins!";
+                break;
+            case 1:
+                winnerText.text = "Player 2 Wins!";
+                break;
+            case 2:
+                winnerText.text = "Player 3 Wins!";
+                break;
+            case 3:
+                winnerText.text = "Player 4 Wins!";
+                break;
+            default:
+                winnerText.text = "Tie!";
+                break;
         }
+    }
 
-        foreach (TextMeshProUGUI t in textColors)
+    public void checkForTies()
+    {
+        if(canCheckForTies)
         {
-            if (players.Count >= 4)
+            for (int i = 0; i < players.Count; ++i)
             {
-                t.color = new Color(1, 1, 1, 1);
+                if (players[i].Score == highestPlayerScore)
+                {
+                    playersWhoTied++;
+                }
             }
-            else
-            {
-                t.color = new Color(1, 1, 1, 0);
-            }
+            canCheckForTies = false;
         }
+    }
 
+    IEnumerator fadeToBlack()
+    {
+        yield return new WaitForSeconds(2f);
+        fadingRect.SetTrigger("fadeInTrans");
+    }
+
+    IEnumerator playMusic()
+    {
+        yield return new WaitForSeconds(timeUntilBeginning);
+        canCountDown = true;
+        music.Play();
     }
 }

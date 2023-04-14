@@ -23,15 +23,27 @@ public class BoxSpawner : MonoBehaviour
     //The prefab box
     public GameObject powerUpBoxRef;
 
+    public bool canSpawnBoxes;
+    private UIUXCanvasScript ux;
+
     // Update is called once per frame
     private void Start()
     {
         StartCoroutine(spawnBox());
+        ux = FindObjectOfType<UIUXCanvasScript>();
+    }
+
+    private void Update()
+    {
+        if(ux.timer <= 0)
+        {
+            canSpawnBoxes = false;
+        }
     }
 
     public IEnumerator spawnBox()
     {
-        while (true)
+        while (canSpawnBoxes == true)
         {
             if (boxChance == (int)(Random.Range(0.001f, boxChance - .0000000000001f) + 1))
             {
