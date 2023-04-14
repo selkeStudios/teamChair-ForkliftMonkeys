@@ -157,8 +157,8 @@ public class ForwardMovement : MonoBehaviour
         canSendOutConfettiAndBoom = true;
         canGetPointsWhileBelow = true;
 
-        temporaryPoint.x = playerRespawnYRotation * 2;
-        temporaryPoint.z = playerRespawnYRotation * 2;
+        temporaryPoint.x = possibleRespawnYRotations[uIB.players.IndexOf(GetComponent<ForwardMovement>())] * 2;
+        temporaryPoint.z = possibleRespawnYRotations[uIB.players.IndexOf(GetComponent<ForwardMovement>())] * 2;
 
         /*
         switch (playerIndex)
@@ -492,24 +492,7 @@ public class ForwardMovement : MonoBehaviour
         }
 
         StartCoroutine(respawnTruly());
-        /*
-        else if(LastPlayerHit == null )
-        {
-            if (Score > 0)
-            {
-                Score--;
-            }
-        }
-        */
     }
-
-    /*
-    IEnumerator ClearLPH()
-    {
-        yield return new WaitForSeconds(LPHClear);
-        LastPlayerHit = null;
-    }
-    */
 
     public IEnumerator Oiled()
     {
