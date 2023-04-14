@@ -217,7 +217,7 @@ public class ForwardMovement : MonoBehaviour
                 Instantiate(tireTrack, groundCheck.position + new Vector3(0, 0.4f, 0), transform.rotation);
             }
             */
-            if(isGrounded)
+            if(isGrounded && uIB.timer > 0)
             {
                 foreach (ParticleSystem ps in smokeParticleEffects)
                 {
