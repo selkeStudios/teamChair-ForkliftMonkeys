@@ -353,10 +353,66 @@ public class ForwardMovement : MonoBehaviour
 
         if (YPressed == true)
         {
-            //reverse
             Debug.Log("*horn noises*");
+            StartCoroutine(HornSounds());
+            
+            //FindObjectOfType<audioManager>().Play("Horn");
         }
     }
+    IEnumerator HornSounds()
+    {
+        int hornInt = Random.Range(0, 9);
+        Debug.Log(hornInt);
+        int hornCooldownUse;
+        int hornCooldown;
+
+        switch (hornInt)
+        {
+            case 0:
+                FindObjectOfType<audioManager>().Play("Horn0");
+                hornCooldown = 3;
+                break;
+            case 1:
+                FindObjectOfType<audioManager>().Play("Horn1");
+                hornCooldown = 3;
+                break;
+            case 2:
+                FindObjectOfType<audioManager>().Play("Horn2");
+                hornCooldown = 3;
+                break;
+            case 3:
+                FindObjectOfType<audioManager>().Play("Horn3");
+                hornCooldown = 3;
+                break;
+            case 4:
+                FindObjectOfType<audioManager>().Play("Horn4");
+                hornCooldown = 3;
+                break;
+            case 5:
+                FindObjectOfType<audioManager>().Play("Horn5");
+                hornCooldown = 3;
+                break;
+            case 6:
+                FindObjectOfType<audioManager>().Play("Horn6");
+                hornCooldown = 3;
+                break;
+            case 7:
+                FindObjectOfType<audioManager>().Play("Horn7");
+                hornCooldown = 3;
+                break;
+            case 8:
+                FindObjectOfType<audioManager>().Play("Horn8");
+                hornCooldown = 3;
+                break;
+            case 9:
+                FindObjectOfType<audioManager>().Play("Horn9");
+                hornCooldown = 3;
+                break;
+        }
+        //hornCooldown = hornCooldownUse;
+        yield return new WaitForSeconds(5);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Shelf"))
