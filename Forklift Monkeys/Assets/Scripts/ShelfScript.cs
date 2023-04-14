@@ -47,7 +47,7 @@ public class ShelfScript : MonoBehaviour
                 Vector3 newdirection = new Vector3(Random.Range(-50, 50),Random.Range(-50, 50), Random.Range(-50, 50));
                 box.isKinematic= false;
                 box.useGravity = true;
-                box.GetComponent<BoxCollider>().enabled= true;
+                box.GetComponent<BoxCollider>().enabled = true;
                 box.AddForce(newdirection, ForceMode.Impulse);
             }
         }

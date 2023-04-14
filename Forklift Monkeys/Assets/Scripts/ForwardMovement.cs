@@ -83,7 +83,7 @@ public class ForwardMovement : MonoBehaviour
     public bool timerUp;
 
     public Transform oilSpawner;
-
+    
     public bool isGrounded;
     public Transform groundCheck;
     public float groundDistance;
@@ -98,7 +98,18 @@ public class ForwardMovement : MonoBehaviour
 
     public GameObject forkLiftModel;
     public float knockBackRotationSpeed;
-    public Vector3 playerRotationResetPos;
+    public Vector3 modelRotation;
+
+    public ParticleSystem[] smokeParticleEffects;
+
+    //public GameObject tireTrack;
+
+    public mainCameraBehaviour mCB;
+    public GameObject boomEffect;
+    public GameObject powEffect;
+    public GameObject confettiBurstParticleEffect;
+    public GameObject starExplosionParticleEffect;
+    public bool canSendOutConfettiAndBoom;
 
     private UIUXCanvasScript uIB;
 
@@ -139,8 +150,6 @@ public class ForwardMovement : MonoBehaviour
         uIB = FindObjectOfType<UIUXCanvasScript>();
         uIB.players.Add(gameObject.GetComponent<ForwardMovement>());
 
-        playerRotationResetPos = new Vector3(0, 0, 0);
-
         /*
         switch (playerIndex)
         {
@@ -160,7 +169,7 @@ public class ForwardMovement : MonoBehaviour
         */
 
         playerRespawnYRotation = possibleRespawnYRotations[uIB.players.IndexOf(GetComponent<ForwardMovement>())];
-        transform.rotation = Quaternion.Euler(transform.rotation.x, playerRespawnYRotation, transform.rotation.z);
+        transform.rotation = Quaternion.Euler(0, playerRespawnYRotation, transform.rotation.z);
         //LPHClear = 5f;
 
         //Assign each of the players their correct forklift material
@@ -181,8 +190,6 @@ public class ForwardMovement : MonoBehaviour
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        //forkLiftModel.transform.Rotate(knockBackRotationSpeed, 0, 0);
-
         GetInput();
 
         RespawnPoint.y = 14;
@@ -196,12 +203,45 @@ public class ForwardMovement : MonoBehaviour
         {
             moveSpeed += accelerationAmount * Time.deltaTime;
             knockBackAmt += knockBackAccel * knockBackAmtMultiplyer * Time.deltaTime;
+            /*
+            if(isGrounded && APressed)
+            {
+                Instantiate(tireTrack, groundCheck.position + new Vector3(0, 0.4f, 0), transform.rotation);
+            }
+            */
+            if(isGrounded)
+            {
+                foreach (ParticleSystem ps in smokeParticleEffects)
+                {
+                    ParticleSystem.EmissionModule em = ps.emission;
+                    em.enabled = true;
+                }
+            } else
+            {
+                foreach (ParticleSystem ps in smokeParticleEffects)
+                {
+                    ParticleSystem.EmissionModule em = ps.emission;
+                    em.enabled = false;
+                }
+            }
         }
         else
         {
             moveSpeed -= decelerationAmount * Time.deltaTime;
             knockBackAmt -= knockBackDecel * knockBackAmtMultiplyer * Time.deltaTime;
+            foreach (ParticleSystem ps in smokeParticleEffects)
+            {
+                ParticleSystem.EmissionModule em = ps.emission;
+                em.enabled = false;
+            }
         }
+
+        /*
+        if (!isGrounded && !canMove)
+        {
+            forkLiftModel.transform.Rotate(knockBackRotationSpeed, 0, 0);
+        }
+        */
 
         if (moveSpeed <= minimumMoveSpeed)
         {
@@ -238,8 +278,10 @@ public class ForwardMovement : MonoBehaviour
             StartCoroutine(AnvilCoolDown());
         }
 
-        if(gameObject.transform.position.y <= -10)
+        if (gameObject.transform.position.y <= -10)
         {
+            //mCB.isChilded = false;
+            Instantiate(confettiBurstParticleEffect, transform.position, transform.rotation);
             PlayerRespawn();
         }
 
@@ -291,6 +333,7 @@ public class ForwardMovement : MonoBehaviour
         {
             XPressPrevious = false;
         }
+
         if (YPressed == true)
         {
             //reverse
@@ -349,11 +392,13 @@ public class ForwardMovement : MonoBehaviour
                     KnockbackSend(other.transform.parent.gameObject.GetComponent<ForwardMovement>().knockBackAmt, hitDirection);
                     FindObjectOfType<audioManager>().Play("MonkeyHit");
                     FindObjectOfType<audioManager>().Play("forkliftCollision");
+                    Instantiate(powEffect, transform.position, transform.rotation * Quaternion.Euler(0, -180, 0));
+                    Instantiate(starExplosionParticleEffect, transform.position, transform.rotation);
                 }
             }
         }
 
-        if (other.gameObject.CompareTag("Oil"))  
+        if (other.gameObject.CompareTag("Oil"))
         {
             //Debug.Log("OIL OIL OIL");
             IsOiled = true;
@@ -376,11 +421,11 @@ public class ForwardMovement : MonoBehaviour
         {
             moveDirection = orientation.forward * verticalInput;
             orientation.Rotate(0, hInput * rotationSpeed, 0);
+            //modelRotation.y = hInput * rotationSpeed;
         }
         else
         {
             moveDirection = orientation.forward;
-            orientation.Rotate(0, 0, 0);
         }
 
         if (canMove)
@@ -398,6 +443,7 @@ public class ForwardMovement : MonoBehaviour
     {
         controls.Player1.Enable();
     }
+
     private void OnDisable()
     {
         controls.Player1.Disable();
@@ -407,11 +453,14 @@ public class ForwardMovement : MonoBehaviour
     {
         //respawn player
         //gameObject.GetComponent<BoxCollider>().enabled = true;
+        //canMove = false;
         gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-        gameObject.transform.position = RespawnPoint;
-        transform.rotation = Quaternion.Euler(transform.rotation.x, playerRespawnYRotation, transform.rotation.z);
         //make poweup none
         PowerUp = 0;
+
+        gameObject.transform.position = RespawnPoint;
+        transform.rotation = Quaternion.Euler(0, playerRespawnYRotation, transform.rotation.z);
+        //canMove = true;
 
         //score mode
         if (LastPlayerHit != null)
@@ -420,6 +469,7 @@ public class ForwardMovement : MonoBehaviour
             //FindObjectOfType<audioManager>().Play("monkeyFall");
             LastPlayerHit = null;
         }
+        //StartCoroutine(respawnTruly());
         /*
         else if(LastPlayerHit == null )
         {
@@ -461,6 +511,14 @@ public class ForwardMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(AnvilTimer);
         CanBeAnviled = true;
+    }
+
+    public IEnumerator respawnTruly()
+    {
+        Instantiate(boomEffect, transform.position, transform.rotation * Quaternion.Euler(0, -180, 0));
+        yield return new WaitForSeconds(2f);
+        mCB.isChilded = true;
+        //mCB.gameObject.transform.position = mCB.startPos;
     }
 
     public void UseItemGo(int Item)

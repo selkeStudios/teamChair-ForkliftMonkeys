@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7851018914232856337}
+  - component: {fileID: 344189640146957603}
   m_Layer: 0
   m_Name: BOOM
   m_TagString: Untagged
@@ -32,6 +33,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &344189640146957603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 664189911098108565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e28ea3e4f829449da256617eef2bdba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyAfterThisTime: 1.5
 --- !u!1001 &8656722271187945939
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45,23 +59,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9a03ff49b6b154336b2a35d7e0e2a585, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.01
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9a03ff49b6b154336b2a35d7e0e2a585, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.01
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9a03ff49b6b154336b2a35d7e0e2a585, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.01
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9a03ff49b6b154336b2a35d7e0e2a585, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.045218945
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9a03ff49b6b154336b2a35d7e0e2a585, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.34
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9a03ff49b6b154336b2a35d7e0e2a585, type: 3}
       propertyPath: m_LocalPosition.z
@@ -109,6 +123,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a03ff49b6b154336b2a35d7e0e2a585, type: 3}
+--- !u!1 &8422772384755610754 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9a03ff49b6b154336b2a35d7e0e2a585, type: 3}
+  m_PrefabInstance: {fileID: 8656722271187945939}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1402333994397171257
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8422772384755610754}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ebfad76333d494c59a24a92638e2602b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!4 &9198710502881209912 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9a03ff49b6b154336b2a35d7e0e2a585, type: 3}
