@@ -572,8 +572,8 @@ public class ForwardMovement : MonoBehaviour
 
     public void KnockbackSend(float KB, Vector3 HitDir)
     {
-        gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt = 3 * KB;
-        gameObject.GetComponent<ForwardMovement>().VerticalKnockBackAmt = 6 * KB;
+        gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt = 4.5f * KB;
+        gameObject.GetComponent<ForwardMovement>().VerticalKnockBackAmt = 9 * KB;
         gameObject.GetComponent<ForwardMovement>().knockBackAmtDuration = 5f;
         if (gameObject.GetComponent<ForwardMovement>().IsOiled)
         {

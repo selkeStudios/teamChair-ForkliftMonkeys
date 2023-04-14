@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        
         for (int i = 0; i < 4; i++)
         {
             PlayerInput.Instantiate(PlayerObject, i, null, -1, pairWithDevice: Keyboard.current);
@@ -19,7 +20,7 @@ public class GameManager : MonoBehaviour
             pIM.playerPrefab.transform.position = playerSpawnPts[i].position;
             pIM.playerPrefab.GetComponent<ForwardMovement>().RespawnPoint = playerSpawnPts[i].position;
         }
-
+        
         //PlayerInput.Instantiate(PlayerObject, 0, null, -1, pairWithDevice: Keyboard.current);
         //PlayerInput.Instantiate(PlayerObject, 1, null, -1, pairWithDevice: Gamepad.all[0]);
 
