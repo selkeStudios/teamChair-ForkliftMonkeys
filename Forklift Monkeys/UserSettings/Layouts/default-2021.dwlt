@@ -193,8 +193,13 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
+<<<<<<< Updated upstream
   controlID: 4581
 --- !u!114 &9
+=======
+  controlID: 18
+--- !u!114 &6
+>>>>>>> Stashed changes
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -218,8 +223,13 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
+<<<<<<< Updated upstream
   controlID: 4582
 --- !u!114 &10
+=======
+  controlID: 19
+--- !u!114 &7
+>>>>>>> Stashed changes
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -243,8 +253,13 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
+<<<<<<< Updated upstream
   controlID: 4583
 --- !u!114 &11
+=======
+  controlID: 20
+--- !u!114 &8
+>>>>>>> Stashed changes
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -523,9 +538,13 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
+      m_SelectedIDs: fe240000
       m_LastClickedID: 0
+<<<<<<< Updated upstream
       m_ExpandedIDs: ac5cfffffc5cffff805effff205fffff5c66ffff807effff04a2ffffa2f7ffff44630000
+=======
+      m_ExpandedIDs: 4efaffff32fbffff
+>>>>>>> Stashed changes
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -941,10 +960,17 @@ MonoBehaviour:
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
+<<<<<<< Updated upstream
     scrollPos: {x: 0, y: 58.200012}
     m_SelectedIDs: b2650000
     m_LastClickedID: 26034
     m_ExpandedIDs: 000000009665000000ca9a3b
+=======
+    scrollPos: {x: 0, y: 142.20001}
+    m_SelectedIDs: 306c0000
+    m_LastClickedID: 27696
+    m_ExpandedIDs: 000000002c6c00002e6c0000306c0000326c000000ca9a3b
+>>>>>>> Stashed changes
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -972,7 +998,11 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
+<<<<<<< Updated upstream
     m_ExpandedIDs: 000000009665000000ca9a3b
+=======
+    m_ExpandedIDs: 000000002c6c00002e6c0000306c0000326c0000
+>>>>>>> Stashed changes
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
