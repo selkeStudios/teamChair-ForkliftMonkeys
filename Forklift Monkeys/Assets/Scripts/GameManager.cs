@@ -11,8 +11,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-      
-    for (int i = 0; i < 4; i++)
+        
+        for (int i = 0; i < 4; i++)
         {
             PlayerInput.Instantiate(PlayerObject, i, null, -1, pairWithDevice: Keyboard.current);
 

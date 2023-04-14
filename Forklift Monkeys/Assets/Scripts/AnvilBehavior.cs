@@ -43,22 +43,44 @@ public class AnvilBehavior : MonoBehaviour
     //How shockwave interacts with other objects
     private void OnTriggerEnter(Collider other)
     {
+        //Debug.Log(other);
+        
         if (other.CompareTag("Player") && other.gameObject.GetComponent<ForwardMovement>().CanBeAnviled && other.gameObject != monkeyNotToHurt)
         {
             //determine collision properties
-            other.gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt = 200f;
-            other.gameObject.GetComponent<ForwardMovement>().VerticalKnockBackAmt = 450f;
-            other.gameObject.GetComponent<ForwardMovement>().knockBackAmtDuration = 5f;
-            other.gameObject.GetComponent<ForwardMovement>().hitDirection = (other.transform.position - transform.position);
             Vector3 hitDirection = other.transform.position - transform.position;
-
+            Vector3 sendDirection = new Vector3(0,0,0);
+            if(hitDirection.x > hitDirection.z)
+            {
+                if (hitDirection.x < 0)
+                {
+                    sendDirection.z = hitDirection.z / Mathf.Abs(hitDirection.x);
+                    sendDirection.x = -1;
+                }
+                else if (hitDirection.x > 0)
+                {
+                    sendDirection.z = hitDirection.z / Mathf.Abs(hitDirection.x);
+                    sendDirection.x = 1;
+                }
+            }
+            else
+            {
+                if (hitDirection.z < 0)
+                {
+                    sendDirection.x = hitDirection.x / Mathf.Abs(hitDirection.z);
+                    sendDirection.z = -1;
+                }
+                else if (hitDirection.z > 0)
+                {
+                    sendDirection.x = hitDirection.x / Mathf.Abs(hitDirection.z);
+                    sendDirection.z = 1;
+                }
+            }
+            
+            other.gameObject.GetComponent<ForwardMovement>().KnockbackSend(400, sendDirection);
             //do knockback
-            other.gameObject.GetComponent<Rigidbody>().AddForce(hitDirection.x * other.gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt, other.gameObject.GetComponent<ForwardMovement>().VerticalKnockBackAmt, hitDirection.z * other.gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt, ForceMode.Force);
             other.gameObject.GetComponent<ForwardMovement>().LastPlayerHit = monkeyNotToHurt.GetComponent<ForwardMovement>();
             other.gameObject.GetComponent<ForwardMovement>().CanBeAnviled = false;
-            other.gameObject.GetComponent<ForwardMovement>().canMove = false;
-            other.gameObject.GetComponent<ForwardMovement>().timerUp = false;
-            other.gameObject.GetComponent<ForwardMovement>().knockBackTime();
         }
         if (other.CompareTag("Boxes"))
         {

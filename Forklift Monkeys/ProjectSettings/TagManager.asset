@@ -9,6 +9,8 @@ TagManager:
   - Boxes
   - Oil
   - Anvil
+  - Forks
+  - Wall
   layers:
   - Default
   - TransparentFX
