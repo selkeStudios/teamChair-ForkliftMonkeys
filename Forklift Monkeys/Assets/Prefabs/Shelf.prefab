@@ -80,6 +80,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shelfGravity: 3
   gravityScale: 0
+  boxes: []
+  shelfColliders:
+  - {fileID: 6980744445504565591}
+  - {fileID: 4793315062830983936}
+  - {fileID: 5848704881998614327}
 --- !u!65 &4793315062830983936
 BoxCollider:
   m_ObjectHideFlags: 0
