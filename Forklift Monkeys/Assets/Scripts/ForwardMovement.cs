@@ -52,6 +52,8 @@ public class ForwardMovement : MonoBehaviour
     public float playerRespawnYRotation; //The y rotation the players will be set to, so they're all facing the center
     public float[] possibleRespawnYRotations;
 
+    public Vector3 temporaryPoint;
+
     public PlayerInput MyInput;
 
     public InputAction Wheel;
@@ -111,6 +113,8 @@ public class ForwardMovement : MonoBehaviour
     public GameObject starExplosionParticleEffect;
     public bool canSendOutConfettiAndBoom;
 
+    public bool canMoveAfterRespawning;
+
     private UIUXCanvasScript uIB;
 
     private void Awake()
@@ -150,6 +154,12 @@ public class ForwardMovement : MonoBehaviour
         uIB = FindObjectOfType<UIUXCanvasScript>();
         uIB.players.Add(gameObject.GetComponent<ForwardMovement>());
 
+        canSendOutConfettiAndBoom = true;
+        canMoveAfterRespawning = true;
+
+        temporaryPoint.x = playerRespawnYRotation * 2;
+        temporaryPoint.z = playerRespawnYRotation * 2;
+
         /*
         switch (playerIndex)
         {
@@ -171,8 +181,6 @@ public class ForwardMovement : MonoBehaviour
         playerRespawnYRotation = possibleRespawnYRotations[uIB.players.IndexOf(GetComponent<ForwardMovement>())];
         transform.rotation = Quaternion.Euler(0, playerRespawnYRotation, transform.rotation.z);
         //LPHClear = 5f;
-
-        //Assign each of the players their correct forklift material
     }
 
     private void FixedUpdate()
@@ -278,10 +286,19 @@ public class ForwardMovement : MonoBehaviour
             StartCoroutine(AnvilCoolDown());
         }
 
+        if(gameObject.transform.position.y <= -8)
+        {
+            mCB.isChilded = false;
+        }
+
         if (gameObject.transform.position.y <= -10)
         {
-            //mCB.isChilded = false;
-            Instantiate(confettiBurstParticleEffect, transform.position, transform.rotation);
+            if(canSendOutConfettiAndBoom)
+            {
+                Instantiate(confettiBurstParticleEffect, transform.position, transform.rotation);
+                Instantiate(boomEffect, transform.position, transform.rotation * Quaternion.Euler(0, -180, 0));
+                canSendOutConfettiAndBoom = false;
+            }
             PlayerRespawn();
         }
 
@@ -452,15 +469,10 @@ public class ForwardMovement : MonoBehaviour
     public void PlayerRespawn()
     {
         //respawn player
-        //gameObject.GetComponent<BoxCollider>().enabled = true;
-        //canMove = false;
         gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+        gameObject.transform.position = temporaryPoint;
         //make poweup none
         PowerUp = 0;
-
-        gameObject.transform.position = RespawnPoint;
-        transform.rotation = Quaternion.Euler(0, playerRespawnYRotation, transform.rotation.z);
-        //canMove = true;
 
         //score mode
         if (LastPlayerHit != null)
@@ -469,7 +481,8 @@ public class ForwardMovement : MonoBehaviour
             //FindObjectOfType<audioManager>().Play("monkeyFall");
             LastPlayerHit = null;
         }
-        //StartCoroutine(respawnTruly());
+
+        StartCoroutine(respawnTruly());
         /*
         else if(LastPlayerHit == null )
         {
@@ -515,9 +528,14 @@ public class ForwardMovement : MonoBehaviour
 
     public IEnumerator respawnTruly()
     {
-        Instantiate(boomEffect, transform.position, transform.rotation * Quaternion.Euler(0, -180, 0));
+        canMove = false;
         yield return new WaitForSeconds(2f);
+        canSendOutConfettiAndBoom = true;
+        gameObject.transform.position = RespawnPoint;
+        transform.rotation = Quaternion.Euler(0, playerRespawnYRotation, transform.rotation.z);
         mCB.isChilded = true;
+        canMove = true;
+        canMoveAfterRespawning = true;
         //mCB.gameObject.transform.position = mCB.startPos;
     }
 

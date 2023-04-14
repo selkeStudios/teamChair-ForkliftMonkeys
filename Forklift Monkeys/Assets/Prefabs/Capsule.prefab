@@ -283,7 +283,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parent: {fileID: 4254739791603748242}
   isChilded: 0
-  startPos: {x: 0, y: 0, z: 0}
+  resetPos: 0
+  startPos: {x: 0, y: 1.7, z: -4.9}
+  startRot: {x: 0.16988271, y: 0, z: 0, w: 0.9854643}
 --- !u!1 &4254739791603748242
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,6 +390,7 @@ MonoBehaviour:
   - 225
   - 135
   - 45
+  temporaryPoint: {x: 0, y: -1000, z: 0}
   MyInput: {fileID: 4684334650731031348}
   Wheel:
     m_Name: Wheel
@@ -478,8 +481,10 @@ MonoBehaviour:
   mCB: {fileID: 4947846785160796596}
   boomEffect: {fileID: 664189911098108565, guid: 5013fbf6c3eb840f7af2865dfa141ecb, type: 3}
   powEffect: {fileID: 7194031332490938142, guid: fe65172d8d0334f26af72ea35bde87fb, type: 3}
-  confettiBurstParticleEffect: {fileID: 0}
+  confettiBurstParticleEffect: {fileID: 2175423316092732723, guid: ae9ec1c0de6db44b4b235e63b1bf54f3, type: 3}
   starExplosionParticleEffect: {fileID: 2683577390508602867, guid: 0c9337916f8a14e098331d8f5dc779cc, type: 3}
+  canSendOutConfettiAndBoom: 0
+  canMoveAfterRespawning: 0
 --- !u!114 &4684334650731031348
 MonoBehaviour:
   m_ObjectHideFlags: 0
