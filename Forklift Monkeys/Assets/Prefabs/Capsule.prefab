@@ -478,7 +478,10 @@ MonoBehaviour:
   smokeParticleEffects:
   - {fileID: 8531308757082400201}
   - {fileID: 5130192819311430560}
-  tireTrack: {fileID: 0}
+  tireTrack: {fileID: 214659575842091541, guid: 93e287a0914564954b202d851ef5be85, type: 3}
+  canSpawnTracks: 0
+  startTimeBtwTrackSpawns: 0.01
+  trackSpawnCountDown: 0
   mCB: {fileID: 4947846785160796596}
   boomEffect: {fileID: 664189911098108565, guid: 5013fbf6c3eb840f7af2865dfa141ecb, type: 3}
   powEffect: {fileID: 7194031332490938142, guid: fe65172d8d0334f26af72ea35bde87fb, type: 3}

@@ -105,6 +105,9 @@ public class ForwardMovement : MonoBehaviour
     public ParticleSystem[] smokeParticleEffects;
 
     public GameObject tireTrack;
+    public bool canSpawnTracks;
+    public float startTimeBtwTrackSpawns;
+    public float trackSpawnCountDown;
 
     public mainCameraBehaviour mCB;
     public GameObject boomEffect;
@@ -164,6 +167,8 @@ public class ForwardMovement : MonoBehaviour
         temporaryPoint.x = possibleRespawnYRotations[uIB.players.IndexOf(GetComponent<ForwardMovement>())] * 2;
         temporaryPoint.z = possibleRespawnYRotations[uIB.players.IndexOf(GetComponent<ForwardMovement>())] * 2;
 
+        trackSpawnCountDown = startTimeBtwTrackSpawns;
+
         /*
         switch (playerIndex)
         {
@@ -206,6 +211,9 @@ public class ForwardMovement : MonoBehaviour
 
         RespawnPoint.y = 14;
 
+        trackSpawnCountDown -= Time.deltaTime;
+        canSpawnTracks = trackSpawnCountDown <= 0;
+
         foreach (MeshRenderer m in meshObjects)
         {
             m.material = forkliftPlayerMaterials[playerIndex];
@@ -222,9 +230,10 @@ public class ForwardMovement : MonoBehaviour
             knockBackAmt += knockBackAccel * knockBackAmtMultiplyer * Time.deltaTime;
             if(isGrounded && uIB.timer > 0)
             {
-                if (APressed)
+                if (APressed && canSpawnTracks)
                 {
                     Instantiate(tireTrack, groundCheck.position + new Vector3(0, 0.4f, 0), transform.rotation);
+                    trackSpawnCountDown = startTimeBtwTrackSpawns;
                 }
 
                 foreach (ParticleSystem ps in smokeParticleEffects)
