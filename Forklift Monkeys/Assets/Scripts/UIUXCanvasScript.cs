@@ -10,6 +10,7 @@ public class UIUXCanvasScript : MonoBehaviour
     //public TextMeshProUGUI[] powerUpTexts;
     public TextMeshProUGUI[] scoreTexts;
     public float[] playerRespawnRotationYValues;
+    public List<Animator> individualFadingCameraRects = new List<Animator>();
 
     public bool canCountDown;
     public float timeUntilBeginning;
@@ -87,6 +88,8 @@ public class UIUXCanvasScript : MonoBehaviour
             */
 
             fM.playerIndex = players.IndexOf(fM);
+
+            fM.cameraRect = individualFadingCameraRects[fM.playerIndex];
 
             scoreTexts[players.IndexOf(fM)].text = fM.Score.ToString();
 

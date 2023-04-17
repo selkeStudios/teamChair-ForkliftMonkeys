@@ -1346,7 +1346,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 890, y: -486}
+  m_AnchoredPosition: {x: 890, y: -57}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &99635433
@@ -2015,6 +2015,11 @@ MonoBehaviour:
   - {fileID: 1591636846}
   - {fileID: 703916313}
   playerRespawnRotationYValues: []
+  individualFadingCameraRects:
+  - {fileID: 1306537560}
+  - {fileID: 550326369}
+  - {fileID: 727504476}
+  - {fileID: 1014743051}
   canCountDown: 0
   timeUntilBeginning: 1
   music: {fileID: 887135448}
@@ -5383,7 +5388,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -939.7, y: -640}
+  m_AnchoredPosition: {x: -939.7, y: -1004}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!1001 &425105606
@@ -7112,6 +7117,7 @@ GameObject:
   - component: {fileID: 550326365}
   - component: {fileID: 550326368}
   - component: {fileID: 550326367}
+  - component: {fileID: 550326369}
   m_Layer: 5
   m_Name: P2 CameraRect
   m_TagString: Untagged
@@ -7177,6 +7183,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 550326364}
   m_CullTransparentMesh: 1
+--- !u!95 &550326369
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550326364}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 25b80526a96854432aff2ecabda3df7a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &558958202
 GameObject:
   m_ObjectHideFlags: 0
@@ -7228,7 +7254,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &562160602
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7973,7 +7999,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -917, y: -95}
+  m_AnchoredPosition: {x: -917, y: -463}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!1 &638252855
@@ -9464,6 +9490,7 @@ GameObject:
   - component: {fileID: 727504472}
   - component: {fileID: 727504475}
   - component: {fileID: 727504474}
+  - component: {fileID: 727504476}
   m_Layer: 5
   m_Name: P3 CameraRect
   m_TagString: Untagged
@@ -9529,6 +9556,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 727504471}
   m_CullTransparentMesh: 1
+--- !u!95 &727504476
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727504471}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 25b80526a96854432aff2ecabda3df7a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1001 &729025452
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11023,7 +11070,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &887135448
 AudioSource:
   m_ObjectHideFlags: 0
@@ -11892,6 +11939,12 @@ MonoBehaviour:
     volume: 1
     pitch: 1
     source: {fileID: 0}
+  - name: death
+    clip: {fileID: 8300000, guid: 0e77b5dcba47e43318effcd6d41d9c0f, type: 3}
+    mixer: {fileID: 24300002, guid: 784486e70f3364c3fb9992f3b4618651, type: 2}
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
 --- !u!4 &956651296
 Transform:
   m_ObjectHideFlags: 0
@@ -12599,6 +12652,7 @@ GameObject:
   - component: {fileID: 1014743047}
   - component: {fileID: 1014743050}
   - component: {fileID: 1014743049}
+  - component: {fileID: 1014743051}
   m_Layer: 5
   m_Name: P4 CameraRect
   m_TagString: Untagged
@@ -12664,6 +12718,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1014743046}
   m_CullTransparentMesh: 1
+--- !u!95 &1014743051
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1014743046}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 25b80526a96854432aff2ecabda3df7a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &1024322238
 GameObject:
   m_ObjectHideFlags: 0
@@ -13811,7 +13885,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -895.76, y: -486}
+  m_AnchoredPosition: {x: -895.76, y: -57}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1100131017
@@ -16039,7 +16113,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 890, y: 52}
+  m_AnchoredPosition: {x: 890, y: 490}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1251480400
@@ -16851,6 +16925,7 @@ GameObject:
   - component: {fileID: 1306537556}
   - component: {fileID: 1306537559}
   - component: {fileID: 1306537558}
+  - component: {fileID: 1306537560}
   m_Layer: 5
   m_Name: P1 CameraRect
   m_TagString: Untagged
@@ -16916,6 +16991,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1306537555}
   m_CullTransparentMesh: 1
+--- !u!95 &1306537560
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1306537555}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 25b80526a96854432aff2ecabda3df7a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &1344775538
 GameObject:
   m_ObjectHideFlags: 0
@@ -18727,7 +18822,7 @@ GameObject:
   - component: {fileID: 1466780636}
   - component: {fileID: 1466780639}
   m_Layer: 5
-  m_Name: FadingRect
+  m_Name: OverallFadingRect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20994,7 +21089,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 132, y: -640}
+  m_AnchoredPosition: {x: 132, y: -1004}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 0}
 --- !u!4 &1595028406 stripped
@@ -25127,7 +25222,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -895.76, y: 52}
+  m_AnchoredPosition: {x: -895.76, y: 490}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2000974270
@@ -25955,7 +26050,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 151.9, y: -95}
+  m_AnchoredPosition: {x: 151.9, y: -463}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 0}
 --- !u!1001 &2038182117

@@ -104,7 +104,7 @@ public class ForwardMovement : MonoBehaviour
 
     public ParticleSystem[] smokeParticleEffects;
 
-    //public GameObject tireTrack;
+    public GameObject tireTrack;
 
     public mainCameraBehaviour mCB;
     public GameObject boomEffect;
@@ -118,6 +118,8 @@ public class ForwardMovement : MonoBehaviour
     private UIUXCanvasScript uIB;
 
     private bool canHorn = true;
+
+    public Animator cameraRect;
 
     private void Awake()
     {
@@ -218,14 +220,13 @@ public class ForwardMovement : MonoBehaviour
         {
             moveSpeed += accelerationAmount * Time.deltaTime;
             knockBackAmt += knockBackAccel * knockBackAmtMultiplyer * Time.deltaTime;
-            /*
-            if(isGrounded && APressed)
-            {
-                Instantiate(tireTrack, groundCheck.position + new Vector3(0, 0.4f, 0), transform.rotation);
-            }
-            */
             if(isGrounded && uIB.timer > 0)
             {
+                if (APressed)
+                {
+                    Instantiate(tireTrack, groundCheck.position + new Vector3(0, 0.4f, 0), transform.rotation);
+                }
+
                 foreach (ParticleSystem ps in smokeParticleEffects)
                 {
                     ParticleSystem.EmissionModule em = ps.emission;
@@ -254,7 +255,7 @@ public class ForwardMovement : MonoBehaviour
         /*
         if (!isGrounded && !canMove)
         {
-            forkLiftModel.transform.Rotate(knockBackRotationSpeed, 0, 0);
+            transform.Rotate(0, knockBackRotationSpeed, 0);
         }
         */
 
@@ -304,6 +305,7 @@ public class ForwardMovement : MonoBehaviour
             {
                 Instantiate(confettiBurstParticleEffect, transform.position, transform.rotation);
                 Instantiate(boomEffect, transform.position, transform.rotation * Quaternion.Euler(0, -180, 0));
+                FindObjectOfType<audioManager>().Play("death");
                 canSendOutConfettiAndBoom = false;
             }
             PlayerRespawn();
@@ -366,6 +368,7 @@ public class ForwardMovement : MonoBehaviour
             //FindObjectOfType<audioManager>().Play("Horn");
         }
     }
+
     IEnumerator HornSounds()
     {
         YPressed = false;
@@ -423,11 +426,6 @@ public class ForwardMovement : MonoBehaviour
             timerUp = false;
             StartCoroutine(knockBackAmtTimer());
         }
-    }
-
-    public void KnockBackPlayer()
-    {
-        print("Eh hem");
     }
 
     public void knockBackTime()
@@ -498,6 +496,15 @@ public class ForwardMovement : MonoBehaviour
         else
         {
             moveDirection = orientation.forward;
+            /*
+            if(isGrounded)
+            {
+                orientation.Rotate(0, 0, 0);
+            } else
+            {
+                orientation.Rotate(0, knockBackRotationSpeed, 0);
+            }
+            */
         }
 
         if (canMove)
@@ -571,12 +578,16 @@ public class ForwardMovement : MonoBehaviour
     public IEnumerator respawnTruly()
     {
         canMove = false;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
+        cameraRect.SetBool("canCamFadeIn", true);
+        yield return new WaitForSeconds(1f);
         canSendOutConfettiAndBoom = true;
         gameObject.transform.position = RespawnPoint;
         transform.rotation = Quaternion.Euler(0, playerRespawnYRotation, transform.rotation.z);
         mCB.isChilded = true;
         canMove = true;
+        yield return new WaitForSeconds(1f);
+        cameraRect.SetBool("canCamFadeIn", false);
         //mCB.gameObject.transform.position = mCB.startPos;
     }
 
@@ -613,9 +624,9 @@ public class ForwardMovement : MonoBehaviour
 
     public void KnockbackSend(float KB, Vector3 HitDir)
     {
-        gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt = 4.5f * KB;
-        gameObject.GetComponent<ForwardMovement>().VerticalKnockBackAmt = 9 * KB;
-        gameObject.GetComponent<ForwardMovement>().knockBackAmtDuration = 5f;
+        gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt = 9 * KB;
+        gameObject.GetComponent<ForwardMovement>().VerticalKnockBackAmt = 13 * KB;
+        gameObject.GetComponent<ForwardMovement>().knockBackAmtDuration = 5;
         if (gameObject.GetComponent<ForwardMovement>().IsOiled)
         {
             HorizontalKnockBackAmt += (HorizontalKnockBackAmt * 0.5f);

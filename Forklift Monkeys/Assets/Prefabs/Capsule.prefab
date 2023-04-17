@@ -473,11 +473,12 @@ MonoBehaviour:
   groundedFriction: 0.25
   notGroundedFriction: 0.05
   forkLiftModel: {fileID: 3776565218312640714}
-  knockBackRotationSpeed: -10
+  knockBackRotationSpeed: -2
   modelRotation: {x: 0, y: 0, z: 0}
   smokeParticleEffects:
   - {fileID: 8531308757082400201}
   - {fileID: 5130192819311430560}
+  tireTrack: {fileID: 0}
   mCB: {fileID: 4947846785160796596}
   boomEffect: {fileID: 664189911098108565, guid: 5013fbf6c3eb840f7af2865dfa141ecb, type: 3}
   powEffect: {fileID: 7194031332490938142, guid: fe65172d8d0334f26af72ea35bde87fb, type: 3}
@@ -485,6 +486,7 @@ MonoBehaviour:
   starExplosionParticleEffect: {fileID: 2683577390508602867, guid: 0c9337916f8a14e098331d8f5dc779cc, type: 3}
   canSendOutConfettiAndBoom: 0
   canGetPointsWhileBelow: 0
+  cameraRect: {fileID: 0}
 --- !u!114 &4684334650731031348
 MonoBehaviour:
   m_ObjectHideFlags: 0
