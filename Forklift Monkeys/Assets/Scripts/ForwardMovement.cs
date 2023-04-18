@@ -124,6 +124,8 @@ public class ForwardMovement : MonoBehaviour
 
     public Animator cameraRect;
 
+    public GameObject[] hats;
+
     private void Awake()
     {
         //input system stuff
@@ -205,6 +207,8 @@ public class ForwardMovement : MonoBehaviour
 
     private void Update()
     {
+        hats[playerIndex].SetActive(true);
+
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         GetInput();

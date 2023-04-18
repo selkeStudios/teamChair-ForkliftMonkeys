@@ -12,6 +12,9 @@ public class UIUXCanvasScript : MonoBehaviour
     public float[] playerRespawnRotationYValues;
     public List<Animator> individualFadingCameraRects = new List<Animator>();
 
+    public Image winScreen;
+    public Sprite[] potentialWinScreenSprites;
+
     public bool canCountDown;
     public float timeUntilBeginning;
 
@@ -125,19 +128,24 @@ public class UIUXCanvasScript : MonoBehaviour
         switch (winnerIndexValue)
         {
             case 0:
-                winnerText.text = "Yellow Player Wins!";
+                //winnerText.text = "Yellow Player Wins!";
+                winScreen.sprite = potentialWinScreenSprites[0];
                 break;
             case 1:
-                winnerText.text = "Red Player Wins!";
+                //winnerText.text = "Red Player Wins!";
+                winScreen.sprite = potentialWinScreenSprites[1];
                 break;
             case 2:
-                winnerText.text = "Blue Player Wins!";
+                //winnerText.text = "Blue Player Wins!";
+                winScreen.sprite = potentialWinScreenSprites[2];
                 break;
             case 3:
-                winnerText.text = "Green Player Wins!";
+                //winnerText.text = "Green Player Wins!";
+                winScreen.sprite = potentialWinScreenSprites[3];
                 break;
             default:
-                winnerText.text = "Tie!";
+                //winnerText.text = "Tie!";
+                winScreen.sprite = potentialWinScreenSprites[4];
                 break;
         }
     }

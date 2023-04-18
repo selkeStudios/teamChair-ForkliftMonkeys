@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class fadingRectBehaviour : MonoBehaviour
 {
-    public GameObject winnerText;
+    public GameObject winnerScreen;
 
     public void LoadMainMenuScene()
     {
@@ -14,6 +14,6 @@ public class fadingRectBehaviour : MonoBehaviour
 
     public void setWinnerTextActive()
     {
-        winnerText.SetActive(true);
+        winnerScreen.SetActive(true);
     }
 }
