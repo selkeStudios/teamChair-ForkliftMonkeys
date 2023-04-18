@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5848704881998614315}
   - component: {fileID: 4793315062830983936}
   - component: {fileID: 6980744445504565591}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shelf
   m_TagString: Shelf
   m_Icon: {fileID: 0}
@@ -177,6 +177,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: a89e42e967e7645d68ba2386a59b955e, type: 3}
       propertyPath: m_Name
       value: Shelf.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a89e42e967e7645d68ba2386a59b955e, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a89e42e967e7645d68ba2386a59b955e, type: 3}

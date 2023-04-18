@@ -234,7 +234,7 @@ public class ForwardMovement : MonoBehaviour
             knockBackAmt += knockBackAccel * knockBackAmtMultiplyer * Time.deltaTime;
             if(isGrounded && uIB.timer > 0)
             {
-                if (APressed && canSpawnTracks)
+                if ((APressed || BPressed) && canSpawnTracks)
                 {
                     Instantiate(tireTrack, groundCheck.position + new Vector3(0, 0.4f, 0), transform.rotation);
                     trackSpawnCountDown = startTimeBtwTrackSpawns;
@@ -265,12 +265,10 @@ public class ForwardMovement : MonoBehaviour
             }
         }
 
-        /*
         if (!isGrounded && !canMove)
         {
-            transform.Rotate(0, knockBackRotationSpeed, 0);
+            forkLiftModel.transform.Rotate(knockBackRotationSpeed, 0, 0);
         }
-        */
 
         if (moveSpeed <= minimumMoveSpeed)
         {
@@ -295,6 +293,9 @@ public class ForwardMovement : MonoBehaviour
         if(uIB.timer <= 0)
         {
             canMove = false;
+            minimumMoveSpeed = 0;
+            maximumMoveSpeed = 0;
+            rotationSpeed = 0;
         }
 
         if(timerUp && isGrounded)
@@ -503,6 +504,8 @@ public class ForwardMovement : MonoBehaviour
         if (canMove)
         {
             moveDirection = orientation.forward * verticalInput;
+
+            //forkLiftModel.transform.rotation = Quaternion.identity;
             orientation.Rotate(0, hInput * rotationSpeed, 0);
             //modelRotation.y = hInput * rotationSpeed;
         }
@@ -637,8 +640,8 @@ public class ForwardMovement : MonoBehaviour
 
     public void KnockbackSend(float KB, Vector3 HitDir)
     {
-        gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt = 9 * KB;
-        gameObject.GetComponent<ForwardMovement>().VerticalKnockBackAmt = 13 * KB;
+        gameObject.GetComponent<ForwardMovement>().HorizontalKnockBackAmt = 8 * KB;
+        gameObject.GetComponent<ForwardMovement>().VerticalKnockBackAmt = 12 * KB;
         gameObject.GetComponent<ForwardMovement>().knockBackAmtDuration = 5;
         if (gameObject.GetComponent<ForwardMovement>().IsOiled)
         {
