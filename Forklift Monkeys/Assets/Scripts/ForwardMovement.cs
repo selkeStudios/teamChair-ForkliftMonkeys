@@ -268,6 +268,9 @@ public class ForwardMovement : MonoBehaviour
         if (!isGrounded && !canMove)
         {
             forkLiftModel.transform.Rotate(knockBackRotationSpeed, 0, 0);
+        } else
+        {
+            forkLiftModel.transform.rotation = new Quaternion(0, 0, 0, 0);
         }
 
         if (moveSpeed <= minimumMoveSpeed)
